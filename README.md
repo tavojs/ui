@@ -32,15 +32,19 @@ npx tavo-ui web generate
 
 ## Release flow
 
-This repository uses Changesets:
+This repository uses Changesets and publishes through the manually dispatched
+GitHub Actions `Publish` workflow:
 
 ```bash
 npm run changeset
-npm run version-packages
-npm install
 npm run release:check
-npm run release
 ```
+
+Commit and merge the Changeset into `main`, then run the `Publish` workflow.
+The first run creates or updates the Changesets version pull request. After
+that pull request is merged, run the workflow again to publish through npm
+Trusted Publishing with GitHub OIDC and create the GitHub releases. No
+`NPM_TOKEN` repository secret is used.
 
 All three packages are MIT licensed and include their own `LICENSE` files.
 Package metadata and documentation link to [tavojs.dev](https://tavojs.dev).

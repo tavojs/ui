@@ -17,8 +17,13 @@ npm view @tavojs/core version
 npm view @tavojs/cli version
 ```
 
-Confirm npm authentication and `@tavojs` organization publish access. Use the
-Node.js and npm versions declared in the root `package.json`.
+Configure npm Trusted Publishing for all three packages with GitHub Actions as
+the provider, organization `tavojs`, repository `ui`, workflow
+`.github/workflows/release.yml`, and environment `npm`. The workflow uses
+GitHub OIDC and does not use an `NPM_TOKEN` secret.
+
+Create the protected `npm` environment in the GitHub repository and use the
+Node.js and npm versions declared by the workflow.
 
 ## Verify the release candidate
 
@@ -33,15 +38,15 @@ contain `file:`, `workspace:`, absolute paths, demo output, or test output.
 
 ## Publish
 
-Commit the versioned manifests, lockfile, changelogs, and consumed Changesets,
-then publish through the guarded command:
+Commit and merge the Changeset into `main`, then manually dispatch the
+`Publish` workflow. When unreleased Changesets exist, Changesets opens or
+updates its version pull request. Review and merge that pull request, wait for
+CI, and dispatch `Publish` again. The second run publishes through npm Trusted
+Publishing, records provenance, and creates the GitHub releases.
 
-```bash
-npm run release
-```
-
-The dependency order is UI Core, UI CLI, then UI. Never use `--force`,
-`--ignore-scripts`, or `TAVO_UI_SKIP_REGISTRY_CHECK=1` while publishing.
+The dependency order is UI Core, UI CLI, then UI. Do not run `npm publish` or
+`npm run release` from a local checkout, and never use
+`TAVO_UI_SKIP_REGISTRY_CHECK=1` while preparing a release.
 
 ## Verify
 
@@ -51,4 +56,4 @@ npm view @tavojs/ui-cli version
 npm view @tavojs/ui version
 ```
 
-Push the release commit and Changesets tags, then create the GitHub releases.
+Confirm that the workflow created the package tags and GitHub releases.

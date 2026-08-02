@@ -13,14 +13,19 @@ generation, docs, plugin integration, and demo assets.
 
 The framework-level `tavo` command is published separately by `@tavojs/cli`.
 
-## Release order
+## Releases
 
-Publish with Changesets from the root:
+Validate package changes locally and add a Changeset:
 
 ```bash
 npm run release:check
-npm run release
+npm run changeset
 ```
+
+Publishing is performed only by the manually dispatched GitHub Actions
+`Publish` workflow. It creates the Changesets version pull request and, after
+that pull request is merged, publishes through npm Trusted Publishing with
+GitHub OIDC.
 
 Dependency order is:
 
