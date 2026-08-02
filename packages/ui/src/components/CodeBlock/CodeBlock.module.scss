@@ -1,0 +1,124 @@
+.block {
+  position: relative;
+  overflow: auto;
+  margin: 0;
+  // border: var(--tui-border-width) solid var(--tui-code-border, var(--tui-color-border));
+  border-radius: var(--tui-radius-md);
+  background: var(--tui-code-bg, var(--tui-color-neutral-bg));
+  -webkit-backdrop-filter: var(--tui-backdrop-filter, none);
+  backdrop-filter: var(--tui-backdrop-filter, none);
+  color: var(--tui-code-text, var(--tui-color-neutral-text));
+  padding: var(--tui-space-4);
+  line-height: 1.7;
+  --tui-code-bg: var(--tui-color-neutral-bg);
+  --tui-code-border: var(--tui-color-border);
+  --tui-code-text: var(--tui-color-neutral-text);
+  --tui-code-muted: var(--tui-color-text-muted);
+  --tui-code-keyword: var(--tui-color-primary-bg);
+  --tui-code-string: var(--tui-color-success);
+  --tui-code-number: var(--tui-color-secondary-bg);
+  --tui-code-comment: var(--tui-color-text-muted);
+  --tui-code-literal: var(--tui-color-info);
+  --tui-code-tag: var(--tui-color-primary-bg);
+  --tui-code-attribute: var(--tui-color-secondary-bg);
+  --tui-code-property: var(--tui-color-info);
+  --tui-code-variable: var(--tui-color-warning);
+  --tui-code-punctuation: var(--tui-color-text-muted);
+}
+
+.wrap {
+  white-space: pre-wrap;
+}
+
+.code {
+  display: block;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", monospace;
+  font-size: 0.9rem;
+  tab-size: 2;
+}
+
+.theme-light {
+  --tui-code-bg: #ffffff;
+  --tui-code-border: #e5e7eb;
+  --tui-code-text: #111827;
+  --tui-code-muted: #6b7280;
+  --tui-code-keyword: #6d28d9;
+  --tui-code-string: #047857;
+  --tui-code-number: #b45309;
+  --tui-code-comment: #6b7280;
+  --tui-code-literal: #0369a1;
+  --tui-code-tag: #be123c;
+  --tui-code-attribute: #7c3aed;
+  --tui-code-property: #0369a1;
+  --tui-code-variable: #b45309;
+  --tui-code-punctuation: #4b5563;
+}
+
+.theme-dark {
+  --tui-code-bg: #0b1020;
+  --tui-code-border: #26314f;
+  --tui-code-text: #e5e7eb;
+  --tui-code-muted: #94a3b8;
+  --tui-code-keyword: #c4b5fd;
+  --tui-code-string: #86efac;
+  --tui-code-number: #fbbf24;
+  --tui-code-comment: #94a3b8;
+  --tui-code-literal: #7dd3fc;
+  --tui-code-tag: #fda4af;
+  --tui-code-attribute: #ddd6fe;
+  --tui-code-property: #7dd3fc;
+  --tui-code-variable: #fde68a;
+  --tui-code-punctuation: #cbd5e1;
+}
+
+.language {
+  display: inline-flex;
+  margin-bottom: var(--tui-space-2);
+  border: var(--tui-border-width) solid
+    var(--tui-code-border, var(--tui-color-border));
+  border-radius: var(--tui-radius-sm);
+  background: color-mix(
+    in srgb,
+    var(--tui-code-bg) 86%,
+    var(--tui-code-text) 14%
+  );
+  color: var(--tui-code-muted, var(--tui-color-text-muted));
+  padding: 0.125rem 0.45rem;
+  font-size: var(--tui-font-size-caption);
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+.tokenKeyword {
+  color: var(--tui-code-keyword);
+  font-weight: 700;
+}
+.tokenString {
+  color: var(--tui-code-string);
+}
+.tokenNumber {
+  color: var(--tui-code-number);
+}
+.tokenComment {
+  color: var(--tui-code-comment);
+  font-style: italic;
+}
+.tokenLiteral {
+  color: var(--tui-code-literal);
+}
+.tokenTag {
+  color: var(--tui-code-tag);
+}
+.tokenAttribute {
+  color: var(--tui-code-attribute);
+}
+.tokenProperty {
+  color: var(--tui-code-property);
+}
+.tokenVariable {
+  color: var(--tui-code-variable);
+}
+.tokenPunctuation {
+  color: var(--tui-code-punctuation);
+}

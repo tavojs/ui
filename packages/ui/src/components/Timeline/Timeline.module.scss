@@ -1,0 +1,86 @@
+.timeline {
+  display: grid;
+  gap: var(--tui-space-4);
+  margin: 0;
+  padding: 0;
+  font-family: var(--tui-font-family-text, var(--tui-font-family));
+  list-style: none;
+}
+
+.item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1rem minmax(0, 1fr);
+  gap: var(--tui-space-3);
+}
+
+.item:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  top: 1.25rem;
+  bottom: calc(var(--tui-space-4) * -1);
+  left: 0.46875rem;
+  width: var(--tui-border-width);
+  background: var(--tui-color-border);
+}
+
+.marker {
+  position: relative;
+  z-index: 1;
+  width: 0.9375rem;
+  height: 0.9375rem;
+  margin-top: 0.1875rem;
+  border: 3px solid var(--tui-color-surface);
+  border-radius: 999px;
+  background: var(--tui-color-primary-bg);
+  box-shadow: 0 0 0 var(--tui-border-width) var(--tui-color-border);
+}
+
+.content {
+  display: grid;
+  gap: var(--tui-space-1);
+  min-width: 0;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--tui-space-2);
+}
+
+.title {
+  color: var(--tui-color-text);
+}
+
+.meta,
+.body {
+  color: var(--tui-color-text-muted);
+  font-size: var(--tui-font-size-caption);
+  line-height: 1.6;
+}
+
+.tone-secondary .marker {
+  background: var(--tui-color-secondary-bg);
+}
+
+.tone-neutral .marker {
+  background: var(--tui-color-text-muted);
+}
+
+.tone-success .marker {
+  background: var(--tui-color-success);
+}
+
+.tone-warning .marker {
+  background: var(--tui-color-warning);
+}
+
+.tone-danger .marker {
+  background: var(--tui-color-danger);
+}
+
+.tone-info .marker {
+  background: var(--tui-color-info);
+}

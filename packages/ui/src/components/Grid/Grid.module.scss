@@ -1,0 +1,32 @@
+@use "theme/breakpoints" as bp;
+
+.grid {
+  display: grid;
+  gap: var(--tui-grid-gap, var(--tui-space-4));
+  grid-template-columns: var(--tui-grid-columns, none);
+  align-items: stretch;
+  min-width: 0;
+
+  @include bp.tui-screen(sm) {
+    gap: var(--tui-grid-gap-sm, var(--tui-grid-gap, var(--tui-space-4)));
+    grid-template-columns: var(--tui-grid-columns-sm, var(--tui-grid-columns, none));
+  }
+
+  @include bp.tui-screen(md) {
+    gap: var(--tui-grid-gap-md, var(--tui-grid-gap-sm, var(--tui-grid-gap, var(--tui-space-4))));
+    grid-template-columns: var(--tui-grid-columns-md, var(--tui-grid-columns-sm, var(--tui-grid-columns, none)));
+  }
+
+  @include bp.tui-screen(lg) {
+    gap: var(--tui-grid-gap-lg, var(--tui-grid-gap-md, var(--tui-grid-gap-sm, var(--tui-grid-gap, var(--tui-space-4)))));
+    grid-template-columns: var(--tui-grid-columns-lg, var(--tui-grid-columns-md, var(--tui-grid-columns-sm, var(--tui-grid-columns, none))));
+  }
+}
+
+.spacing-sm { gap: var(--tui-space-2); }
+.spacing-lg { gap: var(--tui-space-6); }
+
+.align-start { align-items: start; }
+.align-center { align-items: center; }
+.align-end { align-items: end; }
+.align-stretch { align-items: stretch; }

@@ -1,0 +1,73 @@
+.root {
+  display: inline-flex;
+  align-items: stretch;
+  min-height: var(--tui-input-group-height, var(--tui-size-md));
+  border: var(--tui-input-group-border-width, var(--tui-border-width)) solid var(--tui-input-group-border-color, var(--tui-color-border));
+  border-radius: var(--tui-input-group-radius, var(--tui-radius-control));
+  background: var(--tui-input-group-bg, var(--tui-color-surface));
+  color: var(--tui-color-text);
+  overflow: hidden;
+}
+
+.root:focus-within {
+  border-color: var(--tui-color-focus);
+  box-shadow: 0 0 0 var(--tui-focus-width) color-mix(in srgb, var(--tui-color-focus) calc(var(--tui-interaction-focus-alpha, 0.28) * 100%), transparent);
+}
+
+.size-sm {
+  min-height: var(--tui-size-sm);
+}
+
+.size-lg {
+  min-height: var(--tui-size-lg);
+}
+
+.addon,
+.button,
+.input {
+  border: 0;
+  font-family: var(--tui-font-family-text, var(--tui-font-family));
+  font-size: var(--tui-font-size-body);
+}
+
+.addon {
+  display: inline-flex;
+  align-items: center;
+  padding-inline: var(--tui-space-3);
+  border-right: var(--tui-border-width) solid var(--tui-color-border);
+  background: var(--tui-color-surface-subtle);
+  color: var(--tui-color-text-muted);
+  white-space: nowrap;
+}
+
+.position-end {
+  border-right: 0;
+  border-left: var(--tui-border-width) solid var(--tui-color-border);
+}
+
+.input {
+  min-width: 0;
+  flex: 1 1 auto;
+  padding-inline: var(--tui-space-3);
+  background: transparent;
+  color: inherit;
+  outline: 0;
+}
+
+.input::placeholder {
+  color: var(--tui-color-text-muted);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: var(--tui-space-3);
+  background: transparent;
+  color: var(--tui-color-text);
+  cursor: pointer;
+}
+
+.button:hover {
+  background: var(--tui-color-surface-subtle);
+}

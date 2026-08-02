@@ -1,0 +1,70 @@
+{
+  "name": "@tavojs/ui-cli",
+  "version": "1.0.0",
+  "description": "Command line interface for Tavo UI web projects.",
+  "type": "module",
+  "author": "Tavo contributors",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tavojs/ui.git",
+    "directory": "packages/ui-cli"
+  },
+  "homepage": "https://tavojs.dev/docs/ui/cli",
+  "bugs": {
+    "url": "https://github.com/tavojs/ui/issues"
+  },
+  "keywords": [
+    "tavo",
+    "ui",
+    "cli",
+    "design-system",
+    "theme"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "tavo-ui": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "clean": "node -e \"import('node:fs').then(fs => fs.rmSync('dist', { recursive: true, force: true }))\"",
+    "build": "npm run clean && tsc -p tsconfig.build.json",
+    "postbuild": "node scripts/postbuild.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run build && node --test tests/*.test.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepublishOnly": "npm test"
+  },
+  "peerDependencies": {
+    "@tavojs/ui": "^1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@tavojs/ui": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.3"
+  }
+}

@@ -1,0 +1,67 @@
+.card {
+  overflow: hidden;
+  position: relative;
+  font-family: var(--tui-font-family-text, var(--tui-font-family));
+}
+
+.header {
+  position: relative;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: var(--tui-space-4);
+  padding: var(--tui-card-padding, var(--tui-space-4));
+  border-bottom: var(--tui-border-width) solid var(--tui-color-border);
+}
+
+.headline {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--tui-color-text-muted);
+  font-size: 0.75rem;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  color: var(--tui-color-heading);
+  font-size: 1.125rem;
+}
+
+.description {
+  margin: 0;
+  color: var(--tui-color-text-muted);
+  line-height: 1.55;
+}
+
+.actions {
+  flex: 0 0 auto;
+}
+
+.actionsRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tui-space-3);
+}
+
+.body {
+  position: relative;
+  padding: var(--tui-card-padding, var(--tui-space-4));
+}
+
+// CardBase supplies a body wrapper for the simple API. Avoid applying the
+// same padding twice when consumers also use the compound Card.Content API.
+.body > .body {
+  padding: 0;
+}
+
+.media {
+  aspect-ratio: 16 / 9;
+  background: var(--tui-color-surface-subtle);
+}

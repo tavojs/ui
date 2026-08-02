@@ -1,0 +1,154 @@
+.root {
+  width: 100%;
+  min-height: var(--tui-size-md);
+  display: inline-flex;
+  align-items: center;
+  border: var(--tui-input-border-width, var(--tui-border-width)) solid
+    var(--tui-input-border-color, var(--tui-color-border));
+  border-radius: var(
+    --tui-input-radius,
+    var(--tui-radius-control, var(--tui-radius-md))
+  );
+  background: var(--tui-input-bg, var(--tui-color-surface-raised));
+  color: var(--tui-input-color, var(--tui-color-text));
+}
+
+.root:focus-within {
+  border-color: var(--tui-input-focus-border-color, var(--tui-color-focus));
+  outline: var(--tui-focus-width) solid
+    color-mix(
+      in srgb,
+      var(--tui-color-focus)
+        calc(var(--tui-interaction-focus-alpha, 0.28) * 100%),
+      transparent
+    );
+  outline-offset: var(--tui-focus-offset);
+}
+
+.root:has(.input[aria-invalid="true"]),
+.invalid {
+  border-color: var(--tui-color-danger);
+}
+
+.size-sm {
+  min-height: var(--tui-size-sm);
+}
+
+.size-lg {
+  min-height: var(--tui-size-lg);
+}
+
+.leading,
+.trailing {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  color: var(--tui-color-text-muted);
+}
+
+.leading {
+  padding-inline-start: var(--tui-space-3);
+}
+
+.searchIcon {
+  width: 1rem;
+  height: 1rem;
+  display: inline-block;
+  background-image: radial-gradient(
+      circle at 0.45rem 0.45rem,
+      transparent 0.32rem,
+      var(--tui-color-text-muted) 0.34rem,
+      var(--tui-color-text-muted) 0.42rem,
+      transparent 0.44rem
+    ),
+    linear-gradient(
+      45deg,
+      transparent 45%,
+      var(--tui-color-text-muted) 46%,
+      var(--tui-color-text-muted) 56%,
+      transparent 57%
+    );
+  background-position: 0 0, 0.68rem calc(50% + 0.42rem);
+  background-size: 0.9rem 0.9rem, 0.48rem 0.48rem;
+  background-repeat: no-repeat;
+}
+
+.root .input {
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  flex: 1 1 auto;
+  align-self: stretch;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  padding-inline: var(--tui-space-2) var(--tui-space-3);
+  outline: 0;
+}
+
+.root .input:focus,
+.root .input[aria-invalid="true"] {
+  border-color: transparent;
+  outline: 0;
+}
+
+.hasTrailing {
+  padding-inline-end: var(--tui-space-2);
+}
+
+.trailing {
+  gap: var(--tui-space-1);
+  padding-inline-end: var(--tui-space-2);
+}
+
+.clear {
+  width: 1.75rem;
+  height: 1.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: var(--tui-radius-control, var(--tui-radius-md));
+  background: transparent;
+  color: var(--tui-color-text-muted);
+  font: inherit;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.clear:hover {
+  background: var(--tui-color-surface-subtle);
+  color: var(--tui-color-text);
+}
+
+.clear:focus-visible {
+  outline: var(--tui-focus-width) solid var(--tui-color-focus);
+  outline-offset: var(--tui-focus-offset);
+}
+
+.spinner {
+  width: 1rem;
+  height: 1rem;
+  display: inline-block;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 999px;
+  animation: spin 700ms linear infinite;
+}
+
+.customClear::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+  }
+}

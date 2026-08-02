@@ -1,0 +1,85 @@
+.stat {
+  display: grid;
+  gap: var(--tui-space-2);
+  min-width: 0;
+  border: var(--tui-border-width) solid var(--tui-color-border);
+  border-radius: var(--tui-radius-md);
+  background: var(--tui-color-surface);
+  -webkit-backdrop-filter: var(--tui-backdrop-filter, none);
+  backdrop-filter: var(--tui-backdrop-filter, none);
+  padding: var(--tui-space-4);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tui-space-3);
+}
+
+.label,
+.value,
+.hint {
+  margin: 0;
+}
+
+.label {
+  color: var(--tui-color-text-muted);
+  font-size: var(--tui-font-size-caption);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+.value {
+  font-family: var(--tui-font-family-heading, var(--tui-font-family-text, var(--tui-font-family)));
+  color: var(--tui-color-heading);
+  font-size: var(--tui-font-size-h2);
+  font-weight: normal;
+  line-height: 1;
+}
+
+.hint {
+  color: var(--tui-color-text-muted);
+  font-size: var(--tui-font-size-caption);
+  line-height: 1.5;
+}
+
+.trend {
+  border-radius: 999px;
+  background: var(--tui-color-surface-subtle);
+  padding: 0.18rem var(--tui-space-2);
+  color: var(--tui-color-text-muted);
+  font-size: var(--tui-font-size-caption);
+  font-weight: normal;
+}
+
+.tone-primary .trend {
+  background: var(--tui-color-primary-soft-bg);
+  color: var(--tui-color-primary-soft-text);
+}
+
+.tone-secondary .trend {
+  background: var(--tui-color-secondary-soft-bg);
+  color: var(--tui-color-secondary-soft-text);
+}
+
+.tone-success .trend {
+  background: color-mix(in srgb, var(--tui-color-success) 16%, transparent);
+  color: var(--tui-color-success);
+}
+
+.tone-warning .trend {
+  background: color-mix(in srgb, var(--tui-color-warning) 18%, transparent);
+  color: var(--tui-color-warning);
+}
+
+.tone-danger .trend {
+  background: color-mix(in srgb, var(--tui-color-danger) 16%, transparent);
+  color: var(--tui-color-danger);
+}
+
+.tone-info .trend {
+  background: color-mix(in srgb, var(--tui-color-info) 16%, transparent);
+  color: var(--tui-color-info);
+}

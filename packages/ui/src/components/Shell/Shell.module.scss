@@ -1,0 +1,42 @@
+.shell {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-columns: minmax(14rem, 18rem) minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
+  color: var(--tui-color-text);
+}
+
+.rail-right {
+  grid-template-columns: minmax(0, 1fr) minmax(14rem, 18rem);
+}
+
+.header {
+  grid-column: 1 / -1;
+}
+
+.sidebar {
+  min-width: 0;
+  border-right: var(--tui-border-width) solid var(--tui-color-sidebar-border, var(--tui-color-border));
+  background: var(--tui-color-sidebar-bg, var(--tui-color-surface));
+}
+
+.rail-right .sidebar {
+  grid-column: 2;
+  border-right: 0;
+  border-left: var(--tui-border-width) solid var(--tui-color-sidebar-border, var(--tui-color-border));
+}
+
+.content {
+  min-width: 0;
+}
+
+@media (max-width: 760px) {
+  .shell,
+  .rail-right {
+    grid-template-columns: 1fr;
+  }
+
+  .rail-right .sidebar {
+    grid-column: auto;
+  }
+}

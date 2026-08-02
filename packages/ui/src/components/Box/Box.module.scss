@@ -1,0 +1,229 @@
+@use "theme/breakpoints" as bp;
+
+.box {
+  // Responsive Box variables describe one component instance. Reset them here
+  // so values set by an ancestor Box do not cascade into nested Boxes.
+  --tui-box-padding: initial;
+  --tui-box-padding-sm: initial;
+  --tui-box-padding-md: initial;
+  --tui-box-padding-lg: initial;
+  --tui-box-padding-inline: initial;
+  --tui-box-padding-inline-sm: initial;
+  --tui-box-padding-inline-md: initial;
+  --tui-box-padding-inline-lg: initial;
+  --tui-box-max-width: initial;
+  --tui-box-max-width-sm: initial;
+  --tui-box-max-width-md: initial;
+  --tui-box-max-width-lg: initial;
+  --tui-box-radius: initial;
+  --tui-box-radius-sm: initial;
+  --tui-box-radius-md: initial;
+  --tui-box-radius-lg: initial;
+
+  min-width: 0;
+  background: transparent;
+  padding: var(--tui-box-padding, 0);
+  padding-inline: var(--tui-box-padding-inline, var(--tui-box-padding, 0));
+  max-width: var(--tui-box-max-width, none);
+  border-radius: var(--tui-box-radius, 0);
+  -webkit-backdrop-filter: var(--tui-backdrop-filter, none);
+  backdrop-filter: var(--tui-backdrop-filter, none);
+
+  @include bp.tui-screen(sm) {
+    padding: var(--tui-box-padding-sm, var(--tui-box-padding, 0));
+    padding-inline: var(
+      --tui-box-padding-inline-sm,
+      var(
+        --tui-box-padding-inline,
+        var(--tui-box-padding-sm, var(--tui-box-padding, 0))
+      )
+    );
+    max-width: var(--tui-box-max-width-sm, var(--tui-box-max-width, none));
+    border-radius: var(--tui-box-radius-sm, var(--tui-box-radius, 0));
+  }
+
+  @include bp.tui-screen(md) {
+    padding: var(
+      --tui-box-padding-md,
+      var(--tui-box-padding-sm, var(--tui-box-padding, 0))
+    );
+    padding-inline: var(
+      --tui-box-padding-inline-md,
+      var(
+        --tui-box-padding-inline-sm,
+        var(
+          --tui-box-padding-inline,
+          var(
+            --tui-box-padding-md,
+            var(--tui-box-padding-sm, var(--tui-box-padding, 0))
+          )
+        )
+      )
+    );
+    max-width: var(
+      --tui-box-max-width-md,
+      var(--tui-box-max-width-sm, var(--tui-box-max-width, none))
+    );
+    border-radius: var(
+      --tui-box-radius-md,
+      var(--tui-box-radius-sm, var(--tui-box-radius, 0))
+    );
+  }
+
+  @include bp.tui-screen(lg) {
+    padding: var(
+      --tui-box-padding-lg,
+      var(
+        --tui-box-padding-md,
+        var(--tui-box-padding-sm, var(--tui-box-padding, 0))
+      )
+    );
+    padding-inline: var(
+      --tui-box-padding-inline-lg,
+      var(
+        --tui-box-padding-inline-md,
+        var(
+          --tui-box-padding-inline-sm,
+          var(
+            --tui-box-padding-inline,
+            var(
+              --tui-box-padding-lg,
+              var(
+                --tui-box-padding-md,
+                var(--tui-box-padding-sm, var(--tui-box-padding, 0))
+              )
+            )
+          )
+        )
+      )
+    );
+    max-width: var(
+      --tui-box-max-width-lg,
+      var(
+        --tui-box-max-width-md,
+        var(--tui-box-max-width-sm, var(--tui-box-max-width, none))
+      )
+    );
+    border-radius: var(
+      --tui-box-radius-lg,
+      var(
+        --tui-box-radius-md,
+        var(--tui-box-radius-sm, var(--tui-box-radius, 0))
+      )
+    );
+  }
+}
+
+.center {
+  margin-inline: auto;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.max-width-sm {
+  max-width: 48rem;
+}
+
+.max-width-md {
+  max-width: 64rem;
+}
+
+.max-width-lg {
+  max-width: 77.5rem;
+}
+
+.max-width-xl {
+  max-width: 90rem;
+}
+
+.max-width-full {
+  max-width: none;
+}
+
+.surface-default {
+  background: var(--tui-color-surface);
+  color: var(--tui-color-text);
+}
+
+.surface-raised {
+  background: var(--tui-color-surface-raised);
+  color: var(--tui-color-text);
+}
+
+.surface-subtle {
+  background: var(--tui-color-surface-subtle);
+  color: var(--tui-color-text);
+}
+
+.surface-neutral {
+  background: var(--tui-color-neutral-bg);
+  color: var(--tui-color-neutral-text);
+}
+
+.surface-primary {
+  background: var(--tui-color-primary-bg);
+  color: var(--tui-color-primary-text);
+}
+
+.surface-secondary {
+  background: var(--tui-color-secondary-bg);
+  color: var(--tui-color-secondary-text);
+}
+
+.padding-sm {
+  padding: var(--tui-space-2);
+}
+
+.padding-md {
+  padding: var(--tui-space-4);
+}
+
+.padding-lg {
+  padding: var(--tui-space-6);
+}
+
+.padding-inline-none {
+  padding-inline: 0;
+}
+
+.padding-inline-sm {
+  padding-inline: var(--tui-space-2);
+}
+
+.padding-inline-md {
+  padding-inline: var(--tui-space-4);
+}
+
+.padding-inline-lg {
+  padding-inline: var(--tui-space-6);
+}
+
+.radius-sm {
+  border-radius: var(--tui-radius-sm);
+}
+
+.radius-md {
+  border-radius: var(--tui-radius-md);
+}
+
+.radius-lg {
+  border-radius: var(--tui-radius-lg);
+}
+
+.radius-surface {
+  border-radius: var(--tui-radius-surface, var(--tui-radius-lg));
+}
+
+.border {
+  border: var(--tui-border-width) solid var(--tui-color-border);
+}
+
+.border-strong {
+  border: var(--tui-border-width-strong) solid var(--tui-color-border-strong);
+}
+
+.shadow {
+  box-shadow: var(--tui-shadow-lg);
+}

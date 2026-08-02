@@ -1,0 +1,57 @@
+.switch {
+  display: inline-grid;
+  position: relative;
+  cursor: pointer;
+}
+
+.switch input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.track {
+  display: block;
+  position: relative;
+  width: 2.4rem;
+  height: 1.35rem;
+  border-radius: 999px;
+  background: var(--tui-color-neutral-bg-hover);
+  transition: background 140ms ease;
+  cursor: pointer;
+}
+
+.track::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0.18rem;
+  width: 1rem;
+  height: 1rem;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: #fff;
+  transition: transform 140ms ease;
+}
+
+.switch input:checked + .track { background: var(--tui-color-primary-bg); }
+.switch input:checked + .track::after { transform: translate(1rem, -50%); }
+.tone-secondary input:checked + .track { background: var(--tui-color-secondary-bg); }
+.tone-neutral input:checked + .track { background: var(--tui-color-neutral-text); }
+.switch input:focus-visible + .track {
+  outline: var(--tui-focus-width) solid color-mix(in srgb, var(--tui-color-focus) 24%, transparent);
+  outline-offset: var(--tui-focus-offset);
+}
+.switch input:disabled + .track {
+  cursor: not-allowed;
+  opacity: var(--tui-opacity-disabled);
+}
+
+.size-sm .track { width: 2rem; height: 1.125rem; }
+.size-sm .track::after { width: 0.8rem; height: 0.8rem; }
+.size-sm input:checked + .track::after { transform: translate(0.85rem, -50%); }
+
+.size-lg .track { width: 2.8rem; height: 1.55rem; }
+.size-lg .track::after { width: 1.15rem; height: 1.15rem; }
+.size-lg input:checked + .track::after { transform: translate(1.2rem, -50%); }

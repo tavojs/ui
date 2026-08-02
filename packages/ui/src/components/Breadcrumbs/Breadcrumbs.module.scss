@@ -1,0 +1,33 @@
+.nav {
+  min-width: 0;
+  color: var(--tui-color-text-muted);
+  font-family: var(--tui-font-family-text, var(--tui-font-family));
+  font-size: var(--tui-font-size-caption);
+  font-weight: normal;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tui-space-2);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tui-space-2);
+  min-width: 0;
+}
+
+.separator {
+  color: var(--tui-color-border-strong);
+}
+
+.current {
+  color: var(--tui-color-text);
+}

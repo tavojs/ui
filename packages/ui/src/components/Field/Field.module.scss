@@ -1,0 +1,57 @@
+.field {
+  display: grid;
+  gap: var(--tui-space-2);
+  font-family: var(--tui-font-family-text, var(--tui-font-family));
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tui-space-1);
+  color: var(--tui-color-text);
+  font-size: var(--tui-font-size-label);
+  font-weight: normal;
+}
+
+.meta {
+  color: var(--tui-color-text-muted);
+  font-size: var(--tui-font-size-caption);
+  line-height: 1.45;
+}
+
+.invalid .meta {
+  color: var(--tui-color-danger);
+}
+
+.tone-danger { color: var(--tui-color-danger); }
+.tone-success { color: var(--tui-color-success); }
+.tone-warning { color: var(--tui-color-warning); }
+.required {
+  color: var(--tui-color-danger);
+}
+
+.optional {
+  color: var(--tui-color-text-muted);
+  font-size: var(--tui-font-size-caption);
+  font-weight: normal;
+}
+
+.fieldset {
+  min-width: 0;
+  display: grid;
+  gap: var(--tui-space-3);
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.legend {
+  color: var(--tui-color-heading);
+  font-weight: normal;
+}
+
+.hint {
+  margin: 0;
+  color: var(--tui-color-text-muted);
+  font-size: var(--tui-font-size-caption);
+}

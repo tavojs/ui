@@ -1,0 +1,74 @@
+@use "theme/breakpoints" as bp;
+
+.toolbar {
+  display: flex;
+  align-items: var(--tui-toolbar-align, center);
+  justify-content: var(--tui-toolbar-justify, space-between);
+  gap: var(--tui-toolbar-gap, var(--tui-space-4));
+  min-width: 0;
+
+  @include bp.tui-screen(sm) {
+    align-items: var(--tui-toolbar-align-sm, var(--tui-toolbar-align, center));
+    justify-content: var(--tui-toolbar-justify-sm, var(--tui-toolbar-justify, space-between));
+    gap: var(--tui-toolbar-gap-sm, var(--tui-toolbar-gap, var(--tui-space-4)));
+  }
+
+  @include bp.tui-screen(md) {
+    align-items: var(--tui-toolbar-align-md, var(--tui-toolbar-align-sm, var(--tui-toolbar-align, center)));
+    justify-content: var(--tui-toolbar-justify-md, var(--tui-toolbar-justify-sm, var(--tui-toolbar-justify, space-between)));
+    gap: var(--tui-toolbar-gap-md, var(--tui-toolbar-gap-sm, var(--tui-toolbar-gap, var(--tui-space-4))));
+  }
+
+  @include bp.tui-screen(lg) {
+    align-items: var(--tui-toolbar-align-lg, var(--tui-toolbar-align-md, var(--tui-toolbar-align-sm, var(--tui-toolbar-align, center))));
+    justify-content: var(--tui-toolbar-justify-lg, var(--tui-toolbar-justify-md, var(--tui-toolbar-justify-sm, var(--tui-toolbar-justify, space-between))));
+    gap: var(--tui-toolbar-gap-lg, var(--tui-toolbar-gap-md, var(--tui-toolbar-gap-sm, var(--tui-toolbar-gap, var(--tui-space-4)))));
+  }
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
+.main,
+.group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: inherit;
+  min-width: 0;
+}
+
+.title {
+  margin: 0;
+}
+
+.align-start {
+  align-items: flex-start;
+}
+.align-end {
+  align-items: flex-end;
+}
+.align-stretch {
+  align-items: stretch;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+.justify-center {
+  justify-content: center;
+}
+.justify-end {
+  justify-content: flex-end;
+}
+
+.gap-none {
+  gap: 0;
+}
+.gap-sm {
+  gap: var(--tui-space-2);
+}
+.gap-lg {
+  gap: var(--tui-space-6);
+}

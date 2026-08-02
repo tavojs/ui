@@ -1,0 +1,63 @@
+{
+  "name": "@tavojs/ui-core",
+  "version": "1.0.0",
+  "description": "Platform-neutral Tavo UI theme config and token generation.",
+  "type": "module",
+  "author": "Tavo contributors",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tavojs/ui.git",
+    "directory": "packages/ui-core"
+  },
+  "homepage": "https://tavojs.dev/docs/ui-core",
+  "bugs": {
+    "url": "https://github.com/tavojs/ui/issues"
+  },
+  "keywords": [
+    "tavo",
+    "ui",
+    "theme",
+    "tokens",
+    "design-system"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "docs",
+    "schema.json",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./schema.json": "./schema.json"
+  },
+  "scripts": {
+    "clean": "node -e \"import('node:fs').then(fs => fs.rmSync('dist', { recursive: true, force: true }))\"",
+    "build": "npm run build:lib",
+    "build:lib": "npm run clean && tsc -p tsconfig.build.json && node scripts/postbuild.mjs",
+    "test": "npm run build:lib && node --test tests/*.test.mjs",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepublishOnly": "npm test"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "prettier": "^3.9.4",
+    "typescript": "^5.9.3"
+  }
+}

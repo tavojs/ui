@@ -1,0 +1,25 @@
+@use "theme/breakpoints" as bp;
+
+.sidebar {
+  display: grid;
+  align-content: start;
+  gap: var(--tui-space-3);
+  color: var(--tui-color-text);
+  padding: var(--tui-sidebar-padding, var(--tui-space-5));
+
+  @include bp.tui-screen(sm) {
+    padding: var(--tui-sidebar-padding-sm, var(--tui-sidebar-padding, var(--tui-space-5)));
+  }
+
+  @include bp.tui-screen(md) {
+    padding: var(--tui-sidebar-padding-md, var(--tui-sidebar-padding-sm, var(--tui-sidebar-padding, var(--tui-space-5))));
+  }
+
+  @include bp.tui-screen(lg) {
+    padding: var(--tui-sidebar-padding-lg, var(--tui-sidebar-padding-md, var(--tui-sidebar-padding-sm, var(--tui-sidebar-padding, var(--tui-space-5)))));
+  }
+}
+
+.padding-none { padding: 0; }
+.padding-sm { padding: var(--tui-space-3); }
+.padding-lg { padding: var(--tui-space-6); }

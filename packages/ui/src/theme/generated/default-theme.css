@@ -1,0 +1,327 @@
+:root {
+	color-scheme: light;
+	font-size: clamp(0.8750rem, calc(0.8125rem + 0.3125vw), 1.0000rem);
+	--tui-primary-50: #ffffff;
+	--tui-primary-100: #e5deff;
+	--tui-primary-200: #cbbeff;
+	--tui-primary-300: #b09dff;
+	--tui-primary-400: #967dff;
+	--tui-primary-500: #7c5cff;
+	--tui-primary-600: #6039ff;
+	--tui-primary-700: #3000f3;
+	--tui-primary-800: #1b008b;
+	--tui-primary-900: #0b0038;
+	--tui-primary-950: #000000;
+	--tui-secondary-50: #ffffff;
+	--tui-secondary-100: #ede8fe;
+	--tui-secondary-200: #dcd1fd;
+	--tui-secondary-300: #cab9fc;
+	--tui-secondary-400: #b9a2fb;
+	--tui-secondary-500: #a78bfa;
+	--tui-secondary-600: #8b66f8;
+	--tui-secondary-700: #521bf5;
+	--tui-secondary-800: #2a0695;
+	--tui-secondary-900: #11033c;
+	--tui-secondary-950: #000000;
+	--tui-neutral-50: #fdfcfc;
+	--tui-neutral-100: #e8e3e3;
+	--tui-neutral-200: #d0c8c8;
+	--tui-neutral-300: #b8adad;
+	--tui-neutral-400: #9f9393;
+	--tui-neutral-500: #867979;
+	--tui-neutral-600: #786e6e;
+	--tui-neutral-700: #5c5656;
+	--tui-neutral-800: #343232;
+	--tui-neutral-900: #151414;
+	--tui-neutral-950: #0d0d0d;
+	--tui-color-bg: #ffffff;
+	--tui-color-surface: #ffffff;
+	--tui-color-surface-raised: #fafafa;
+	--tui-color-surface-subtle: #f4f4f4;
+	--tui-color-border: #e5e5e5;
+	--tui-color-border-strong: #c7c7c7;
+	--tui-color-text: #000000;
+	--tui-color-text-muted: #555555;
+	--tui-color-heading: #000000;
+	--tui-color-link: #7c5cff;
+	--tui-color-focus: #7c5cff;
+	--tui-color-primary-bg: #7c5cff;
+	--tui-color-primary-bg-hover: #7c5cff;
+	--tui-color-primary-text: #000000;
+	--tui-color-primary-soft-bg: #f4f4f4;
+	--tui-color-primary-soft-text: #7c5cff;
+	--tui-color-secondary-bg: #a78bfa;
+	--tui-color-secondary-bg-hover: #a78bfa;
+	--tui-color-secondary-text: #000000;
+	--tui-color-secondary-soft-bg: #f4f4f4;
+	--tui-color-secondary-soft-text: #a78bfa;
+	--tui-color-neutral-bg: #f4f4f4;
+	--tui-color-neutral-bg-hover: #e8e8e8;
+	--tui-color-neutral-text: #000000;
+	--tui-shadow-sm: 0 1px 2px rgba(22, 32, 31, 0.019);
+	--tui-shadow-md: 0 8px 20px rgba(22, 32, 31, 0.025);
+	--tui-shadow-lg: 0 16px 36px rgba(22, 32, 31, 0.032);
+	--tui-color-success: #18794e;
+	--tui-color-warning: #9b5d00;
+	--tui-color-danger: #b42318;
+	--tui-color-info: #235fb6;
+	--tui-color-app-bg: #ffffff;
+	--tui-color-sidebar-bg: #ffffff;
+	--tui-color-sidebar-border: #e5e5e5;
+	--tui-color-header-bg: #fafafa;
+	--tui-color-header-border: #e5e5e5;
+	--tui-color-panel-bg: #ffffff;
+	--tui-color-panel-border: #e5e5e5;
+	--tui-color-danger-surface: rgba(180, 35, 24, 0.1);
+	--tui-color-danger-surface-text: #b42318;
+	--tui-color-selection-bg: #f4f4f4;
+	--tui-color-selection-text: #7c5cff;
+	--tui-color-focus-ring: #7c5cff;
+	--tui-color-overlay-bg: rgba(0, 0, 0, 0.38);
+	--tui-size-xs: 1.733rem;
+	--tui-size-sm: 2.152rem;
+	--tui-size-md: 2.625rem;
+	--tui-size-lg: 3.045rem;
+	--tui-size-xl: 3.465rem;
+	--tui-space-1: 0.500rem;
+	--tui-space-2: 0.750rem;
+	--tui-space-3: 1.050rem;
+	--tui-space-4: 1.400rem;
+	--tui-space-5: 1.875rem;
+	--tui-space-6: 2.500rem;
+	--tui-radius-sm: 0.150rem;
+	--tui-radius-md: 0.250rem;
+	--tui-radius-lg: 0.350rem;
+	--tui-radius-control: 0.250rem;
+	--tui-radius-surface: 0.375rem;
+	--tui-border-width: 1px;
+	--tui-border-width-strong: 2px;
+	--tui-focus-width: 3px;
+	--tui-focus-offset: 2px;
+	--tui-motion-fast: 120ms;
+	--tui-motion-base: 180ms;
+	--tui-motion-slow: 260ms;
+	--tui-motion-ease: cubic-bezier(0.2, 0, 0, 1);
+	--tui-opacity-disabled: 0.58;
+	--tui-opacity-muted: 0.72;
+	--tui-glass-chrome-alpha: 62%;
+	--tui-interaction-hover-lift: 1px;
+	--tui-interaction-hover-shadow-opacity: 1;
+	--tui-interaction-active-scale: 0.98;
+	--tui-interaction-focus-alpha: 0.28;
+	--tui-interaction-disabled-opacity: 0.58;
+	--tui-interaction-transition-fast: 120ms;
+	--tui-interaction-transition-base: 180ms;
+	--tui-blur-surface: 22px;
+	--tui-breakpoint-sm: 480px;
+	--tui-breakpoint-md: 768px;
+	--tui-breakpoint-lg: 1024px;
+	--tui-font-size-body: 1.000rem;
+	--tui-font-size-caption: 0.813rem;
+	--tui-font-size-label: 0.875rem;
+	--tui-font-size-h1: clamp(1.907rem, 2rem + 2vw, 2.932rem);
+	--tui-font-size-h2: clamp(1.538rem, 1.65rem + 1vw, 2.364rem);
+	--tui-font-size-h3: clamp(1.240rem, 1.2rem + 0.6vw, 1.907rem);
+	--tui-font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	--tui-font-family-text: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	--tui-font-family-heading: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root:not([data-tavo-theme]) {
+	color-scheme: dark;
+	--tui-primary-50: #ffffff;
+	--tui-primary-100: #e5deff;
+	--tui-primary-200: #cbbeff;
+	--tui-primary-300: #b09dff;
+	--tui-primary-400: #967dff;
+	--tui-primary-500: #7c5cff;
+	--tui-primary-600: #6039ff;
+	--tui-primary-700: #3000f3;
+	--tui-primary-800: #1b008b;
+	--tui-primary-900: #0b0038;
+	--tui-primary-950: #000000;
+	--tui-secondary-50: #ffffff;
+	--tui-secondary-100: #ede8fe;
+	--tui-secondary-200: #dcd1fd;
+	--tui-secondary-300: #cab9fc;
+	--tui-secondary-400: #b9a2fb;
+	--tui-secondary-500: #a78bfa;
+	--tui-secondary-600: #8b66f8;
+	--tui-secondary-700: #521bf5;
+	--tui-secondary-800: #2a0695;
+	--tui-secondary-900: #11033c;
+	--tui-secondary-950: #000000;
+	--tui-neutral-50: #fdfcfc;
+	--tui-neutral-100: #e8e3e3;
+	--tui-neutral-200: #d0c8c8;
+	--tui-neutral-300: #b8adad;
+	--tui-neutral-400: #9f9393;
+	--tui-neutral-500: #867979;
+	--tui-neutral-600: #786e6e;
+	--tui-neutral-700: #5c5656;
+	--tui-neutral-800: #343232;
+	--tui-neutral-900: #151414;
+	--tui-neutral-950: #0d0d0d;
+	--tui-color-bg: #000000;
+	--tui-color-surface: #050505;
+	--tui-color-surface-raised: #0d0d0d;
+	--tui-color-surface-subtle: #171717;
+	--tui-color-border: #2a2a2a;
+	--tui-color-border-strong: #3f3f3f;
+	--tui-color-text: #ffffff;
+	--tui-color-text-muted: #c7c7c7;
+	--tui-color-heading: #ffffff;
+	--tui-color-link: #A78BFA;
+	--tui-color-focus: #A78BFA;
+	--tui-color-primary-bg: #7C5CFF;
+	--tui-color-primary-bg-hover: #A78BFA;
+	--tui-color-primary-text: #000000;
+	--tui-color-primary-soft-bg: rgba(124, 92, 255, 0.18);
+	--tui-color-primary-soft-text: #C4B5FD;
+	--tui-color-secondary-bg: #A78BFA;
+	--tui-color-secondary-bg-hover: #C4B5FD;
+	--tui-color-secondary-text: #0B1020;
+	--tui-color-secondary-soft-bg: rgba(167, 139, 250, 0.18);
+	--tui-color-secondary-soft-text: #DDD6FE;
+	--tui-color-neutral-bg: #171717;
+	--tui-color-neutral-bg-hover: #262626;
+	--tui-color-neutral-text: #ffffff;
+	--tui-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.019);
+	--tui-shadow-md: 0 8px 20px rgba(0, 0, 0, 0.025);
+	--tui-shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.032);
+	--tui-color-success: #58d68d;
+	--tui-color-warning: #f5b041;
+	--tui-color-danger: #ff6b6b;
+	--tui-color-info: #7fb3ff;
+	--tui-color-app-bg: #000000;
+	--tui-color-panel-bg: #050505;
+	--tui-color-sidebar-bg: #050505;
+	--tui-color-header-bg: #0d0d0d;
+	--tui-color-panel-border: #2a2a2a;
+	--tui-color-sidebar-border: #2a2a2a;
+	--tui-color-header-border: #2a2a2a;
+	--tui-color-selection-bg: rgba(124, 92, 255, 0.24);
+	--tui-color-selection-text: #F5F7FF;
+	--tui-color-focus-ring: #A78BFA;
+	--tui-color-overlay-bg: rgba(0, 0, 0, 0.72);
+	--tui-color-danger-surface: rgba(255, 107, 107, 0.2);
+	--tui-color-danger-surface-text: #ff6b6b;
+	}
+}
+
+:root[data-tavo-theme="dark"] {
+	color-scheme: dark;
+	--tui-primary-50: #ffffff;
+	--tui-primary-100: #e5deff;
+	--tui-primary-200: #cbbeff;
+	--tui-primary-300: #b09dff;
+	--tui-primary-400: #967dff;
+	--tui-primary-500: #7c5cff;
+	--tui-primary-600: #6039ff;
+	--tui-primary-700: #3000f3;
+	--tui-primary-800: #1b008b;
+	--tui-primary-900: #0b0038;
+	--tui-primary-950: #000000;
+	--tui-secondary-50: #ffffff;
+	--tui-secondary-100: #ede8fe;
+	--tui-secondary-200: #dcd1fd;
+	--tui-secondary-300: #cab9fc;
+	--tui-secondary-400: #b9a2fb;
+	--tui-secondary-500: #a78bfa;
+	--tui-secondary-600: #8b66f8;
+	--tui-secondary-700: #521bf5;
+	--tui-secondary-800: #2a0695;
+	--tui-secondary-900: #11033c;
+	--tui-secondary-950: #000000;
+	--tui-neutral-50: #fdfcfc;
+	--tui-neutral-100: #e8e3e3;
+	--tui-neutral-200: #d0c8c8;
+	--tui-neutral-300: #b8adad;
+	--tui-neutral-400: #9f9393;
+	--tui-neutral-500: #867979;
+	--tui-neutral-600: #786e6e;
+	--tui-neutral-700: #5c5656;
+	--tui-neutral-800: #343232;
+	--tui-neutral-900: #151414;
+	--tui-neutral-950: #0d0d0d;
+	--tui-color-bg: #000000;
+	--tui-color-surface: #050505;
+	--tui-color-surface-raised: #0d0d0d;
+	--tui-color-surface-subtle: #171717;
+	--tui-color-border: #2a2a2a;
+	--tui-color-border-strong: #3f3f3f;
+	--tui-color-text: #ffffff;
+	--tui-color-text-muted: #c7c7c7;
+	--tui-color-heading: #ffffff;
+	--tui-color-link: #A78BFA;
+	--tui-color-focus: #A78BFA;
+	--tui-color-primary-bg: #7C5CFF;
+	--tui-color-primary-bg-hover: #A78BFA;
+	--tui-color-primary-text: #000000;
+	--tui-color-primary-soft-bg: rgba(124, 92, 255, 0.18);
+	--tui-color-primary-soft-text: #C4B5FD;
+	--tui-color-secondary-bg: #A78BFA;
+	--tui-color-secondary-bg-hover: #C4B5FD;
+	--tui-color-secondary-text: #0B1020;
+	--tui-color-secondary-soft-bg: rgba(167, 139, 250, 0.18);
+	--tui-color-secondary-soft-text: #DDD6FE;
+	--tui-color-neutral-bg: #171717;
+	--tui-color-neutral-bg-hover: #262626;
+	--tui-color-neutral-text: #ffffff;
+	--tui-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.019);
+	--tui-shadow-md: 0 8px 20px rgba(0, 0, 0, 0.025);
+	--tui-shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.032);
+	--tui-color-success: #58d68d;
+	--tui-color-warning: #f5b041;
+	--tui-color-danger: #ff6b6b;
+	--tui-color-info: #7fb3ff;
+	--tui-color-app-bg: #000000;
+	--tui-color-panel-bg: #050505;
+	--tui-color-sidebar-bg: #050505;
+	--tui-color-header-bg: #0d0d0d;
+	--tui-color-panel-border: #2a2a2a;
+	--tui-color-sidebar-border: #2a2a2a;
+	--tui-color-header-border: #2a2a2a;
+	--tui-color-selection-bg: rgba(124, 92, 255, 0.24);
+	--tui-color-selection-text: #F5F7FF;
+	--tui-color-focus-ring: #A78BFA;
+	--tui-color-overlay-bg: rgba(0, 0, 0, 0.72);
+	--tui-color-danger-surface: rgba(255, 107, 107, 0.2);
+	--tui-color-danger-surface-text: #ff6b6b;
+}
+
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+* {
+	scrollbar-color: var(--tui-color-border-strong) transparent;
+	scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+	width: 0.7rem;
+	height: 0.7rem;
+}
+
+*::-webkit-scrollbar-track,
+*::-webkit-scrollbar-corner {
+	background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+	border: 0.18rem solid transparent;
+	border-radius: 999px;
+	background: var(--tui-color-border-strong);
+	background-clip: padding-box;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	background: var(--tui-color-app-bg);
+}

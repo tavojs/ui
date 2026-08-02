@@ -1,0 +1,56 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: var(--tui-space-5);
+  background: var(--tui-color-overlay-bg, rgba(15, 23, 42, 0.42));
+  z-index: 40;
+}
+
+.dialog {
+  width: min(40rem, 100%);
+  max-height: min(88vh, 48rem);
+  overflow: auto;
+  border: var(--tui-border-width) solid var(--tui-color-border);
+  border-radius: var(--tui-radius-lg);
+  background: var(--tui-color-surface-raised);
+  -webkit-backdrop-filter: var(--tui-backdrop-filter, none);
+  backdrop-filter: var(--tui-backdrop-filter, none);
+  box-shadow: var(--tui-shadow-lg);
+  font-family: var(--tui-font-family-text, var(--tui-font-family));
+}
+
+.fullScreen {
+  width: min(96vw, 72rem);
+  height: min(92vh, 60rem);
+}
+
+.header,
+.body {
+  padding: var(--tui-space-5);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tui-space-4);
+  border-bottom: var(--tui-border-width) solid var(--tui-color-border);
+}
+
+.title {
+  font-family: var(--tui-font-family-heading, var(--tui-font-family-text, var(--tui-font-family)));
+  font-size: 1.125rem;
+  font-weight: normal;
+  color: var(--tui-color-heading);
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: end;
+  gap: var(--tui-space-3);
+  padding: var(--tui-space-5);
+  border-top: var(--tui-border-width) solid var(--tui-color-border);
+}

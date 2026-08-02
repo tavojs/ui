@@ -1,0 +1,245 @@
+.button {
+  box-sizing: border-box;
+  --button-bg: var(--tui-color-primary-bg);
+  --button-color: var(--tui-color-primary-text);
+  --button-hover-bg: var(
+    --tui-button-hover-bg,
+    color-mix(in srgb, var(--button-bg) 88%, var(--button-color) 12%)
+  );
+
+  min-height: var(--tui-button-min-height, var(--tui-size-md, 2.5rem));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--tui-button-gap, var(--tui-space-2, 0.75rem));
+  border: var(--tui-button-border-width, var(--tui-border-width)) solid
+    var(--tui-button-border-color, transparent);
+  border-radius: var(
+    --tui-button-radius,
+    var(--tui-radius-control, var(--tui-radius-md))
+  );
+  padding-block: var(--tui-button-padding-block, 0.375rem);
+  padding-inline: var(
+    --tui-button-padding-inline,
+    var(--tui-button-padding-inline-md, var(--tui-space-4, 1rem))
+  );
+  background: var(--button-bg);
+  color: var(--button-color);
+  font-family: var(--tui-font-family-text, var(--tui-font-family));
+  font-size: var(--tui-font-size-body, 1rem);
+  font-weight: var(--tui-button-font-weight, normal);
+  line-height: var(--tui-button-line-height, 1);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: var(
+    --tui-button-shadow,
+    0 1px 0 color-mix(in srgb, #ffffff 22%, transparent) inset
+  );
+  transition: background-color
+      var(--tui-interaction-transition-fast, var(--tui-motion-fast))
+      var(--tui-motion-ease),
+    border-color var(--tui-interaction-transition-fast, var(--tui-motion-fast))
+      var(--tui-motion-ease),
+    color var(--tui-interaction-transition-fast, var(--tui-motion-fast))
+      var(--tui-motion-ease),
+    transform var(--tui-interaction-transition-fast, var(--tui-motion-fast))
+      var(--tui-motion-ease),
+    box-shadow var(--tui-interaction-transition-fast, var(--tui-motion-fast))
+      var(--tui-motion-ease);
+}
+
+.button:hover {
+  background: var(--button-hover-bg);
+  box-shadow: 0 1px 0 color-mix(in srgb, #ffffff 28%, transparent) inset,
+    var(--tui-shadow-sm);
+}
+
+.button:active {
+  transform: scale(var(--tui-interaction-active-scale, 0.98));
+}
+
+.button:disabled,
+.button[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: var(--tui-interaction-disabled-opacity, var(--tui-opacity-disabled));
+  transform: none;
+}
+
+.button:focus-visible {
+  outline: var(--tui-focus-width) solid
+    color-mix(
+      in srgb,
+      var(--tui-color-focus)
+        calc(var(--tui-interaction-focus-alpha, 0.28) * 100%),
+      transparent
+    );
+  outline-offset: var(--tui-focus-offset);
+}
+
+.size-sm {
+  min-height: var(--tui-button-min-height-sm, var(--tui-size-sm, 2rem));
+  padding-inline: var(
+    --tui-button-padding-inline-sm,
+    var(--tui-space-3, 0.75rem)
+  );
+  font-size: var(--tui-font-size-label, 0.875rem);
+}
+
+.size-lg {
+  min-height: var(--tui-button-min-height-lg, var(--tui-size-lg, 3rem));
+  padding-inline: var(
+    --tui-button-padding-inline-lg,
+    var(--tui-space-5, 1.25rem)
+  );
+}
+
+.iconOnly {
+  width: var(--tui-button-min-height, var(--tui-size-md, 2.5rem));
+  padding-inline: 0;
+}
+
+.iconOnly.size-sm {
+  width: var(--tui-button-min-height-sm, var(--tui-size-sm, 2rem));
+}
+
+.iconOnly.size-lg {
+  width: var(--tui-button-min-height-lg, var(--tui-size-lg, 3rem));
+}
+
+.tone-secondary {
+  --button-bg: var(--tui-color-secondary-bg);
+  --button-color: var(--tui-color-secondary-text);
+}
+
+.tone-neutral {
+  --button-bg: var(--tui-color-neutral-bg);
+  --button-color: var(--tui-color-neutral-text);
+}
+
+.tone-danger {
+  --button-bg: var(--tui-color-danger);
+  --button-color: #ffffff;
+  --button-hover-bg: color-mix(in srgb, var(--tui-color-danger) 88%, #000000);
+}
+
+.variant-soft {
+  --button-bg: var(--tui-color-primary-soft-bg);
+  --button-color: var(--tui-color-primary-soft-text);
+  --button-hover-bg: color-mix(
+    in srgb,
+    var(--tui-color-primary-soft-bg) 82%,
+    var(--tui-color-primary-bg)
+  );
+  border-color: transparent;
+}
+
+.variant-soft.tone-secondary {
+  --button-bg: var(--tui-color-secondary-soft-bg);
+  --button-color: var(--tui-color-secondary-soft-text);
+  --button-hover-bg: color-mix(
+    in srgb,
+    var(--tui-color-secondary-soft-bg) 82%,
+    var(--tui-color-secondary-bg)
+  );
+}
+
+.variant-soft.tone-neutral,
+.variant-ghost.tone-neutral {
+  --button-bg: var(--tui-color-surface-subtle);
+  --button-color: var(--tui-color-text);
+  --button-hover-bg: var(--tui-color-neutral-bg-hover);
+}
+
+.variant-outline {
+  --button-bg: transparent;
+  --button-color: var(--tui-color-primary-bg);
+  --button-hover-bg: var(--tui-color-primary-soft-bg);
+  border-color: var(--tui-color-border);
+}
+
+.variant-outline.tone-primary {
+  border-color: color-mix(
+    in srgb,
+    var(--tui-color-primary-bg) 34%,
+    var(--tui-color-border)
+  );
+}
+
+.variant-outline.tone-secondary {
+  --button-color: var(--tui-color-secondary-bg);
+  --button-hover-bg: var(--tui-color-secondary-soft-bg);
+  border-color: color-mix(
+    in srgb,
+    var(--tui-color-secondary-bg) 34%,
+    var(--tui-color-border)
+  );
+}
+
+.variant-outline.tone-danger {
+  --button-color: var(--tui-color-danger);
+  --button-hover-bg: color-mix(
+    in srgb,
+    var(--tui-color-danger) 12%,
+    transparent
+  );
+  border-color: color-mix(
+    in srgb,
+    var(--tui-color-danger) 34%,
+    var(--tui-color-border)
+  );
+}
+
+.variant-ghost {
+  --button-bg: transparent;
+  --button-color: var(--tui-color-text);
+  --button-hover-bg: var(--tui-color-surface-subtle);
+}
+
+.variant-text {
+  --button-bg: transparent;
+  --button-color: var(--tui-color-text);
+  --button-hover-bg: transparent;
+  --tui-button-border-color: transparent;
+  --tui-button-shadow: none;
+  padding-inline: var(
+    --tui-button-text-padding-inline,
+    var(--tui-space-2, 0.5rem)
+  );
+}
+
+.variant-text:hover {
+  color: var(--tui-color-primary-bg-hover);
+  box-shadow: none;
+}
+
+.variant-text.tone-secondary:hover {
+  color: var(--tui-color-secondary-bg-hover);
+}
+
+.variant-text.tone-neutral:hover {
+  color: var(--tui-color-text-muted);
+}
+
+.variant-text.tone-danger:hover {
+  color: color-mix(in srgb, var(--tui-color-danger) 82%, #000000);
+}
+
+.loading {
+  cursor: wait;
+}
+
+.spinner {
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 999px;
+  animation: spin 700ms linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

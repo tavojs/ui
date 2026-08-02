@@ -1,0 +1,21 @@
+.skeleton {
+  display: block;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--tui-color-neutral-bg) 92%, transparent) 25%,
+    color-mix(in srgb, var(--tui-color-neutral-bg-hover) 92%, transparent) 50%,
+    color-mix(in srgb, var(--tui-color-neutral-bg) 92%, transparent) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.2s linear infinite;
+}
+
+.variant-text { height: 1em; border-radius: 999px; }
+.variant-circular { aspect-ratio: 1; border-radius: 999px; }
+.variant-rectangular { border-radius: 0; }
+.variant-rounded { border-radius: var(--tui-radius-md); }
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}

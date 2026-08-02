@@ -1,0 +1,30 @@
+@use "theme/breakpoints" as bp;
+
+.root {
+  min-width: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  color: var(--tui-color-text);
+  max-height: var(--tui-scroll-area-max-height, none);
+
+  @include bp.tui-screen(sm) {
+    max-height: var(--tui-scroll-area-max-height-sm, var(--tui-scroll-area-max-height, none));
+  }
+
+  @include bp.tui-screen(md) {
+    max-height: var(--tui-scroll-area-max-height-md, var(--tui-scroll-area-max-height-sm, var(--tui-scroll-area-max-height, none)));
+  }
+
+  @include bp.tui-screen(lg) {
+    max-height: var(--tui-scroll-area-max-height-lg, var(--tui-scroll-area-max-height-md, var(--tui-scroll-area-max-height-sm, var(--tui-scroll-area-max-height, none))));
+  }
+}
+
+.orientation-horizontal {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.orientation-both {
+  overflow: auto;
+}

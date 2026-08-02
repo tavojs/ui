@@ -1,0 +1,10 @@
+.link {
+  color: var(--tui-color-link);
+  font-family: var(--tui-font-family-text, var(--tui-font-family));
+  text-decoration: underline;
+  text-underline-offset: 0.16em;
+  cursor: pointer;
+}
+
+.noUnderline { text-decoration: none; }
+.disabled { pointer-events: none; opacity: 0.55; }

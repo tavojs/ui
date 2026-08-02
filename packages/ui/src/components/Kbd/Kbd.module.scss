@@ -1,0 +1,18 @@
+.kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.75rem;
+  min-height: 1.75rem;
+  border: var(--tui-border-width) solid var(--tui-color-border-strong);
+  border-bottom-width: var(--tui-border-width-strong);
+  border-radius: var(--tui-radius-sm);
+  background: var(--tui-color-surface-raised);
+  padding-inline: var(--tui-space-2);
+  color: var(--tui-color-text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.78rem;
+  font-weight: normal;
+  line-height: 1;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
+}

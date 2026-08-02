@@ -1,0 +1,27 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  padding: 0.2rem;
+  border: var(--tui-border-width) solid var(--tui-color-border);
+  border-radius: var(--tui-radius-control);
+  background: var(--tui-color-surface);
+}
+
+.item {
+  display: inline-flex;
+}
+
+.item input {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: var(--tui-interaction-disabled-opacity, var(--tui-opacity-disabled));
+}

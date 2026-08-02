@@ -1,0 +1,47 @@
+.emptyState {
+  display: grid;
+  justify-items: center;
+  gap: var(--tui-space-3);
+  min-width: 0;
+  border: var(--tui-border-width) dashed var(--tui-color-border-strong);
+  border-radius: var(--tui-radius-lg);
+  background: var(--tui-color-surface-subtle);
+  -webkit-backdrop-filter: var(--tui-backdrop-filter, none);
+  backdrop-filter: var(--tui-backdrop-filter, none);
+  padding: var(--tui-space-6);
+  text-align: center;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--tui-radius-md);
+  background: var(--tui-color-primary-soft-bg);
+  color: var(--tui-color-primary-soft-text);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--tui-font-family-heading, var(--tui-font-family-text, var(--tui-font-family)));
+  color: var(--tui-color-heading);
+  font-size: var(--tui-font-size-h3);
+  line-height: 1.12;
+}
+
+.description {
+  max-width: 34rem;
+  margin: 0;
+  color: var(--tui-color-text-muted);
+  line-height: 1.7;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--tui-space-3);
+  margin-top: var(--tui-space-2);
+}

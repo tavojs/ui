@@ -1,0 +1,53 @@
+.wrap {
+  overflow-x: auto;
+  width: 100%;
+  border: var(--tui-border-width) solid var(--tui-color-border);
+  border-radius: var(--tui-radius-md);
+  background: var(--tui-color-surface);
+  -webkit-backdrop-filter: var(--tui-backdrop-filter, none);
+  backdrop-filter: var(--tui-backdrop-filter, none);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--tui-color-text);
+  font-family: var(--tui-font-family-text, var(--tui-font-family));
+  font-size: var(--tui-font-size-label);
+}
+
+.caption {
+  padding: var(--tui-space-3) var(--tui-space-4);
+  color: var(--tui-color-text-muted);
+  text-align: left;
+}
+
+.head {
+  background: var(--tui-color-surface-subtle);
+}
+
+.row:not(:last-child) {
+  border-bottom: var(--tui-border-width) solid var(--tui-color-border);
+}
+
+.cell {
+  padding: var(--tui-space-3) var(--tui-space-4);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.compact .cell {
+  padding: var(--tui-space-2) var(--tui-space-3);
+}
+
+.headerCell {
+  color: var(--tui-color-text-muted);
+  font-size: var(--tui-font-size-caption);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+.numeric {
+  text-align: right;
+}

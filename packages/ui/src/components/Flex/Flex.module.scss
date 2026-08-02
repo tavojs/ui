@@ -1,0 +1,50 @@
+@use "theme/breakpoints" as bp;
+
+.flex {
+  display: flex;
+  flex-direction: var(--tui-flex-direction, row);
+  gap: var(--tui-flex-gap, var(--tui-space-4));
+  align-items: var(--tui-flex-align, initial);
+  justify-content: var(--tui-flex-justify, initial);
+  min-width: 0;
+
+  @include bp.tui-screen(sm) {
+    flex-direction: var(--tui-flex-direction-sm, var(--tui-flex-direction, row));
+    gap: var(--tui-flex-gap-sm, var(--tui-flex-gap, var(--tui-space-4)));
+    align-items: var(--tui-flex-align-sm, var(--tui-flex-align, initial));
+    justify-content: var(--tui-flex-justify-sm, var(--tui-flex-justify, initial));
+  }
+
+  @include bp.tui-screen(md) {
+    flex-direction: var(--tui-flex-direction-md, var(--tui-flex-direction-sm, var(--tui-flex-direction, row)));
+    gap: var(--tui-flex-gap-md, var(--tui-flex-gap-sm, var(--tui-flex-gap, var(--tui-space-4))));
+    align-items: var(--tui-flex-align-md, var(--tui-flex-align-sm, var(--tui-flex-align, initial)));
+    justify-content: var(--tui-flex-justify-md, var(--tui-flex-justify-sm, var(--tui-flex-justify, initial)));
+  }
+
+  @include bp.tui-screen(lg) {
+    flex-direction: var(--tui-flex-direction-lg, var(--tui-flex-direction-md, var(--tui-flex-direction-sm, var(--tui-flex-direction, row))));
+    gap: var(--tui-flex-gap-lg, var(--tui-flex-gap-md, var(--tui-flex-gap-sm, var(--tui-flex-gap, var(--tui-space-4)))));
+    align-items: var(--tui-flex-align-lg, var(--tui-flex-align-md, var(--tui-flex-align-sm, var(--tui-flex-align, initial))));
+    justify-content: var(--tui-flex-justify-lg, var(--tui-flex-justify-md, var(--tui-flex-justify-sm, var(--tui-flex-justify, initial))));
+  }
+}
+
+.direction-column { flex-direction: column; }
+.direction-row-reverse { flex-direction: row-reverse; }
+.direction-column-reverse { flex-direction: column-reverse; }
+
+.align-start { align-items: flex-start; }
+.align-center { align-items: center; }
+.align-end { align-items: flex-end; }
+.align-stretch { align-items: stretch; }
+
+.justify-start { justify-content: flex-start; }
+.justify-center { justify-content: center; }
+.justify-end { justify-content: flex-end; }
+.justify-between { justify-content: space-between; }
+.justify-around { justify-content: space-around; }
+
+.gap-none { gap: 0; }
+.gap-sm { gap: var(--tui-space-2); }
+.gap-lg { gap: var(--tui-space-6); }

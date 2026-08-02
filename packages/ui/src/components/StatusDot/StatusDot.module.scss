@@ -1,0 +1,50 @@
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tui-space-2);
+  width: fit-content;
+  --status-size: 0.625rem;
+  --status-color: var(--tui-color-text-muted);
+  color: var(--status-color);
+  font-family: var(--tui-font-family-text, var(--tui-font-family));
+  font-size: var(--tui-font-size-label);
+  font-weight: normal;
+}
+
+.dot {
+  display: inline-block;
+  width: var(--status-size);
+  height: var(--status-size);
+  border-radius: 999px;
+  background: currentColor;
+  box-shadow: 0 0 0 var(--tui-border-width) color-mix(in srgb, currentColor 36%, transparent);
+}
+
+.label {
+  color: var(--tui-color-text);
+}
+
+.size-sm { --status-size: 0.5rem; }
+.size-lg { --status-size: 0.75rem; }
+
+.tone-primary { --status-color: var(--tui-color-primary-bg); }
+.tone-secondary { --status-color: var(--tui-color-secondary-bg); }
+.tone-success { --status-color: var(--tui-color-success); }
+.tone-warning { --status-color: var(--tui-color-warning); }
+.tone-danger { --status-color: var(--tui-color-danger); }
+.tone-info { --status-color: var(--tui-color-info); }
+
+.pulse .dot {
+  box-shadow:
+    0 0 0 var(--tui-border-width) color-mix(in srgb, currentColor 36%, transparent),
+    0 0 0 0 color-mix(in srgb, currentColor 32%, transparent);
+  animation: tui-status-pulse var(--tui-motion-slow) var(--tui-motion-ease) infinite;
+}
+
+@keyframes tui-status-pulse {
+  to {
+    box-shadow:
+      0 0 0 var(--tui-border-width) color-mix(in srgb, currentColor 20%, transparent),
+      0 0 0 0.45rem transparent;
+  }
+}

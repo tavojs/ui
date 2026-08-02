@@ -1,0 +1,37 @@
+.root {
+  display: block;
+  color: var(--tui-color-text);
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tui-space-2);
+  list-style: none;
+  cursor: pointer;
+  color: inherit;
+  font-family: var(--tui-font-family-text, var(--tui-font-family));
+}
+
+.trigger::-webkit-details-marker {
+  display: none;
+}
+
+// .trigger::after {
+//   content: "";
+//   width: 0.5rem;
+//   height: 0.5rem;
+//   border-right: var(--tui-border-width-strong) solid currentColor;
+//   border-bottom: var(--tui-border-width-strong) solid currentColor;
+//   transform: rotate(45deg);
+//   transition: transform var(--tui-interaction-transition-fast, var(--tui-motion-fast)) var(--tui-motion-ease);
+// }
+
+// .root[open] .trigger::after {
+//   transform: rotate(225deg);
+// }
+
+.content {
+  padding-top: var(--tui-space-2);
+}

@@ -1,0 +1,14 @@
+.group {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: grid;
+  gap: var(--tui-space-3);
+}
+
+.orientation-horizontal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tui-space-4);
+}

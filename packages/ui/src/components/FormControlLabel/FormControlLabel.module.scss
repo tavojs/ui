@@ -1,0 +1,19 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tui-space-2);
+  color: var(--tui-color-text);
+  font-family: var(--tui-font-family-text, var(--tui-font-family));
+  font-size: var(--tui-font-size-body);
+  cursor: pointer;
+}
+
+.label {
+  line-height: 1.4;
+}
+.size-sm {
+  font-size: var(--tui-font-size-caption);
+}
+.size-lg {
+  font-size: 1.0625rem;
+}

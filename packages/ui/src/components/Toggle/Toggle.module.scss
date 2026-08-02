@@ -1,0 +1,60 @@
+.toggle {
+  --tui-toggle-height: var(--tui-size-md);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--tui-toggle-height);
+  min-height: var(--tui-toggle-height);
+  padding-inline: var(--tui-toggle-padding-inline, var(--tui-space-3));
+  border: var(--tui-toggle-border-width, var(--tui-border-width)) solid transparent;
+  border-radius: var(--tui-toggle-radius, var(--tui-radius-control));
+  background: transparent;
+  color: var(--tui-color-text);
+  cursor: pointer;
+  font-family: var(--tui-font-family-text, var(--tui-font-family));
+  font-size: var(--tui-font-size-body);
+  font-weight: normal;
+  line-height: 1;
+  text-decoration: none;
+  transition:
+    background var(--tui-interaction-transition-fast, var(--tui-motion-fast)) var(--tui-motion-ease),
+    color var(--tui-interaction-transition-fast, var(--tui-motion-fast)) var(--tui-motion-ease),
+    border-color var(--tui-interaction-transition-fast, var(--tui-motion-fast)) var(--tui-motion-ease);
+}
+
+.toggle:hover {
+  background: var(--tui-color-surface-subtle);
+}
+
+.toggle:focus-visible {
+  outline: var(--tui-focus-width) solid var(--tui-color-focus);
+  outline-offset: var(--tui-focus-offset);
+}
+
+.toggle:disabled,
+.toggle[aria-disabled="true"] {
+  pointer-events: none;
+  opacity: var(--tui-interaction-disabled-opacity, var(--tui-opacity-disabled));
+}
+
+.pressed {
+  background: var(--tui-color-primary-soft-bg);
+  color: var(--tui-color-primary-soft-text);
+}
+
+.variant-outline {
+  border-color: var(--tui-color-border);
+}
+
+.variant-ghost {
+  border-color: transparent;
+}
+
+.size-sm {
+  --tui-toggle-height: var(--tui-size-sm);
+}
+
+.size-lg {
+  --tui-toggle-height: var(--tui-size-lg);
+}

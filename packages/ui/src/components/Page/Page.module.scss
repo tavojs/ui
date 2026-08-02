@@ -1,0 +1,35 @@
+@use "theme/breakpoints" as bp;
+
+.page {
+  width: 100%;
+  min-height: 100dvh;
+  margin-inline: auto;
+  background: var(--tui-color-app-bg, transparent);
+  color: var(--tui-color-text);
+  max-width: var(--tui-page-max-width, 92rem);
+  padding: var(--tui-page-padding, var(--tui-space-6));
+
+  @include bp.tui-screen(sm) {
+    max-width: var(--tui-page-max-width-sm, var(--tui-page-max-width, 92rem));
+    padding: var(--tui-page-padding-sm, var(--tui-page-padding, var(--tui-space-6)));
+  }
+
+  @include bp.tui-screen(md) {
+    max-width: var(--tui-page-max-width-md, var(--tui-page-max-width-sm, var(--tui-page-max-width, 92rem)));
+    padding: var(--tui-page-padding-md, var(--tui-page-padding-sm, var(--tui-page-padding, var(--tui-space-6))));
+  }
+
+  @include bp.tui-screen(lg) {
+    max-width: var(--tui-page-max-width-lg, var(--tui-page-max-width-md, var(--tui-page-max-width-sm, var(--tui-page-max-width, 92rem))));
+    padding: var(--tui-page-padding-lg, var(--tui-page-padding-md, var(--tui-page-padding-sm, var(--tui-page-padding, var(--tui-space-6)))));
+  }
+}
+
+.size-sm { max-width: 48rem; }
+.size-md { max-width: 64rem; }
+.size-lg { max-width: 78rem; }
+.size-full { max-width: none; }
+
+.padding-none { padding: 0; }
+.padding-sm { padding: var(--tui-space-3); }
+.padding-md { padding: var(--tui-space-5); }

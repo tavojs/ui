@@ -1,0 +1,23 @@
+.avatar {
+  display: inline-grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 999px;
+  color: #1f2937;
+  font-family: var(--tui-font-family-text, var(--tui-font-family));
+  font-weight: normal;
+  width: var(--tui-size-md);
+  height: var(--tui-size-md);
+  font-size: 1rem;
+}
+
+.size-sm { width: var(--tui-size-sm); height: var(--tui-size-sm); font-size: 0.875rem; }
+.size-lg { width: var(--tui-size-lg); height: var(--tui-size-lg); font-size: 1.125rem; }
+
+.image {
+  aspect-ratio: 1;
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+.fallback { text-transform: uppercase; }

@@ -1,0 +1,47 @@
+@use "theme/breakpoints" as bp;
+
+.root {
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border: var(--tui-border-width) solid var(--tui-color-border);
+  border-radius: var(--tui-radius-surface);
+  background: var(--tui-color-surface);
+  flex-direction: row;
+}
+
+.direction-vertical {
+  flex-direction: column;
+}
+
+.panel {
+  min-width: 0;
+  min-height: 0;
+  flex: 1 1 0;
+  flex-basis: var(--tui-resizable-panel-basis, 0);
+  overflow: auto;
+  resize: both;
+
+  @include bp.tui-screen(sm) {
+    flex-basis: var(--tui-resizable-panel-basis-sm, var(--tui-resizable-panel-basis, 0));
+  }
+
+  @include bp.tui-screen(md) {
+    flex-basis: var(--tui-resizable-panel-basis-md, var(--tui-resizable-panel-basis-sm, var(--tui-resizable-panel-basis, 0)));
+  }
+
+  @include bp.tui-screen(lg) {
+    flex-basis: var(--tui-resizable-panel-basis-lg, var(--tui-resizable-panel-basis-md, var(--tui-resizable-panel-basis-sm, var(--tui-resizable-panel-basis, 0))));
+  }
+}
+
+.handle {
+  flex: 0 0 var(--tui-resizable-handle-size, 0.5rem);
+  background: var(--tui-color-border);
+  cursor: col-resize;
+}
+
+.direction-vertical .handle {
+  cursor: row-resize;
+}

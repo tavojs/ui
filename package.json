@@ -1,0 +1,43 @@
+{
+  "name": "tavo-ui-monorepo",
+  "private": true,
+  "description": "Public monorepo for the Tavo UI web packages.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tavojs/ui.git"
+  },
+  "homepage": "https://github.com/tavojs/ui#readme",
+  "bugs": {
+    "url": "https://github.com/tavojs/ui/issues"
+  },
+  "packageManager": "npm@11.4.1",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "workspaces": [
+    "packages/ui-core",
+    "packages/ui-cli",
+    "packages/ui"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace @tavojs/ui-core && npm run build --workspace @tavojs/ui-cli && npm run build --workspace @tavojs/ui",
+    "test": "npm run check:framework-contract && npm test --workspace @tavojs/ui-core && npm test --workspace @tavojs/ui-cli && npm test --workspace @tavojs/ui",
+    "typecheck": "npm run build --workspace @tavojs/ui-core && npm run typecheck --workspaces",
+    "format:check": "npm run format:check --workspaces --if-present",
+    "check:framework-contract": "node scripts/check-framework-contract.mjs",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release:manifest": "node scripts/check-web-release.mjs",
+    "release:audit": "npm audit --omit=dev",
+    "release:check": "npm run release:manifest && npm run release:audit && npm run check:framework-contract && npm test --workspace @tavojs/ui-core && npm test --workspace @tavojs/ui-cli && npm run release:check --workspace @tavojs/ui && npm run release:pack",
+    "release:pack": "npm pack --dry-run --workspace @tavojs/ui-core && npm pack --dry-run --workspace @tavojs/ui-cli && npm pack --dry-run --workspace @tavojs/ui",
+    "release:status": "changeset status",
+    "release": "npm run release:check && changeset publish",
+    "prepare": "npm run build"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.29.7",
+    "@tavojs/core": "^1.0.0"
+  }
+}

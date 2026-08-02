@@ -1,0 +1,141 @@
+import styles from "./Calendar.module.scss";
+import { cx, sxClassName, type BaseProps } from "@/components/shared";
+
+export type CalendarProps = BaseProps & {
+  year?: number;
+  month?: number;
+  selected?: string;
+  min?: string;
+  max?: string;
+  locale?: string;
+  onSelect?: (value: string) => void;
+};
+
+const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const monthDayCache = new Map<string, Array<CalendarDay | null>>();
+const monthTitleCache = new Map<string, string>();
+const monthFormatterCache = new Map<string, Intl.DateTimeFormat>();
+const MONTH_CACHE_LIMIT = 240;
+const FORMATTER_CACHE_LIMIT = 32;
+
+type CalendarDay = {
+  day: number;
+  value: string;
+};
+
+function readCache<K, V>(cache: Map<K, V>, key: K): V | undefined {
+  const value = cache.get(key);
+  if (value !== undefined) {
+    cache.delete(key);
+    cache.set(key, value);
+  }
+  return value;
+}
+
+function writeCache<K, V>(cache: Map<K, V>, key: K, value: V, limit: number): void {
+  if (cache.size >= limit) {
+    const oldest = cache.keys().next().value;
+    if (oldest !== undefined) {
+      cache.delete(oldest);
+    }
+  }
+  cache.set(key, value);
+}
+
+function toDateValue(date: Date): string {
+  return toDateValueParts(date.getFullYear(), date.getMonth(), date.getDate());
+}
+
+function resolveMonth(year: number | undefined, month: number | undefined, fallback: Date) {
+  const requestedYear = Number.isFinite(year) ? Math.trunc(year as number) : fallback.getFullYear();
+  const requestedMonth = Number.isFinite(month) ? Math.trunc(month as number) : fallback.getMonth();
+  const start = new Date(0);
+  start.setHours(0, 0, 0, 0);
+  start.setFullYear(requestedYear, requestedMonth, 1);
+  if (!Number.isFinite(start.getTime())) {
+    return { year: fallback.getFullYear(), month: fallback.getMonth() };
+  }
+  return { year: start.getFullYear(), month: start.getMonth() };
+}
+
+function toDateValueParts(year: number, month: number, day: number): string {
+  return `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+}
+
+function isDisabled(value: string, min?: string, max?: string): boolean {
+  return Boolean((min && value < min) || (max && value > max));
+}
+
+function getMonthDays(year: number, month: number): Array<CalendarDay | null> {
+  const key = `${year}:${month}`;
+  const cached = readCache(monthDayCache, key);
+  if (cached) {
+    return cached;
+  }
+
+  const first = new Date(year, month, 1);
+  const count = new Date(year, month + 1, 0).getDate();
+  const days: Array<CalendarDay | null> = Array.from({ length: first.getDay() }, () => null);
+  for (let day = 1; day <= count; day += 1) {
+    days.push({ day, value: toDateValueParts(year, month, day) });
+  }
+  while (days.length % 7 !== 0) {
+    days.push(null);
+  }
+
+  writeCache(monthDayCache, key, days, MONTH_CACHE_LIMIT);
+  return days;
+}
+
+function getMonthTitle(locale: string, year: number, month: number): string {
+  const key = `${locale}:${year}:${month}`;
+  const cached = readCache(monthTitleCache, key);
+  if (cached) {
+    return cached;
+  }
+
+  let formatter = readCache(monthFormatterCache, locale);
+  if (!formatter) {
+    formatter = new Intl.DateTimeFormat(locale, { month: "long", year: "numeric" });
+    writeCache(monthFormatterCache, locale, formatter, FORMATTER_CACHE_LIMIT);
+  }
+  const title = formatter.format(new Date(year, month, 1));
+  writeCache(monthTitleCache, key, title, MONTH_CACHE_LIMIT);
+  return title;
+}
+
+export function Calendar({ className = "", year, month, selected, min, max, locale = "en-US", onSelect, ...props }: CalendarProps) {
+  const now = new Date();
+  const { year: resolvedYear, month: resolvedMonth } = resolveMonth(year, month, now);
+  const title = getMonthTitle(locale, resolvedYear, resolvedMonth);
+  const today = toDateValue(now);
+  const days = getMonthDays(resolvedYear, resolvedMonth);
+
+  return (
+    <div className={sxClassName(props, cx(styles.root, className))} {...props}>
+      <h2 className={styles.title}>{title}</h2>
+      <div className={styles.grid} role="grid" aria-label={title}>
+        {weekDays.map((day) => <span className={styles.weekday}>{day}</span>)}
+        {days.map((date) => {
+          if (date === null) {
+            return <span className={styles.empty} aria-hidden="true" />;
+          }
+          const value = date.value;
+          const disabled = isDisabled(value, min, max);
+          return (
+            <button
+              type="button"
+              className={cx(styles.day, value === selected && styles.selected, value === today && styles.today)}
+              disabled={disabled}
+              aria-pressed={value === selected ? "true" : "false"}
+              data-value={value}
+              onClick={onSelect ? () => onSelect(value) : undefined}
+            >
+              {date.day}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}

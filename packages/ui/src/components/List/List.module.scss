@@ -1,0 +1,48 @@
+.list {
+  display: grid;
+  gap: var(--tui-space-2);
+  margin: 0;
+  padding-inline-start: 1.25rem;
+  font-family: var(--tui-font-family-text, var(--tui-font-family));
+  --marker-color: var(--tui-color-primary-bg);
+}
+
+.spacing-sm { gap: var(--tui-space-1); }
+.spacing-lg { gap: var(--tui-space-3); }
+
+.item {
+  padding-inline-start: var(--tui-space-1);
+}
+
+.item::marker {
+  color: var(--marker-color);
+  font-weight: normal;
+}
+
+.marker-secondary { --marker-color: var(--tui-color-secondary-bg); }
+.marker-neutral { --marker-color: var(--tui-color-text-muted); }
+.marker-success { --marker-color: var(--tui-color-success); }
+.marker-warning { --marker-color: var(--tui-color-warning); }
+.marker-danger { --marker-color: var(--tui-color-danger); }
+.marker-info { --marker-color: var(--tui-color-info); }
+
+.header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--tui-space-3);
+}
+
+.title {
+  color: var(--tui-color-text);
+}
+
+.meta {
+  color: var(--tui-color-text-muted);
+  font-size: var(--tui-font-size-caption);
+}
+
+.body {
+  color: var(--tui-color-text-muted);
+  line-height: 1.7;
+}

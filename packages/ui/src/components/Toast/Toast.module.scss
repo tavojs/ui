@@ -1,0 +1,60 @@
+.stack {
+  position: fixed;
+  right: var(--tui-space-5);
+  bottom: var(--tui-space-5);
+  z-index: 60;
+  display: grid;
+  gap: var(--tui-space-3);
+  width: min(24rem, calc(100vw - var(--tui-space-6)));
+}
+
+.toast {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: start;
+  gap: var(--tui-space-3);
+  padding: var(--tui-space-4);
+  border: var(--tui-border-width) solid var(--toast-border);
+  border-radius: var(--tui-radius-surface, var(--tui-radius-lg));
+  background: var(--tui-color-surface-raised);
+  color: var(--tui-color-text);
+  font-family: var(--tui-font-family-text, var(--tui-font-family));
+  box-shadow: var(--tui-shadow-lg);
+  --toast-color: var(--tui-color-info);
+  --toast-border: color-mix(in srgb, var(--tui-color-info) 28%, transparent);
+  -webkit-backdrop-filter: var(--tui-backdrop-filter, none);
+  backdrop-filter: var(--tui-backdrop-filter, none);
+}
+
+.content {
+  display: grid;
+  gap: 0.125rem;
+  min-width: 0;
+}
+
+.content strong {
+  color: var(--toast-color);
+}
+
+.content span {
+  color: var(--tui-color-text-muted);
+}
+
+.action {
+  display: flex;
+}
+
+.tone-success {
+  --toast-color: var(--tui-color-success);
+  --toast-border: color-mix(in srgb, var(--tui-color-success) 28%, transparent);
+}
+
+.tone-warning {
+  --toast-color: var(--tui-color-warning);
+  --toast-border: color-mix(in srgb, var(--tui-color-warning) 30%, transparent);
+}
+
+.tone-danger {
+  --toast-color: var(--tui-color-danger);
+  --toast-border: color-mix(in srgb, var(--tui-color-danger) 30%, transparent);
+}

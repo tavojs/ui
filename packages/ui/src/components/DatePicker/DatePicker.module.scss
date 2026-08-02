@@ -1,0 +1,11 @@
+.root {
+  width: 100%;
+}
+
+.root :global(summary) {
+  display: block;
+}
+
+.content {
+  padding: 0;
+}

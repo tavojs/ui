@@ -1,0 +1,20 @@
+.root:not(.focusable) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.focusable {
+  position: absolute;
+  z-index: 1000;
+  transform: translateY(-120%);
+}
+
+.focusable:focus,
+.focusable:focus-within {
+  transform: translateY(0);
+}

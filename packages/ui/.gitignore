@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+demo-dist/
+
+# Test and coverage output
+test-results/
+coverage/
+
+# Local history and editor files
+.history/
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.*
+!.env.example

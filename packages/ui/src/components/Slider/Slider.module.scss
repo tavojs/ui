@@ -1,0 +1,11 @@
+.slider {
+  width: 100%;
+  min-height: var(--tui-size-md);
+  accent-color: var(--tui-color-primary-bg);
+  cursor: pointer;
+}
+
+.slider:disabled {
+  cursor: not-allowed;
+  opacity: var(--tui-opacity-disabled);
+}

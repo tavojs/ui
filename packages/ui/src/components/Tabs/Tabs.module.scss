@@ -1,0 +1,39 @@
+.tabs {
+  display: grid;
+  gap: var(--tui-space-4);
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tui-space-3);
+  border-bottom: var(--tui-border-width) solid var(--tui-color-border);
+}
+
+.trigger {
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  color: var(--tui-color-text-muted);
+  cursor: pointer;
+  padding: 0 0 var(--tui-space-3);
+  font-family: var(--tui-font-family-text, var(--tui-font-family));
+  font-size: var(--tui-font-size-body);
+  font-weight: normal;
+}
+
+.active {
+  color: var(--tui-color-text);
+  border-color: var(--tui-color-secondary-bg);
+}
+
+.panel {
+}
+
+.indicator {
+  display: block;
+  width: 2rem;
+  height: 0.1875rem;
+  border-radius: 999px;
+  background: var(--tui-color-secondary-bg);
+}

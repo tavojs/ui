@@ -1,0 +1,287 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tavojs.dev/schemas/tavo-ui.schema.json",
+  "title": "Tavo UI theme config",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["color"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "preset": {
+      "description": "Optional starter preset merged before explicit config values.",
+      "enum": ["minimal", "glass", "enterprise", "editorial", "dense", "mobile", "monochrome"]
+    },
+    "defaultTheme": {
+      "description": "Initial theme mode used by generated CSS and runtime helpers. Use system to follow prefers-color-scheme until the app stores a user choice.",
+      "enum": ["light", "dark", "system"]
+    },
+    "color": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["light"],
+      "properties": {
+        "light": { "$ref": "#/$defs/colorPair" },
+        "dark": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "primary": { "$ref": "#/$defs/hex" },
+            "secondary": { "$ref": "#/$defs/hex" }
+          }
+        },
+        "method": {
+          "description": "Palette generation strategy. analogous is shade-driven and uses generated shades for background, surface, border, and action tokens. monochromatic is canvas-driven: light mode uses a strict white canvas, dark mode uses a strict black canvas, color-primary-bg and color-secondary-bg stay equal to the configured colors, and shade 50/950 are forced to #ffffff/#000000. glass keeps shade-driven action colors but makes surfaces and borders translucent with a shared backdrop-filter token.",
+          "enum": ["analogous", "monochromatic", "glass"]
+        },
+        "fixShade": {
+          "description": "When true, generates interior shades from shade 500 so the source color controls the middle of the ramp. When false, places the source color at its nearest lightness shade.",
+          "type": "boolean"
+        }
+      }
+    },
+    "semantic": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "success": { "$ref": "#/$defs/hex" },
+        "warning": { "$ref": "#/$defs/hex" },
+        "danger": { "$ref": "#/$defs/hex" },
+        "info": { "$ref": "#/$defs/hex" },
+        "light": { "$ref": "#/$defs/semanticSet" },
+        "dark": { "$ref": "#/$defs/semanticSet" }
+      }
+    },
+    "scale": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "description": "Single base unit in pixels used to derive spacing, control sizes, radii, typography, focus width, and blur unless those values are explicitly configured.",
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "controlHeight": { "type": "number", "exclusiveMinimum": 0 },
+        "spacing": { "type": "number", "exclusiveMinimum": 0 },
+        "radius": { "type": "number", "minimum": 0 },
+        "shadow": {
+          "description": "Shadow intensity multiplier. Use 0 to remove theme shadows, values below 1 for quieter shadows, and values above 1 for stronger elevation.",
+          "type": "number",
+          "minimum": 0
+        },
+        "border": {
+          "description": "Border width multiplier in pixels. Use 0 to remove token-driven borders, fractional values for hairline borders, and values above 1 for stronger outlines.",
+          "type": "number",
+          "minimum": 0
+        },
+        "density": {
+          "description": "Global density scale for generated spacing and control sizes.",
+          "enum": ["compact", "comfortable", "spacious"]
+        },
+        "focus": {
+          "description": "Focus ring width in pixels.",
+          "type": "number",
+          "minimum": 0
+        },
+        "motion": {
+          "description": "Motion duration multiplier. Use 0 for instant transitions.",
+          "type": "number",
+          "minimum": 0
+        },
+        "opacity": {
+          "description": "Disabled opacity as a 0-1 ratio.",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "blur": {
+          "description": "Glass surface blur amount in pixels.",
+          "type": "number",
+          "minimum": 0
+        },
+        "glassAlpha": {
+          "description": "Glass chrome background opacity as a 0-1 ratio. Lower values reveal more backdrop color through AppBar and similar translucent chrome surfaces.",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "controlRadius": {
+          "description": "Radius in pixels for buttons, inputs, chips, and controls.",
+          "type": "number",
+          "minimum": 0
+        },
+        "surfaceRadius": {
+          "description": "Radius in pixels for cards, panels, dialogs, and surfaces.",
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "typography": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "fontFamily": { "type": "string" },
+        "textFontFamily": {
+          "description": "Font stack for body copy, labels, controls, and normal text. Falls back to fontFamily.",
+          "type": "string"
+        },
+        "headingFontFamily": {
+          "description": "Font stack for h1-h6 text and title-like component labels. Falls back to fontFamily.",
+          "type": "string"
+        },
+        "bodySize": { "type": "number", "exclusiveMinimum": 0 },
+        "captionSize": { "type": "number", "exclusiveMinimum": 0 },
+        "labelSize": { "type": "number", "exclusiveMinimum": 0 },
+        "headingScale": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    },
+    "interaction": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "hoverLift": {
+          "description": "Vertical hover lift in pixels for interactive controls.",
+          "type": "number",
+          "minimum": 0
+        },
+        "hoverShadow": {
+          "description": "Opacity for hover shadow emphasis as a 0-1 ratio.",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "activeScale": {
+          "description": "Scale used by pressed interactive controls.",
+          "type": "number",
+          "minimum": 0
+        },
+        "focusAlpha": {
+          "description": "Alpha used when rendering focus rings from the focus color.",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "disabledOpacity": {
+          "description": "Opacity for disabled interactive components.",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "transition": {
+          "description": "Transition duration multiplier for interactive components.",
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "viewport": {
+      "description": "Viewport-aware root font-size scale. Because generated component dimensions use rem tokens, this scales spacing, controls, radii, and type rhythm across screen sizes.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "rootMin": {
+          "description": "Minimum root font size in pixels.",
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "rootMax": {
+          "description": "Maximum root font size in pixels.",
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "minWidth": {
+          "description": "Viewport width in pixels where rootMin is reached.",
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "maxWidth": {
+          "description": "Viewport width in pixels where rootMax is reached.",
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "breakpoints": {
+      "description": "Mobile-first min-width breakpoints used by responsive component props and shared SCSS helpers.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sm": {
+          "description": "Small screen min-width in pixels.",
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "md": {
+          "description": "Medium screen min-width in pixels.",
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "lg": {
+          "description": "Large screen min-width in pixels.",
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "selector": { "type": "string" },
+        "darkSelector": { "type": "string" },
+        "includeMediaQuery": { "type": "boolean" }
+      }
+    },
+    "accessibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "contrast": {
+          "enum": ["AA", "AAA"]
+        },
+        "failOnViolation": { "type": "boolean" }
+      }
+    },
+    "tokens": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "light": { "$ref": "#/$defs/tokenMap" },
+        "dark": { "$ref": "#/$defs/tokenMap" }
+      }
+    }
+  },
+  "$defs": {
+    "hex": {
+      "type": "string",
+      "pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$"
+    },
+    "colorPair": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["primary"],
+      "properties": {
+        "primary": { "$ref": "#/$defs/hex" },
+        "secondary": { "$ref": "#/$defs/hex" }
+      }
+    },
+    "semanticSet": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "success": { "$ref": "#/$defs/hex" },
+        "warning": { "$ref": "#/$defs/hex" },
+        "danger": { "$ref": "#/$defs/hex" },
+        "info": { "$ref": "#/$defs/hex" }
+      }
+    },
+    "tokenMap": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

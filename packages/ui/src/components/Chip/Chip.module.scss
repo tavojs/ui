@@ -1,0 +1,98 @@
+.chip {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  border: var(--tui-border-width) solid transparent;
+  border-radius: 999px;
+  font-family: var(--tui-font-family-text, var(--tui-font-family));
+  font-weight: normal;
+  line-height: 1;
+  white-space: nowrap;
+  min-height: 2rem;
+  gap: var(--tui-space-2);
+  padding-inline: var(--tui-space-3);
+  background: var(--tui-color-surface-subtle);
+  color: var(--tui-color-text-muted);
+  font-size: var(--tui-font-size-label);
+}
+
+.size-sm {
+  min-height: 1.625rem;
+  gap: var(--tui-space-1);
+  padding-inline: var(--tui-space-2);
+  font-size: var(--tui-font-size-caption);
+}
+
+.size-lg {
+  min-height: 2.5rem;
+  gap: var(--tui-space-2);
+  padding-inline: var(--tui-space-4);
+}
+
+.label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.leading {
+  display: inline-flex;
+  flex: 0 0 auto;
+}
+
+.remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-inline-end: -0.25rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: currentColor;
+  cursor: pointer;
+  font-family: var(--tui-font-family-text, var(--tui-font-family));
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: 1;
+  opacity: 0.72;
+}
+
+.remove:hover {
+  background: color-mix(in srgb, currentColor 12%, transparent);
+  opacity: 1;
+}
+
+.tone-primary {
+  background: var(--tui-color-primary-soft-bg);
+  color: var(--tui-color-primary-soft-text);
+}
+
+.tone-secondary {
+  background: var(--tui-color-secondary-soft-bg);
+  color: var(--tui-color-secondary-soft-text);
+}
+
+.tone-success {
+  background: color-mix(in srgb, var(--tui-color-success) 16%, transparent);
+  color: var(--tui-color-success);
+}
+
+.tone-warning {
+  background: color-mix(in srgb, var(--tui-color-warning) 18%, transparent);
+  color: var(--tui-color-warning);
+}
+
+.tone-danger {
+  background: color-mix(in srgb, var(--tui-color-danger) 16%, transparent);
+  color: var(--tui-color-danger);
+}
+
+.tone-info {
+  background: color-mix(in srgb, var(--tui-color-info) 16%, transparent);
+  color: var(--tui-color-info);
+}
+
+.selected {
+  border-color: currentColor;
+}

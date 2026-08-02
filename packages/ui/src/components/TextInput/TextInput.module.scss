@@ -1,0 +1,33 @@
+.input {
+  width: 100%;
+  min-height: var(--tui-size-md);
+  border: var(--tui-input-border-width, var(--tui-border-width)) solid var(--tui-input-border-color, var(--tui-color-border));
+  border-radius: var(--tui-input-radius, var(--tui-radius-control, var(--tui-radius-md)));
+  background: var(--tui-input-bg, var(--tui-color-surface-raised));
+  color: var(--tui-input-color, var(--tui-color-text));
+  padding-inline: var(--tui-input-padding-inline, var(--tui-space-3));
+  font-family: var(--tui-font-family-text, var(--tui-font-family));
+  font-size: var(--tui-font-size-body);
+}
+
+.input::placeholder {
+  color: var(--tui-color-text-muted);
+}
+
+.input:focus {
+  border-color: var(--tui-input-focus-border-color, var(--tui-color-focus));
+  outline: var(--tui-focus-width) solid color-mix(in srgb, var(--tui-color-focus) calc(var(--tui-interaction-focus-alpha, 0.28) * 100%), transparent);
+  outline-offset: var(--tui-focus-offset);
+}
+
+.input[aria-invalid="true"] {
+  border-color: var(--tui-color-danger);
+}
+
+.size-sm {
+  min-height: var(--tui-size-sm);
+}
+
+.size-lg {
+  min-height: var(--tui-size-lg);
+}

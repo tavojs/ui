@@ -1,0 +1,35 @@
+@use "theme/breakpoints" as bp;
+
+.root {
+  position: relative;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  border-radius: inherit;
+  aspect-ratio: var(--tui-aspect-ratio, 16/9);
+
+  @include bp.tui-screen(sm) {
+    aspect-ratio: var(--tui-aspect-ratio-sm, var(--tui-aspect-ratio, 16/9));
+  }
+
+  @include bp.tui-screen(md) {
+    aspect-ratio: var(--tui-aspect-ratio-md, var(--tui-aspect-ratio-sm, var(--tui-aspect-ratio, 16/9)));
+  }
+
+  @include bp.tui-screen(lg) {
+    aspect-ratio: var(--tui-aspect-ratio-lg, var(--tui-aspect-ratio-md, var(--tui-aspect-ratio-sm, var(--tui-aspect-ratio, 16/9))));
+  }
+}
+
+.root > :global(*) {
+  width: 100%;
+  height: 100%;
+}
+
+.root :global(img),
+.root :global(video),
+.root :global(canvas),
+.root :global(iframe) {
+  display: block;
+  object-fit: cover;
+}

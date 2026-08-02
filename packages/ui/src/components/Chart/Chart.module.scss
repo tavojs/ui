@@ -1,0 +1,44 @@
+.root {
+  display: grid;
+  gap: var(--tui-space-2);
+  color: var(--tui-color-text);
+  font-family: var(--tui-font-family-text, var(--tui-font-family));
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(4rem, max-content) minmax(5rem, 1fr) max-content;
+  align-items: center;
+  gap: var(--tui-space-2);
+}
+
+.label {
+  min-width: 0;
+  font-size: var(--tui-font-size-caption);
+}
+
+.value {
+  color: var(--tui-color-text-muted);
+  font-size: var(--tui-font-size-caption);
+}
+
+.track {
+  height: 0.65rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--tui-color-surface-subtle);
+}
+
+.bar {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--tui-color-primary-bg);
+}
+
+.tone-secondary { background: var(--tui-color-secondary-bg); }
+.tone-neutral { background: var(--tui-color-neutral-text); }
+.tone-success { background: var(--tui-color-success); }
+.tone-warning { background: var(--tui-color-warning); }
+.tone-danger { background: var(--tui-color-danger); }
+.tone-info { background: var(--tui-color-info); }

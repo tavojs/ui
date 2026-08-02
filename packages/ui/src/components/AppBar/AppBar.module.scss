@@ -1,0 +1,56 @@
+@use "theme/breakpoints" as bp;
+
+.appBar {
+  width: 100%;
+  display: flex;
+  flex-direction: var(--tui-flex-direction, row);
+  align-items: var(--tui-flex-align, center);
+  justify-content: var(--tui-flex-justify, initial);
+  gap: var(--tui-flex-gap, var(--tui-space-4));
+  padding: var(--tui-space-2) var(--tui-space-4);
+  border: var(--tui-border-width) solid
+    var(--tui-appbar-border-color, color-mix(in srgb, var(--tui-color-border) var(--tui-appbar-border-alpha, 78%), transparent));
+  background: var(
+    --tui-appbar-bg,
+    color-mix(in srgb, var(--tui-color-surface) var(--tui-appbar-bg-alpha, var(--tui-glass-chrome-alpha, 62%)), transparent)
+  );
+  -webkit-backdrop-filter: var(--tui-backdrop-filter, blur(var(--tui-blur-surface, 22px)) saturate(1.35));
+  backdrop-filter: var(--tui-backdrop-filter, blur(var(--tui-blur-surface, 22px)) saturate(1.35));
+  box-shadow: var(--tui-shadow-md);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+
+  @include bp.tui-screen(sm) {
+    flex-direction: var(--tui-flex-direction-sm, var(--tui-flex-direction, row));
+    align-items: var(--tui-flex-align-sm, var(--tui-flex-align, center));
+    justify-content: var(--tui-flex-justify-sm, var(--tui-flex-justify, initial));
+    gap: var(--tui-flex-gap-sm, var(--tui-flex-gap, var(--tui-space-4)));
+  }
+
+  @include bp.tui-screen(md) {
+    flex-direction: var(--tui-flex-direction-md, var(--tui-flex-direction-sm, var(--tui-flex-direction, row)));
+    align-items: var(--tui-flex-align-md, var(--tui-flex-align-sm, var(--tui-flex-align, center)));
+    justify-content: var(--tui-flex-justify-md, var(--tui-flex-justify-sm, var(--tui-flex-justify, initial)));
+    gap: var(--tui-flex-gap-md, var(--tui-flex-gap-sm, var(--tui-flex-gap, var(--tui-space-4))));
+  }
+
+  @include bp.tui-screen(lg) {
+    flex-direction: var(--tui-flex-direction-lg, var(--tui-flex-direction-md, var(--tui-flex-direction-sm, var(--tui-flex-direction, row))));
+    align-items: var(--tui-flex-align-lg, var(--tui-flex-align-md, var(--tui-flex-align-sm, var(--tui-flex-align, center))));
+    justify-content: var(--tui-flex-justify-lg, var(--tui-flex-justify-md, var(--tui-flex-justify-sm, var(--tui-flex-justify, initial))));
+    gap: var(--tui-flex-gap-lg, var(--tui-flex-gap-md, var(--tui-flex-gap-sm, var(--tui-flex-gap, var(--tui-space-4)))));
+  }
+}
+
+.position-static {
+  position: static;
+}
+.position-relative {
+  position: relative;
+}
+.position-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+}

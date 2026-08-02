@@ -1,0 +1,32 @@
+.root {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border: var(--tui-border-width) solid var(--tui-color-border);
+  border-radius: var(--tui-radius-control);
+  background: var(--tui-color-surface);
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tui-size-sm);
+  padding-inline: var(--tui-space-3);
+  border: 0;
+  border-radius: var(--tui-radius-control);
+  background: transparent;
+  color: var(--tui-color-text);
+  font-family: var(--tui-font-family-text, var(--tui-font-family));
+  text-decoration: none;
+}
+
+.item:hover,
+.current {
+  background: var(--tui-color-surface-subtle);
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: var(--tui-interaction-disabled-opacity, var(--tui-opacity-disabled));
+}

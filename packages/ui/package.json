@@ -1,0 +1,985 @@
+{
+  "name": "@tavojs/ui",
+  "version": "1.0.0",
+  "description": "A Tavo-native UI library with colocated TSX and SCSS modules plus theme generation tooling.",
+  "type": "module",
+  "author": "Tavo contributors",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tavojs/ui.git",
+    "directory": "packages/ui"
+  },
+  "homepage": "https://tavojs.dev/docs/ui",
+  "bugs": {
+    "url": "https://github.com/tavojs/ui/issues"
+  },
+  "keywords": [
+    "tavo",
+    "ui",
+    "components",
+    "design-system",
+    "tsx",
+    "typescript",
+    "jsx",
+    "scss",
+    "theme",
+    "accessibility"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "docs",
+    "schema.json",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "sideEffects": [
+    "**/*.css",
+    "**/*.scss"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "browser": "./dist/browser/index.js",
+      "import": "./dist/index.js"
+    },
+    "./cli": {
+      "types": "./dist/cli/index.d.ts",
+      "import": "./dist/cli/index.js"
+    },
+    "./css": {
+      "types": "./dist/css/index.d.ts",
+      "browser": "./dist/browser/index.js",
+      "import": "./dist/css/index.js"
+    },
+    "./css/layout": {
+      "types": "./dist/css/groups/layout.d.ts",
+      "browser": "./dist/browser/groups/layout.js",
+      "import": "./dist/css/groups/layout.js"
+    },
+    "./css/forms": {
+      "types": "./dist/css/groups/forms.d.ts",
+      "browser": "./dist/browser/groups/forms.js",
+      "import": "./dist/css/groups/forms.js"
+    },
+    "./css/data": {
+      "types": "./dist/css/groups/data.d.ts",
+      "browser": "./dist/browser/groups/data.js",
+      "import": "./dist/css/groups/data.js"
+    },
+    "./css/feedback": {
+      "types": "./dist/css/groups/feedback.d.ts",
+      "browser": "./dist/browser/groups/feedback.js",
+      "import": "./dist/css/groups/feedback.js"
+    },
+    "./css/navigation": {
+      "types": "./dist/css/groups/navigation.d.ts",
+      "browser": "./dist/browser/groups/navigation.js",
+      "import": "./dist/css/groups/navigation.js"
+    },
+    "./css/metadata": {
+      "types": "./dist/css/metadata.d.ts",
+      "import": "./dist/css/metadata.js"
+    },
+    "./css/theme": {
+      "types": "./dist/css/theme/index.d.ts",
+      "import": "./dist/css/theme/index.js"
+    },
+    "./css/a11y": {
+      "types": "./dist/css/a11y/index.d.ts",
+      "import": "./dist/css/a11y/index.js"
+    },
+    "./theme": {
+      "types": "./dist/theme/index.d.ts",
+      "import": "./dist/theme/index.js"
+    },
+    "./theme/breakpoints": "./dist/theme/breakpoints.scss",
+    "./theme/breakpoints.scss": "./dist/theme/breakpoints.scss",
+    "./a11y": {
+      "types": "./dist/a11y/index.d.ts",
+      "import": "./dist/a11y/index.js"
+    },
+    "./theme.css": "./dist/theme.css",
+    "./components.css": "./dist/components.css",
+    "./metadata": {
+      "types": "./dist/metadata.d.ts",
+      "import": "./dist/metadata.js"
+    },
+    "./plugin": {
+      "types": "./dist/plugin.d.ts",
+      "import": "./dist/plugin.js"
+    },
+    "./layout": {
+      "types": "./dist/groups/layout.d.ts",
+      "browser": "./dist/browser/groups/layout.js",
+      "import": "./dist/groups/layout.js"
+    },
+    "./forms": {
+      "types": "./dist/groups/forms.d.ts",
+      "browser": "./dist/browser/groups/forms.js",
+      "import": "./dist/groups/forms.js"
+    },
+    "./data": {
+      "types": "./dist/groups/data.d.ts",
+      "browser": "./dist/browser/groups/data.js",
+      "import": "./dist/groups/data.js"
+    },
+    "./feedback": {
+      "types": "./dist/groups/feedback.d.ts",
+      "browser": "./dist/browser/groups/feedback.js",
+      "import": "./dist/groups/feedback.js"
+    },
+    "./navigation": {
+      "types": "./dist/groups/navigation.d.ts",
+      "browser": "./dist/browser/groups/navigation.js",
+      "import": "./dist/groups/navigation.js"
+    },
+    "./alert": {
+      "types": "./dist/components/Alert/index.d.ts",
+      "browser": "./dist/browser/components/Alert/index.js",
+      "import": "./dist/components/Alert/index.js"
+    },
+    "./css/alert": {
+      "types": "./dist/css/components/Alert/index.d.ts",
+      "browser": "./dist/browser/components/Alert/index.js",
+      "import": "./dist/css/components/Alert/index.js"
+    },
+    "./app-bar": {
+      "types": "./dist/components/AppBar/index.d.ts",
+      "browser": "./dist/browser/components/AppBar/index.js",
+      "import": "./dist/components/AppBar/index.js"
+    },
+    "./css/app-bar": {
+      "types": "./dist/css/components/AppBar/index.d.ts",
+      "browser": "./dist/browser/components/AppBar/index.js",
+      "import": "./dist/css/components/AppBar/index.js"
+    },
+    "./aspect-ratio": {
+      "types": "./dist/components/AspectRatio/index.d.ts",
+      "browser": "./dist/browser/components/AspectRatio/index.js",
+      "import": "./dist/components/AspectRatio/index.js"
+    },
+    "./css/aspect-ratio": {
+      "types": "./dist/css/components/AspectRatio/index.d.ts",
+      "browser": "./dist/browser/components/AspectRatio/index.js",
+      "import": "./dist/css/components/AspectRatio/index.js"
+    },
+    "./avatar": {
+      "types": "./dist/components/Avatar/index.d.ts",
+      "browser": "./dist/browser/components/Avatar/index.js",
+      "import": "./dist/components/Avatar/index.js"
+    },
+    "./css/avatar": {
+      "types": "./dist/css/components/Avatar/index.d.ts",
+      "browser": "./dist/browser/components/Avatar/index.js",
+      "import": "./dist/css/components/Avatar/index.js"
+    },
+    "./box": {
+      "types": "./dist/components/Box/index.d.ts",
+      "browser": "./dist/browser/components/Box/index.js",
+      "import": "./dist/components/Box/index.js"
+    },
+    "./css/box": {
+      "types": "./dist/css/components/Box/index.d.ts",
+      "browser": "./dist/browser/components/Box/index.js",
+      "import": "./dist/css/components/Box/index.js"
+    },
+    "./breadcrumbs": {
+      "types": "./dist/components/Breadcrumbs/index.d.ts",
+      "browser": "./dist/browser/components/Breadcrumbs/index.js",
+      "import": "./dist/components/Breadcrumbs/index.js"
+    },
+    "./css/breadcrumbs": {
+      "types": "./dist/css/components/Breadcrumbs/index.d.ts",
+      "browser": "./dist/browser/components/Breadcrumbs/index.js",
+      "import": "./dist/css/components/Breadcrumbs/index.js"
+    },
+    "./button": {
+      "types": "./dist/components/Button/index.d.ts",
+      "browser": "./dist/browser/components/Button/index.js",
+      "import": "./dist/components/Button/index.js"
+    },
+    "./css/button": {
+      "types": "./dist/css/components/Button/index.d.ts",
+      "browser": "./dist/browser/components/Button/index.js",
+      "import": "./dist/css/components/Button/index.js"
+    },
+    "./button-group": {
+      "types": "./dist/components/ButtonGroup/index.d.ts",
+      "browser": "./dist/browser/components/ButtonGroup/index.js",
+      "import": "./dist/components/ButtonGroup/index.js"
+    },
+    "./css/button-group": {
+      "types": "./dist/css/components/ButtonGroup/index.d.ts",
+      "browser": "./dist/browser/components/ButtonGroup/index.js",
+      "import": "./dist/css/components/ButtonGroup/index.js"
+    },
+    "./calendar": {
+      "types": "./dist/components/Calendar/index.d.ts",
+      "browser": "./dist/browser/components/Calendar/index.js",
+      "import": "./dist/components/Calendar/index.js"
+    },
+    "./css/calendar": {
+      "types": "./dist/css/components/Calendar/index.d.ts",
+      "browser": "./dist/browser/components/Calendar/index.js",
+      "import": "./dist/css/components/Calendar/index.js"
+    },
+    "./card": {
+      "types": "./dist/components/Card/index.d.ts",
+      "browser": "./dist/browser/components/Card/index.js",
+      "import": "./dist/components/Card/index.js"
+    },
+    "./css/card": {
+      "types": "./dist/css/components/Card/index.d.ts",
+      "browser": "./dist/browser/components/Card/index.js",
+      "import": "./dist/css/components/Card/index.js"
+    },
+    "./chart": {
+      "types": "./dist/components/Chart/index.d.ts",
+      "browser": "./dist/browser/components/Chart/index.js",
+      "import": "./dist/components/Chart/index.js"
+    },
+    "./css/chart": {
+      "types": "./dist/css/components/Chart/index.d.ts",
+      "browser": "./dist/browser/components/Chart/index.js",
+      "import": "./dist/css/components/Chart/index.js"
+    },
+    "./checkbox": {
+      "types": "./dist/components/Checkbox/index.d.ts",
+      "browser": "./dist/browser/components/Checkbox/index.js",
+      "import": "./dist/components/Checkbox/index.js"
+    },
+    "./css/checkbox": {
+      "types": "./dist/css/components/Checkbox/index.d.ts",
+      "browser": "./dist/browser/components/Checkbox/index.js",
+      "import": "./dist/css/components/Checkbox/index.js"
+    },
+    "./chip": {
+      "types": "./dist/components/Chip/index.d.ts",
+      "browser": "./dist/browser/components/Chip/index.js",
+      "import": "./dist/components/Chip/index.js"
+    },
+    "./css/chip": {
+      "types": "./dist/css/components/Chip/index.d.ts",
+      "browser": "./dist/browser/components/Chip/index.js",
+      "import": "./dist/css/components/Chip/index.js"
+    },
+    "./code-block": {
+      "types": "./dist/components/CodeBlock/index.d.ts",
+      "browser": "./dist/browser/components/CodeBlock/index.js",
+      "import": "./dist/components/CodeBlock/index.js"
+    },
+    "./css/code-block": {
+      "types": "./dist/css/components/CodeBlock/index.d.ts",
+      "browser": "./dist/browser/components/CodeBlock/index.js",
+      "import": "./dist/css/components/CodeBlock/index.js"
+    },
+    "./collapsible": {
+      "types": "./dist/components/Collapsible/index.d.ts",
+      "browser": "./dist/browser/components/Collapsible/index.js",
+      "import": "./dist/components/Collapsible/index.js"
+    },
+    "./css/collapsible": {
+      "types": "./dist/css/components/Collapsible/index.d.ts",
+      "browser": "./dist/browser/components/Collapsible/index.js",
+      "import": "./dist/css/components/Collapsible/index.js"
+    },
+    "./combobox": {
+      "types": "./dist/components/Combobox/index.d.ts",
+      "browser": "./dist/browser/components/Combobox/index.js",
+      "import": "./dist/components/Combobox/index.js"
+    },
+    "./css/combobox": {
+      "types": "./dist/css/components/Combobox/index.d.ts",
+      "browser": "./dist/browser/components/Combobox/index.js",
+      "import": "./dist/css/components/Combobox/index.js"
+    },
+    "./command-menu": {
+      "types": "./dist/components/CommandMenu/index.d.ts",
+      "browser": "./dist/browser/components/CommandMenu/index.js",
+      "import": "./dist/components/CommandMenu/index.js"
+    },
+    "./css/command-menu": {
+      "types": "./dist/css/components/CommandMenu/index.d.ts",
+      "browser": "./dist/browser/components/CommandMenu/index.js",
+      "import": "./dist/css/components/CommandMenu/index.js"
+    },
+    "./confirm-dialog": {
+      "types": "./dist/components/ConfirmDialog/index.d.ts",
+      "browser": "./dist/browser/components/ConfirmDialog/index.js",
+      "import": "./dist/components/ConfirmDialog/index.js"
+    },
+    "./css/confirm-dialog": {
+      "types": "./dist/css/components/ConfirmDialog/index.d.ts",
+      "browser": "./dist/browser/components/ConfirmDialog/index.js",
+      "import": "./dist/css/components/ConfirmDialog/index.js"
+    },
+    "./date-picker": {
+      "types": "./dist/components/DatePicker/index.d.ts",
+      "browser": "./dist/browser/components/DatePicker/index.js",
+      "import": "./dist/components/DatePicker/index.js"
+    },
+    "./css/date-picker": {
+      "types": "./dist/css/components/DatePicker/index.d.ts",
+      "browser": "./dist/browser/components/DatePicker/index.js",
+      "import": "./dist/css/components/DatePicker/index.js"
+    },
+    "./dialog": {
+      "types": "./dist/components/Dialog/index.d.ts",
+      "browser": "./dist/browser/components/Dialog/index.js",
+      "import": "./dist/components/Dialog/index.js"
+    },
+    "./css/dialog": {
+      "types": "./dist/css/components/Dialog/index.d.ts",
+      "browser": "./dist/browser/components/Dialog/index.js",
+      "import": "./dist/css/components/Dialog/index.js"
+    },
+    "./divider": {
+      "types": "./dist/components/Divider/index.d.ts",
+      "browser": "./dist/browser/components/Divider/index.js",
+      "import": "./dist/components/Divider/index.js"
+    },
+    "./css/divider": {
+      "types": "./dist/css/components/Divider/index.d.ts",
+      "browser": "./dist/browser/components/Divider/index.js",
+      "import": "./dist/css/components/Divider/index.js"
+    },
+    "./dropdown-menu": {
+      "types": "./dist/components/DropdownMenu/index.d.ts",
+      "browser": "./dist/browser/components/DropdownMenu/index.js",
+      "import": "./dist/components/DropdownMenu/index.js"
+    },
+    "./css/dropdown-menu": {
+      "types": "./dist/css/components/DropdownMenu/index.d.ts",
+      "browser": "./dist/browser/components/DropdownMenu/index.js",
+      "import": "./dist/css/components/DropdownMenu/index.js"
+    },
+    "./empty-state": {
+      "types": "./dist/components/EmptyState/index.d.ts",
+      "browser": "./dist/browser/components/EmptyState/index.js",
+      "import": "./dist/components/EmptyState/index.js"
+    },
+    "./css/empty-state": {
+      "types": "./dist/css/components/EmptyState/index.d.ts",
+      "browser": "./dist/browser/components/EmptyState/index.js",
+      "import": "./dist/css/components/EmptyState/index.js"
+    },
+    "./field": {
+      "types": "./dist/components/Field/index.d.ts",
+      "browser": "./dist/browser/components/Field/index.js",
+      "import": "./dist/components/Field/index.js"
+    },
+    "./css/field": {
+      "types": "./dist/css/components/Field/index.d.ts",
+      "browser": "./dist/browser/components/Field/index.js",
+      "import": "./dist/css/components/Field/index.js"
+    },
+    "./flex": {
+      "types": "./dist/components/Flex/index.d.ts",
+      "browser": "./dist/browser/components/Flex/index.js",
+      "import": "./dist/components/Flex/index.js"
+    },
+    "./css/flex": {
+      "types": "./dist/css/components/Flex/index.d.ts",
+      "browser": "./dist/browser/components/Flex/index.js",
+      "import": "./dist/css/components/Flex/index.js"
+    },
+    "./focus-trap": {
+      "types": "./dist/components/FocusTrap/index.d.ts",
+      "browser": "./dist/browser/components/FocusTrap/index.js",
+      "import": "./dist/components/FocusTrap/index.js"
+    },
+    "./css/focus-trap": {
+      "types": "./dist/css/components/FocusTrap/index.d.ts",
+      "browser": "./dist/browser/components/FocusTrap/index.js",
+      "import": "./dist/css/components/FocusTrap/index.js"
+    },
+    "./form-control": {
+      "types": "./dist/components/FormControl/index.d.ts",
+      "browser": "./dist/browser/components/FormControl/index.js",
+      "import": "./dist/components/FormControl/index.js"
+    },
+    "./css/form-control": {
+      "types": "./dist/css/components/FormControl/index.d.ts",
+      "browser": "./dist/browser/components/FormControl/index.js",
+      "import": "./dist/css/components/FormControl/index.js"
+    },
+    "./form-control-label": {
+      "types": "./dist/components/FormControlLabel/index.d.ts",
+      "browser": "./dist/browser/components/FormControlLabel/index.js",
+      "import": "./dist/components/FormControlLabel/index.js"
+    },
+    "./css/form-control-label": {
+      "types": "./dist/css/components/FormControlLabel/index.d.ts",
+      "browser": "./dist/browser/components/FormControlLabel/index.js",
+      "import": "./dist/css/components/FormControlLabel/index.js"
+    },
+    "./form-label": {
+      "types": "./dist/components/FormLabel/index.d.ts",
+      "browser": "./dist/browser/components/FormLabel/index.js",
+      "import": "./dist/components/FormLabel/index.js"
+    },
+    "./css/form-label": {
+      "types": "./dist/css/components/FormLabel/index.d.ts",
+      "browser": "./dist/browser/components/FormLabel/index.js",
+      "import": "./dist/css/components/FormLabel/index.js"
+    },
+    "./grid": {
+      "types": "./dist/components/Grid/index.d.ts",
+      "browser": "./dist/browser/components/Grid/index.js",
+      "import": "./dist/components/Grid/index.js"
+    },
+    "./css/grid": {
+      "types": "./dist/css/components/Grid/index.d.ts",
+      "browser": "./dist/browser/components/Grid/index.js",
+      "import": "./dist/css/components/Grid/index.js"
+    },
+    "./grid-ruler": {
+      "types": "./dist/components/GridRuler/index.d.ts",
+      "browser": "./dist/browser/components/GridRuler/index.js",
+      "import": "./dist/components/GridRuler/index.js"
+    },
+    "./css/grid-ruler": {
+      "types": "./dist/css/components/GridRuler/index.d.ts",
+      "browser": "./dist/browser/components/GridRuler/index.js",
+      "import": "./dist/css/components/GridRuler/index.js"
+    },
+    "./hover-card": {
+      "types": "./dist/components/HoverCard/index.d.ts",
+      "browser": "./dist/browser/components/HoverCard/index.js",
+      "import": "./dist/components/HoverCard/index.js"
+    },
+    "./css/hover-card": {
+      "types": "./dist/css/components/HoverCard/index.d.ts",
+      "browser": "./dist/browser/components/HoverCard/index.js",
+      "import": "./dist/css/components/HoverCard/index.js"
+    },
+    "./icon": {
+      "types": "./dist/components/Icon/index.d.ts",
+      "browser": "./dist/browser/components/Icon/index.js",
+      "import": "./dist/components/Icon/index.js"
+    },
+    "./css/icon": {
+      "types": "./dist/css/components/Icon/index.d.ts",
+      "browser": "./dist/browser/components/Icon/index.js",
+      "import": "./dist/css/components/Icon/index.js"
+    },
+    "./image": {
+      "types": "./dist/components/Image/index.d.ts",
+      "browser": "./dist/browser/components/Image/index.js",
+      "import": "./dist/components/Image/index.js"
+    },
+    "./css/image": {
+      "types": "./dist/css/components/Image/index.d.ts",
+      "browser": "./dist/browser/components/Image/index.js",
+      "import": "./dist/css/components/Image/index.js"
+    },
+    "./inline": {
+      "types": "./dist/components/Inline/index.d.ts",
+      "browser": "./dist/browser/components/Inline/index.js",
+      "import": "./dist/components/Inline/index.js"
+    },
+    "./css/inline": {
+      "types": "./dist/css/components/Inline/index.d.ts",
+      "browser": "./dist/browser/components/Inline/index.js",
+      "import": "./dist/css/components/Inline/index.js"
+    },
+    "./input-group": {
+      "types": "./dist/components/InputGroup/index.d.ts",
+      "browser": "./dist/browser/components/InputGroup/index.js",
+      "import": "./dist/components/InputGroup/index.js"
+    },
+    "./css/input-group": {
+      "types": "./dist/css/components/InputGroup/index.d.ts",
+      "browser": "./dist/browser/components/InputGroup/index.js",
+      "import": "./dist/css/components/InputGroup/index.js"
+    },
+    "./kbd": {
+      "types": "./dist/components/Kbd/index.d.ts",
+      "browser": "./dist/browser/components/Kbd/index.js",
+      "import": "./dist/components/Kbd/index.js"
+    },
+    "./css/kbd": {
+      "types": "./dist/css/components/Kbd/index.d.ts",
+      "browser": "./dist/browser/components/Kbd/index.js",
+      "import": "./dist/css/components/Kbd/index.js"
+    },
+    "./link": {
+      "types": "./dist/components/Link/index.d.ts",
+      "browser": "./dist/browser/components/Link/index.js",
+      "import": "./dist/components/Link/index.js"
+    },
+    "./css/link": {
+      "types": "./dist/css/components/Link/index.d.ts",
+      "browser": "./dist/browser/components/Link/index.js",
+      "import": "./dist/css/components/Link/index.js"
+    },
+    "./list": {
+      "types": "./dist/components/List/index.d.ts",
+      "browser": "./dist/browser/components/List/index.js",
+      "import": "./dist/components/List/index.js"
+    },
+    "./css/list": {
+      "types": "./dist/css/components/List/index.d.ts",
+      "browser": "./dist/browser/components/List/index.js",
+      "import": "./dist/css/components/List/index.js"
+    },
+    "./menubar": {
+      "types": "./dist/components/Menubar/index.d.ts",
+      "browser": "./dist/browser/components/Menubar/index.js",
+      "import": "./dist/components/Menubar/index.js"
+    },
+    "./css/menubar": {
+      "types": "./dist/css/components/Menubar/index.d.ts",
+      "browser": "./dist/browser/components/Menubar/index.js",
+      "import": "./dist/css/components/Menubar/index.js"
+    },
+    "./navigation-menu": {
+      "types": "./dist/components/NavigationMenu/index.d.ts",
+      "browser": "./dist/browser/components/NavigationMenu/index.js",
+      "import": "./dist/components/NavigationMenu/index.js"
+    },
+    "./css/navigation-menu": {
+      "types": "./dist/css/components/NavigationMenu/index.d.ts",
+      "browser": "./dist/browser/components/NavigationMenu/index.js",
+      "import": "./dist/css/components/NavigationMenu/index.js"
+    },
+    "./overlay": {
+      "types": "./dist/components/Overlay/index.d.ts",
+      "browser": "./dist/browser/components/Overlay/index.js",
+      "import": "./dist/components/Overlay/index.js"
+    },
+    "./css/overlay": {
+      "types": "./dist/css/components/Overlay/index.d.ts",
+      "browser": "./dist/browser/components/Overlay/index.js",
+      "import": "./dist/css/components/Overlay/index.js"
+    },
+    "./page": {
+      "types": "./dist/components/Page/index.d.ts",
+      "browser": "./dist/browser/components/Page/index.js",
+      "import": "./dist/components/Page/index.js"
+    },
+    "./css/page": {
+      "types": "./dist/css/components/Page/index.d.ts",
+      "browser": "./dist/browser/components/Page/index.js",
+      "import": "./dist/css/components/Page/index.js"
+    },
+    "./pagination": {
+      "types": "./dist/components/Pagination/index.d.ts",
+      "browser": "./dist/browser/components/Pagination/index.js",
+      "import": "./dist/components/Pagination/index.js"
+    },
+    "./css/pagination": {
+      "types": "./dist/css/components/Pagination/index.d.ts",
+      "browser": "./dist/browser/components/Pagination/index.js",
+      "import": "./dist/css/components/Pagination/index.js"
+    },
+    "./portal": {
+      "types": "./dist/components/Portal/index.d.ts",
+      "browser": "./dist/browser/components/Portal/index.js",
+      "import": "./dist/components/Portal/index.js"
+    },
+    "./css/portal": {
+      "types": "./dist/css/components/Portal/index.d.ts",
+      "browser": "./dist/browser/components/Portal/index.js",
+      "import": "./dist/css/components/Portal/index.js"
+    },
+    "./popover": {
+      "types": "./dist/components/Popover/index.d.ts",
+      "browser": "./dist/browser/components/Popover/index.js",
+      "import": "./dist/components/Popover/index.js"
+    },
+    "./css/popover": {
+      "types": "./dist/css/components/Popover/index.d.ts",
+      "browser": "./dist/browser/components/Popover/index.js",
+      "import": "./dist/css/components/Popover/index.js"
+    },
+    "./progress": {
+      "types": "./dist/components/Progress/index.d.ts",
+      "browser": "./dist/browser/components/Progress/index.js",
+      "import": "./dist/components/Progress/index.js"
+    },
+    "./css/progress": {
+      "types": "./dist/css/components/Progress/index.d.ts",
+      "browser": "./dist/browser/components/Progress/index.js",
+      "import": "./dist/css/components/Progress/index.js"
+    },
+    "./property-list": {
+      "types": "./dist/components/PropertyList/index.d.ts",
+      "browser": "./dist/browser/components/PropertyList/index.js",
+      "import": "./dist/components/PropertyList/index.js"
+    },
+    "./css/property-list": {
+      "types": "./dist/css/components/PropertyList/index.d.ts",
+      "browser": "./dist/browser/components/PropertyList/index.js",
+      "import": "./dist/css/components/PropertyList/index.js"
+    },
+    "./radio": {
+      "types": "./dist/components/Radio/index.d.ts",
+      "browser": "./dist/browser/components/Radio/index.js",
+      "import": "./dist/components/Radio/index.js"
+    },
+    "./css/radio": {
+      "types": "./dist/css/components/Radio/index.d.ts",
+      "browser": "./dist/browser/components/Radio/index.js",
+      "import": "./dist/css/components/Radio/index.js"
+    },
+    "./radio-group": {
+      "types": "./dist/components/RadioGroup/index.d.ts",
+      "browser": "./dist/browser/components/RadioGroup/index.js",
+      "import": "./dist/components/RadioGroup/index.js"
+    },
+    "./css/radio-group": {
+      "types": "./dist/css/components/RadioGroup/index.d.ts",
+      "browser": "./dist/browser/components/RadioGroup/index.js",
+      "import": "./dist/css/components/RadioGroup/index.js"
+    },
+    "./resizable": {
+      "types": "./dist/components/Resizable/index.d.ts",
+      "browser": "./dist/browser/components/Resizable/index.js",
+      "import": "./dist/components/Resizable/index.js"
+    },
+    "./css/resizable": {
+      "types": "./dist/css/components/Resizable/index.d.ts",
+      "browser": "./dist/browser/components/Resizable/index.js",
+      "import": "./dist/css/components/Resizable/index.js"
+    },
+    "./search-input": {
+      "types": "./dist/components/SearchInput/index.d.ts",
+      "browser": "./dist/browser/components/SearchInput/index.js",
+      "import": "./dist/components/SearchInput/index.js"
+    },
+    "./css/search-input": {
+      "types": "./dist/css/components/SearchInput/index.d.ts",
+      "browser": "./dist/browser/components/SearchInput/index.js",
+      "import": "./dist/css/components/SearchInput/index.js"
+    },
+    "./scroll-area": {
+      "types": "./dist/components/ScrollArea/index.d.ts",
+      "browser": "./dist/browser/components/ScrollArea/index.js",
+      "import": "./dist/components/ScrollArea/index.js"
+    },
+    "./css/scroll-area": {
+      "types": "./dist/css/components/ScrollArea/index.d.ts",
+      "browser": "./dist/browser/components/ScrollArea/index.js",
+      "import": "./dist/css/components/ScrollArea/index.js"
+    },
+    "./section": {
+      "types": "./dist/components/Section/index.d.ts",
+      "browser": "./dist/browser/components/Section/index.js",
+      "import": "./dist/components/Section/index.js"
+    },
+    "./css/section": {
+      "types": "./dist/css/components/Section/index.d.ts",
+      "browser": "./dist/browser/components/Section/index.js",
+      "import": "./dist/css/components/Section/index.js"
+    },
+    "./select": {
+      "types": "./dist/components/Select/index.d.ts",
+      "browser": "./dist/browser/components/Select/index.js",
+      "import": "./dist/components/Select/index.js"
+    },
+    "./css/select": {
+      "types": "./dist/css/components/Select/index.d.ts",
+      "browser": "./dist/browser/components/Select/index.js",
+      "import": "./dist/css/components/Select/index.js"
+    },
+    "./sheet": {
+      "types": "./dist/components/Sheet/index.d.ts",
+      "browser": "./dist/browser/components/Sheet/index.js",
+      "import": "./dist/components/Sheet/index.js"
+    },
+    "./css/sheet": {
+      "types": "./dist/css/components/Sheet/index.d.ts",
+      "browser": "./dist/browser/components/Sheet/index.js",
+      "import": "./dist/css/components/Sheet/index.js"
+    },
+    "./shell": {
+      "types": "./dist/components/Shell/index.d.ts",
+      "browser": "./dist/browser/components/Shell/index.js",
+      "import": "./dist/components/Shell/index.js"
+    },
+    "./css/shell": {
+      "types": "./dist/css/components/Shell/index.d.ts",
+      "browser": "./dist/browser/components/Shell/index.js",
+      "import": "./dist/css/components/Shell/index.js"
+    },
+    "./sidebar": {
+      "types": "./dist/components/Sidebar/index.d.ts",
+      "browser": "./dist/browser/components/Sidebar/index.js",
+      "import": "./dist/components/Sidebar/index.js"
+    },
+    "./css/sidebar": {
+      "types": "./dist/css/components/Sidebar/index.d.ts",
+      "browser": "./dist/browser/components/Sidebar/index.js",
+      "import": "./dist/css/components/Sidebar/index.js"
+    },
+    "./skeleton": {
+      "types": "./dist/components/Skeleton/index.d.ts",
+      "browser": "./dist/browser/components/Skeleton/index.js",
+      "import": "./dist/components/Skeleton/index.js"
+    },
+    "./css/skeleton": {
+      "types": "./dist/css/components/Skeleton/index.d.ts",
+      "browser": "./dist/browser/components/Skeleton/index.js",
+      "import": "./dist/css/components/Skeleton/index.js"
+    },
+    "./slider": {
+      "types": "./dist/components/Slider/index.d.ts",
+      "browser": "./dist/browser/components/Slider/index.js",
+      "import": "./dist/components/Slider/index.js"
+    },
+    "./css/slider": {
+      "types": "./dist/css/components/Slider/index.d.ts",
+      "browser": "./dist/browser/components/Slider/index.js",
+      "import": "./dist/css/components/Slider/index.js"
+    },
+    "./spacer": {
+      "types": "./dist/components/Spacer/index.d.ts",
+      "browser": "./dist/browser/components/Spacer/index.js",
+      "import": "./dist/components/Spacer/index.js"
+    },
+    "./css/spacer": {
+      "types": "./dist/css/components/Spacer/index.d.ts",
+      "browser": "./dist/browser/components/Spacer/index.js",
+      "import": "./dist/css/components/Spacer/index.js"
+    },
+    "./spinner": {
+      "types": "./dist/components/Spinner/index.d.ts",
+      "browser": "./dist/browser/components/Spinner/index.js",
+      "import": "./dist/components/Spinner/index.js"
+    },
+    "./css/spinner": {
+      "types": "./dist/css/components/Spinner/index.d.ts",
+      "browser": "./dist/browser/components/Spinner/index.js",
+      "import": "./dist/css/components/Spinner/index.js"
+    },
+    "./split-pane": {
+      "types": "./dist/components/SplitPane/index.d.ts",
+      "browser": "./dist/browser/components/SplitPane/index.js",
+      "import": "./dist/components/SplitPane/index.js"
+    },
+    "./css/split-pane": {
+      "types": "./dist/css/components/SplitPane/index.d.ts",
+      "browser": "./dist/browser/components/SplitPane/index.js",
+      "import": "./dist/css/components/SplitPane/index.js"
+    },
+    "./stack": {
+      "types": "./dist/components/Stack/index.d.ts",
+      "browser": "./dist/browser/components/Stack/index.js",
+      "import": "./dist/components/Stack/index.js"
+    },
+    "./css/stack": {
+      "types": "./dist/css/components/Stack/index.d.ts",
+      "browser": "./dist/browser/components/Stack/index.js",
+      "import": "./dist/css/components/Stack/index.js"
+    },
+    "./stat": {
+      "types": "./dist/components/Stat/index.d.ts",
+      "browser": "./dist/browser/components/Stat/index.js",
+      "import": "./dist/components/Stat/index.js"
+    },
+    "./css/stat": {
+      "types": "./dist/css/components/Stat/index.d.ts",
+      "browser": "./dist/browser/components/Stat/index.js",
+      "import": "./dist/css/components/Stat/index.js"
+    },
+    "./status-dot": {
+      "types": "./dist/components/StatusDot/index.d.ts",
+      "browser": "./dist/browser/components/StatusDot/index.js",
+      "import": "./dist/components/StatusDot/index.js"
+    },
+    "./css/status-dot": {
+      "types": "./dist/css/components/StatusDot/index.d.ts",
+      "browser": "./dist/browser/components/StatusDot/index.js",
+      "import": "./dist/css/components/StatusDot/index.js"
+    },
+    "./stepper": {
+      "types": "./dist/components/Stepper/index.d.ts",
+      "browser": "./dist/browser/components/Stepper/index.js",
+      "import": "./dist/components/Stepper/index.js"
+    },
+    "./css/stepper": {
+      "types": "./dist/css/components/Stepper/index.d.ts",
+      "browser": "./dist/browser/components/Stepper/index.js",
+      "import": "./dist/css/components/Stepper/index.js"
+    },
+    "./switch": {
+      "types": "./dist/components/Switch/index.d.ts",
+      "browser": "./dist/browser/components/Switch/index.js",
+      "import": "./dist/components/Switch/index.js"
+    },
+    "./css/switch": {
+      "types": "./dist/css/components/Switch/index.d.ts",
+      "browser": "./dist/browser/components/Switch/index.js",
+      "import": "./dist/css/components/Switch/index.js"
+    },
+    "./table": {
+      "types": "./dist/components/Table/index.d.ts",
+      "browser": "./dist/browser/components/Table/index.js",
+      "import": "./dist/components/Table/index.js"
+    },
+    "./css/table": {
+      "types": "./dist/css/components/Table/index.d.ts",
+      "browser": "./dist/browser/components/Table/index.js",
+      "import": "./dist/css/components/Table/index.js"
+    },
+    "./tabs": {
+      "types": "./dist/components/Tabs/index.d.ts",
+      "browser": "./dist/browser/components/Tabs/index.js",
+      "import": "./dist/components/Tabs/index.js"
+    },
+    "./css/tabs": {
+      "types": "./dist/css/components/Tabs/index.d.ts",
+      "browser": "./dist/browser/components/Tabs/index.js",
+      "import": "./dist/css/components/Tabs/index.js"
+    },
+    "./text": {
+      "types": "./dist/components/Text/index.d.ts",
+      "browser": "./dist/browser/components/Text/index.js",
+      "import": "./dist/components/Text/index.js"
+    },
+    "./css/text": {
+      "types": "./dist/css/components/Text/index.d.ts",
+      "browser": "./dist/browser/components/Text/index.js",
+      "import": "./dist/css/components/Text/index.js"
+    },
+    "./text-input": {
+      "types": "./dist/components/TextInput/index.d.ts",
+      "browser": "./dist/browser/components/TextInput/index.js",
+      "import": "./dist/components/TextInput/index.js"
+    },
+    "./css/text-input": {
+      "types": "./dist/css/components/TextInput/index.d.ts",
+      "browser": "./dist/browser/components/TextInput/index.js",
+      "import": "./dist/css/components/TextInput/index.js"
+    },
+    "./textarea": {
+      "types": "./dist/components/Textarea/index.d.ts",
+      "browser": "./dist/browser/components/Textarea/index.js",
+      "import": "./dist/components/Textarea/index.js"
+    },
+    "./css/textarea": {
+      "types": "./dist/css/components/Textarea/index.d.ts",
+      "browser": "./dist/browser/components/Textarea/index.js",
+      "import": "./dist/css/components/Textarea/index.js"
+    },
+    "./timeline": {
+      "types": "./dist/components/Timeline/index.d.ts",
+      "browser": "./dist/browser/components/Timeline/index.js",
+      "import": "./dist/components/Timeline/index.js"
+    },
+    "./css/timeline": {
+      "types": "./dist/css/components/Timeline/index.d.ts",
+      "browser": "./dist/browser/components/Timeline/index.js",
+      "import": "./dist/css/components/Timeline/index.js"
+    },
+    "./toast": {
+      "types": "./dist/components/Toast/index.d.ts",
+      "browser": "./dist/browser/components/Toast/index.js",
+      "import": "./dist/components/Toast/index.js"
+    },
+    "./css/toast": {
+      "types": "./dist/css/components/Toast/index.d.ts",
+      "browser": "./dist/browser/components/Toast/index.js",
+      "import": "./dist/css/components/Toast/index.js"
+    },
+    "./toggle": {
+      "types": "./dist/components/Toggle/index.d.ts",
+      "browser": "./dist/browser/components/Toggle/index.js",
+      "import": "./dist/components/Toggle/index.js"
+    },
+    "./css/toggle": {
+      "types": "./dist/css/components/Toggle/index.d.ts",
+      "browser": "./dist/browser/components/Toggle/index.js",
+      "import": "./dist/css/components/Toggle/index.js"
+    },
+    "./toggle-group": {
+      "types": "./dist/components/ToggleGroup/index.d.ts",
+      "browser": "./dist/browser/components/ToggleGroup/index.js",
+      "import": "./dist/components/ToggleGroup/index.js"
+    },
+    "./css/toggle-group": {
+      "types": "./dist/css/components/ToggleGroup/index.d.ts",
+      "browser": "./dist/browser/components/ToggleGroup/index.js",
+      "import": "./dist/css/components/ToggleGroup/index.js"
+    },
+    "./toolbar": {
+      "types": "./dist/components/Toolbar/index.d.ts",
+      "browser": "./dist/browser/components/Toolbar/index.js",
+      "import": "./dist/components/Toolbar/index.js"
+    },
+    "./css/toolbar": {
+      "types": "./dist/css/components/Toolbar/index.d.ts",
+      "browser": "./dist/browser/components/Toolbar/index.js",
+      "import": "./dist/css/components/Toolbar/index.js"
+    },
+    "./tooltip": {
+      "types": "./dist/components/Tooltip/index.d.ts",
+      "browser": "./dist/browser/components/Tooltip/index.js",
+      "import": "./dist/components/Tooltip/index.js"
+    },
+    "./css/tooltip": {
+      "types": "./dist/css/components/Tooltip/index.d.ts",
+      "browser": "./dist/browser/components/Tooltip/index.js",
+      "import": "./dist/css/components/Tooltip/index.js"
+    },
+    "./visually-hidden": {
+      "types": "./dist/components/VisuallyHidden/index.d.ts",
+      "browser": "./dist/browser/components/VisuallyHidden/index.js",
+      "import": "./dist/components/VisuallyHidden/index.js"
+    },
+    "./css/visually-hidden": {
+      "types": "./dist/css/components/VisuallyHidden/index.d.ts",
+      "browser": "./dist/browser/components/VisuallyHidden/index.js",
+      "import": "./dist/css/components/VisuallyHidden/index.js"
+    },
+    "./schema.json": "./schema.json"
+  },
+  "scripts": {
+    "clean": "node -e \"import('node:fs').then(fs => fs.rmSync('dist', { recursive: true, force: true }))\"",
+    "generate:package": "node scripts/generate-package.mjs",
+    "generate:theme": "node scripts/generate-theme.mjs --config tavo-ui.config.json --out src/theme/generated/default-theme.css",
+    "build:lib": "npm run generate:package && npm run clean && npm run generate:theme && tsc -p tsconfig.build.json && node scripts/postbuild.mjs && node dist/cli/index.js --config tavo-ui.config.json --out dist/theme.css",
+    "build:demo": "vite build",
+    "build": "npm run build:lib && npm run build:demo",
+    "benchmark": "npm run build:lib && node benchmarks/render/run.mjs",
+    "benchmark:report": "npm run build:lib && BENCHMARK_ITERATIONS=1000 BENCHMARK_WARMUPS=100 BENCHMARK_BASELINE=benchmarks/render/baseline.json node benchmarks/render/run.mjs",
+    "benchmark:baseline": "npm run build:lib && BENCHMARK_ITERATIONS=1000 BENCHMARK_WARMUPS=100 BENCHMARK_UPDATE_BASELINE=1 node benchmarks/render/run.mjs",
+    "docs:tokens": "node scripts/generate-token-docs.mjs",
+    "visual:regression": "node scripts/visual-regression.mjs",
+    "dev": "npm run generate:theme && vite",
+    "preview": "vite preview",
+    "smoke:consumer": "node scripts/smoke-consumer.mjs",
+    "pack:dry": "node scripts/pack-dry-run.mjs",
+    "release:registry": "node scripts/check-publish-registry.mjs",
+    "release:check": "npm run prepublishOnly",
+    "release:dry": "npm run prepublishOnly",
+    "test": "npm run build:lib && node --test tests/*.test.mjs",
+    "typecheck": "npm run generate:package && tsc --noEmit",
+    "prepublishOnly": "npm run release:registry && npm run typecheck && npm run test && npm run build && npm run smoke:consumer && npm run pack:dry"
+  },
+  "peerDependencies": {
+    "@tavojs/core": "^1.0.0"
+  },
+  "dependencies": {
+    "@tavojs/ui-cli": "^1.0.0",
+    "@tavojs/ui-core": "^1.0.0"
+  },
+  "devDependencies": {
+    "@tavojs/core": "^1.0.0",
+    "@types/node": "^24.0.0",
+    "sass": "^1.89.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.2"
+  }
+}

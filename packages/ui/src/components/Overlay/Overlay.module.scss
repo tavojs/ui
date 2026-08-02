@@ -1,0 +1,15 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  padding: var(--tui-space-5);
+  background: color-mix(in srgb, var(--tui-color-bg) 48%, transparent);
+}
+
+.center {
+  display: grid;
+  place-items: center;
+}
+
+.scrim-none { background: transparent; }
+.scrim-strong { background: color-mix(in srgb, #000000 54%, transparent); }

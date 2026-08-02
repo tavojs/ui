@@ -1,0 +1,72 @@
+@use "theme/breakpoints" as bp;
+
+.section {
+  display: grid;
+  gap: var(--tui-section-gap, var(--tui-space-6));
+  min-width: 0;
+
+  @include bp.tui-screen(sm) {
+    gap: var(--tui-section-gap-sm, var(--tui-section-gap, var(--tui-space-6)));
+  }
+
+  @include bp.tui-screen(md) {
+    gap: var(--tui-section-gap-md, var(--tui-section-gap-sm, var(--tui-section-gap, var(--tui-space-6))));
+  }
+
+  @include bp.tui-screen(lg) {
+    gap: var(--tui-section-gap-lg, var(--tui-section-gap-md, var(--tui-section-gap-sm, var(--tui-section-gap, var(--tui-space-6)))));
+  }
+}
+
+.spacing-sm { gap: var(--tui-space-3); }
+.spacing-md { gap: var(--tui-space-4); }
+
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--tui-space-4);
+}
+
+.copy {
+  display: grid;
+  gap: var(--tui-space-2);
+  max-width: 52rem;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--tui-color-text-muted);
+  font-size: var(--tui-font-size-caption);
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--tui-font-family-heading, var(--tui-font-family-text, var(--tui-font-family)));
+  color: var(--tui-color-heading);
+  font-size: var(--tui-font-size-h2);
+  line-height: 1.05;
+}
+
+.description {
+  margin: 0;
+  color: var(--tui-color-text-muted);
+  line-height: 1.7;
+}
+
+.actions {
+  flex: 0 0 auto;
+}
+
+.body {
+  min-width: 0;
+}
+
+@media (max-width: 720px) {
+  .header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

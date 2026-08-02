@@ -1,0 +1,45 @@
+@use "theme/breakpoints" as bp;
+
+.split {
+  display: grid;
+  align-items: start;
+  gap: var(--tui-split-gap, var(--tui-space-5));
+  grid-template-columns: var(--tui-split-columns, minmax(12rem, 0.36fr) minmax(0, 1fr));
+
+  @include bp.tui-screen(sm) {
+    gap: var(--tui-split-gap-sm, var(--tui-split-gap, var(--tui-space-5)));
+    grid-template-columns: var(--tui-split-columns-sm, var(--tui-split-columns, minmax(12rem, 0.36fr) minmax(0, 1fr)));
+  }
+
+  @include bp.tui-screen(md) {
+    gap: var(--tui-split-gap-md, var(--tui-split-gap-sm, var(--tui-split-gap, var(--tui-space-5))));
+    grid-template-columns: var(--tui-split-columns-md, var(--tui-split-columns-sm, var(--tui-split-columns, minmax(12rem, 0.36fr) minmax(0, 1fr))));
+  }
+
+  @include bp.tui-screen(lg) {
+    gap: var(--tui-split-gap-lg, var(--tui-split-gap-md, var(--tui-split-gap-sm, var(--tui-split-gap, var(--tui-space-5)))));
+    grid-template-columns: var(--tui-split-columns-lg, var(--tui-split-columns-md, var(--tui-split-columns-sm, var(--tui-split-columns, minmax(12rem, 0.36fr) minmax(0, 1fr)))));
+  }
+}
+
+.gap-none { gap: 0; }
+.gap-sm { gap: var(--tui-space-3); }
+.gap-lg { gap: var(--tui-space-6); }
+
+.ratio-half { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.ratio-golden { grid-template-columns: minmax(14rem, 0.62fr) minmax(0, 1fr); }
+
+.side-right .aside {
+  order: 2;
+}
+
+.main,
+.aside {
+  min-width: 0;
+}
+
+@media (max-width: 760px) {
+  .split {
+    grid-template-columns: 1fr;
+  }
+}

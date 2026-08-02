@@ -1,0 +1,39 @@
+.group {
+  display: inline-flex;
+  min-width: 0;
+}
+
+.group > * {
+  border-radius: 0;
+}
+
+.group > :first-child {
+  border-top-left-radius: var(--tui-radius-md);
+  border-bottom-left-radius: var(--tui-radius-md);
+}
+
+.group > :last-child {
+  border-top-right-radius: var(--tui-radius-md);
+  border-bottom-right-radius: var(--tui-radius-md);
+}
+
+.orientation-vertical {
+  flex-direction: column;
+}
+
+.orientation-vertical > :first-child {
+  border-top-right-radius: var(--tui-radius-md);
+  border-bottom-left-radius: 0;
+}
+
+.orientation-vertical > :last-child {
+  border-top-right-radius: 0;
+  border-bottom-left-radius: var(--tui-radius-md);
+}
+
+.fullWidth {
+  display: flex;
+  width: 100%;
+}
+
+.fullWidth > * { flex: 1 1 0; }

@@ -1,0 +1,30 @@
+@use "theme/breakpoints" as bp;
+
+.stack {
+  display: grid;
+  gap: var(--tui-stack-gap, var(--tui-space-4));
+
+  @include bp.tui-screen(sm) {
+    gap: var(--tui-stack-gap-sm, var(--tui-stack-gap, var(--tui-space-4)));
+  }
+
+  @include bp.tui-screen(md) {
+    gap: var(--tui-stack-gap-md, var(--tui-stack-gap-sm, var(--tui-stack-gap, var(--tui-space-4))));
+  }
+
+  @include bp.tui-screen(lg) {
+    gap: var(--tui-stack-gap-lg, var(--tui-stack-gap-md, var(--tui-stack-gap-sm, var(--tui-stack-gap, var(--tui-space-4)))));
+  }
+}
+
+.gap-none {
+  gap: 0;
+}
+
+.gap-sm {
+  gap: var(--tui-space-2);
+}
+
+.gap-lg {
+  gap: var(--tui-space-6);
+}

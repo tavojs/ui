@@ -1,0 +1,32 @@
+@use "theme/breakpoints" as bp;
+
+.inline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tui-inline-gap, var(--tui-space-4));
+
+  @include bp.tui-screen(sm) {
+    gap: var(--tui-inline-gap-sm, var(--tui-inline-gap, var(--tui-space-4)));
+  }
+
+  @include bp.tui-screen(md) {
+    gap: var(--tui-inline-gap-md, var(--tui-inline-gap-sm, var(--tui-inline-gap, var(--tui-space-4))));
+  }
+
+  @include bp.tui-screen(lg) {
+    gap: var(--tui-inline-gap-lg, var(--tui-inline-gap-md, var(--tui-inline-gap-sm, var(--tui-inline-gap, var(--tui-space-4)))));
+  }
+}
+
+.gap-none {
+  gap: 0;
+}
+
+.gap-sm {
+  gap: var(--tui-space-2);
+}
+
+.gap-lg {
+  gap: var(--tui-space-6);
+}

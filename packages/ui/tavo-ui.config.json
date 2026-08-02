@@ -1,0 +1,114 @@
+{
+  "$schema": "./schema.json",
+  "defaultTheme": "system",
+  "color": {
+    "light": {
+      "primary": "#7C5CFF",
+      "secondary": "#A78BFA"
+    },
+    "dark": {
+      "primary": "#7C5CFF",
+      "secondary": "#A78BFA"
+    },
+    "method": "monochromatic",
+    "fixShade": true
+  },
+  "semantic": {
+    "light": {
+      "success": "#18794e",
+      "warning": "#9b5d00",
+      "danger": "#b42318",
+      "info": "#235fb6"
+    },
+    "dark": {
+      "success": "#58d68d",
+      "warning": "#f5b041",
+      "danger": "#ff6b6b",
+      "info": "#7fb3ff"
+    }
+  },
+  "scale": {
+    "controlHeight": 42,
+    "spacing": 8,
+    "radius": 4,
+    "shadow": 0.35,
+    "border": 1,
+    "density": "comfortable",
+    "focus": 3,
+    "motion": 1,
+    "opacity": 0.58,
+    "blur": 22,
+    "controlRadius": 4,
+    "surfaceRadius": 6
+  },
+  "typography": {
+    "fontFamily": "Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+    "textFontFamily": "Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+    "headingFontFamily": "Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+    "bodySize": 16,
+    "captionSize": 13,
+    "labelSize": 14,
+    "headingScale": 1.24
+  },
+  "interaction": {
+    "hoverLift": 1,
+    "hoverShadow": 1,
+    "activeScale": 0.98,
+    "focusAlpha": 0.28,
+    "disabledOpacity": 0.58,
+    "transition": 1
+  },
+  "viewport": {
+    "rootMin": 14,
+    "rootMax": 16,
+    "minWidth": 320,
+    "maxWidth": 960
+  },
+  "output": {
+    "selector": ":root",
+    "darkSelector": ":root[data-tavo-theme=\"dark\"]",
+    "includeMediaQuery": true
+  },
+  "accessibility": {
+    "contrast": "AA",
+    "failOnViolation": false
+  },
+  "tokens": {
+    "light": {},
+    "dark": {
+      "color-bg": "#0B1020",
+      "color-app-bg": "#0B1020",
+      "color-surface": "#12172A",
+      "color-surface-raised": "#12172A",
+      "color-surface-subtle": "#1B2240",
+      "color-panel-bg": "#12172A",
+      "color-sidebar-bg": "#12172A",
+      "color-header-bg": "#12172A",
+      "color-text": "#F5F7FF",
+      "color-heading": "#F5F7FF",
+      "color-neutral-text": "#F5F7FF",
+      "color-text-muted": "#AAB3D1",
+      "color-border": "rgba(170, 179, 209, 0.2)",
+      "color-border-strong": "rgba(170, 179, 209, 0.34)",
+      "color-panel-border": "rgba(170, 179, 209, 0.2)",
+      "color-sidebar-border": "rgba(170, 179, 209, 0.2)",
+      "color-header-border": "rgba(170, 179, 209, 0.2)",
+      "color-primary-bg": "#7C5CFF",
+      "color-primary-bg-hover": "#A78BFA",
+      "color-primary-text": "#000000",
+      "color-primary-soft-bg": "rgba(124, 92, 255, 0.18)",
+      "color-primary-soft-text": "#C4B5FD",
+      "color-secondary-bg": "#A78BFA",
+      "color-secondary-bg-hover": "#C4B5FD",
+      "color-secondary-text": "#0B1020",
+      "color-secondary-soft-bg": "rgba(167, 139, 250, 0.18)",
+      "color-secondary-soft-text": "#DDD6FE",
+      "color-link": "#A78BFA",
+      "color-focus": "#A78BFA",
+      "color-selection-bg": "rgba(124, 92, 255, 0.24)",
+      "color-selection-text": "#F5F7FF",
+      "color-focus-ring": "#A78BFA",
+      "color-overlay-bg": "rgba(11, 16, 32, 0.72)"
+    }
+  }
+}

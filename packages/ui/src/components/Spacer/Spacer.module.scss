@@ -1,0 +1,44 @@
+@use "theme/breakpoints" as bp;
+
+.spacer {
+  display: block;
+  flex: 0 0 auto;
+  width: 100%;
+  height: var(--tui-spacer-size, var(--tui-space-4));
+}
+
+.axis-block {
+  width: 100%;
+  height: var(--tui-spacer-size, var(--tui-space-4));
+}
+
+.axis-inline {
+  display: inline-block;
+  width: var(--tui-spacer-size, var(--tui-space-4));
+  height: 1px;
+}
+
+@include bp.tui-screen(sm) {
+  .axis-block { height: var(--tui-spacer-size-sm, var(--tui-spacer-size, var(--tui-space-4))); }
+  .axis-inline { width: var(--tui-spacer-size-sm, var(--tui-spacer-size, var(--tui-space-4))); }
+}
+
+@include bp.tui-screen(md) {
+  .axis-block { height: var(--tui-spacer-size-md, var(--tui-spacer-size-sm, var(--tui-spacer-size, var(--tui-space-4)))); }
+  .axis-inline { width: var(--tui-spacer-size-md, var(--tui-spacer-size-sm, var(--tui-spacer-size, var(--tui-space-4)))); }
+}
+
+@include bp.tui-screen(lg) {
+  .axis-block { height: var(--tui-spacer-size-lg, var(--tui-spacer-size-md, var(--tui-spacer-size-sm, var(--tui-spacer-size, var(--tui-space-4))))); }
+  .axis-inline { width: var(--tui-spacer-size-lg, var(--tui-spacer-size-md, var(--tui-spacer-size-sm, var(--tui-spacer-size, var(--tui-space-4))))); }
+}
+
+.axis-block.size-xs { height: var(--tui-space-1); }
+.axis-block.size-sm { height: var(--tui-space-2); }
+.axis-block.size-lg { height: var(--tui-space-6); }
+.axis-block.size-xl { height: calc(var(--tui-space-6) * 1.5); }
+
+.axis-inline.size-xs { width: var(--tui-space-1); }
+.axis-inline.size-sm { width: var(--tui-space-2); }
+.axis-inline.size-lg { width: var(--tui-space-6); }
+.axis-inline.size-xl { width: calc(var(--tui-space-6) * 1.5); }

@@ -1,0 +1,13 @@
+@use "sass:map";
+
+$tui-breakpoints: (
+  sm: 480px,
+  md: 768px,
+  lg: 1024px
+) !default;
+
+@mixin tui-screen($name) {
+  @media (min-width: map.get($tui-breakpoints, $name)) {
+    @content;
+  }
+}

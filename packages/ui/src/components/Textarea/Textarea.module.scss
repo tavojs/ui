@@ -1,0 +1,10 @@
+.textarea {
+  min-height: calc(var(--tui-size-md) * 2.4);
+  padding-block: var(--tui-space-3);
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.resize-none { resize: none; }
+.resize-horizontal { resize: horizontal; }
+.resize-both { resize: both; }

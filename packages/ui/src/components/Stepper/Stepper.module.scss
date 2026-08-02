@@ -1,0 +1,60 @@
+.stepper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: var(--tui-space-4);
+  margin: 0;
+  padding: 0;
+  font-family: var(--tui-font-family-text, var(--tui-font-family));
+  list-style: none;
+}
+
+.step {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--tui-space-3);
+  color: var(--tui-color-text-muted);
+}
+
+.marker {
+  display: inline-grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: var(--tui-border-width) solid var(--tui-color-border);
+  border-radius: 999px;
+  background: var(--tui-color-surface);
+  color: inherit;
+  font-size: var(--tui-font-size-label);
+  font-weight: normal;
+}
+
+.copy {
+  display: grid;
+  gap: 0.125rem;
+}
+
+.title {
+  color: var(--tui-color-heading);
+}
+
+.description {
+  font-size: var(--tui-font-size-label);
+}
+
+.status-complete .marker {
+  border-color: color-mix(in srgb, var(--tui-color-success) 42%, transparent);
+  background: color-mix(in srgb, var(--tui-color-success) 14%, var(--tui-color-surface));
+  color: var(--tui-color-success);
+}
+
+.status-current .marker {
+  border-color: var(--tui-color-primary-bg);
+  background: var(--tui-color-primary-bg);
+  color: var(--tui-color-primary-text);
+}
+
+.status-error .marker {
+  border-color: color-mix(in srgb, var(--tui-color-danger) 42%, transparent);
+  background: var(--tui-color-danger-surface, color-mix(in srgb, var(--tui-color-danger) 12%, var(--tui-color-surface)));
+  color: var(--tui-color-danger);
+}

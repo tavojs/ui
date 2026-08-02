@@ -1,0 +1,36 @@
+.root {
+  position: relative;
+  display: inline-block;
+}
+
+.trigger {
+  display: inline-flex;
+}
+
+.content {
+  position: absolute;
+  top: calc(100% + var(--tui-space-2));
+  left: 0;
+  min-width: 16rem;
+  max-width: min(22rem, calc(100vw - 2rem));
+  padding: var(--tui-space-3);
+  border: var(--tui-border-width) solid var(--tui-color-border);
+  border-radius: var(--tui-radius-surface);
+  background: var(--tui-color-surface-raised);
+  color: var(--tui-color-text);
+  box-shadow: var(--tui-shadow-lg);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(0.25rem);
+  transition:
+    opacity var(--tui-interaction-transition-fast, var(--tui-motion-fast)) var(--tui-motion-ease),
+    transform var(--tui-interaction-transition-fast, var(--tui-motion-fast)) var(--tui-motion-ease);
+  z-index: 40;
+}
+
+.root:hover .content,
+.root:focus-within .content {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
