@@ -37,3 +37,7 @@ changes:
 ```bash
 npm run changeset
 ```
+
+Publishing is handled by the manually dispatched `Publish` GitHub Actions
+workflow through npm Trusted Publishing with GitHub OIDC. Contributors should
+not publish packages from their local checkout.

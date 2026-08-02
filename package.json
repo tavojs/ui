@@ -33,7 +33,7 @@
     "release:check": "npm run release:manifest && npm run release:audit && npm run check:framework-contract && npm test --workspace @tavojs/ui-core && npm test --workspace @tavojs/ui-cli && npm run release:check --workspace @tavojs/ui && npm run release:pack",
     "release:pack": "npm pack --dry-run --workspace @tavojs/ui-core && npm pack --dry-run --workspace @tavojs/ui-cli && npm pack --dry-run --workspace @tavojs/ui",
     "release:status": "changeset status",
-    "release": "npm run release:check && changeset publish",
+    "release": "changeset publish",
     "prepare": "npm run build"
   },
   "devDependencies": {

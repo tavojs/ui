@@ -31,6 +31,10 @@ npm run build
 npm run release:check
 ```
 
+Package publication is performed by the manually dispatched GitHub Actions
+`Publish` workflow using npm Trusted Publishing with GitHub OIDC. Do not
+publish from a local checkout.
+
 ## Public Repo Hygiene
 
 - Keep root and package licenses MIT.
