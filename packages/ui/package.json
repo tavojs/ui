@@ -1,6 +1,6 @@
 {
   "name": "@tavojs/ui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Tavo.js-native UI library with colocated TSX and SCSS modules plus theme generation tooling.",
   "type": "module",
   "author": "Hrachya Martirosyan",
@@ -973,8 +973,8 @@
     "@tavojs/core": "^1.0.0"
   },
   "dependencies": {
-    "@tavojs/ui-cli": "^1.0.0",
-    "@tavojs/ui-core": "^1.0.0"
+    "@tavojs/ui-cli": "^1.0.1",
+    "@tavojs/ui-core": "^1.0.1"
   },
   "devDependencies": {
     "@tavojs/core": "^1.0.0",

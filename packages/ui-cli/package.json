@@ -1,6 +1,6 @@
 {
   "name": "@tavojs/ui-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Command line interface for Tavo.js UI web projects.",
   "type": "module",
   "author": "Hrachya Martirosyan",
@@ -57,7 +57,7 @@
     "prepublishOnly": "npm test"
   },
   "peerDependencies": {
-    "@tavojs/ui": "^1.0.0"
+    "@tavojs/ui": "^1.0.1"
   },
   "peerDependenciesMeta": {
     "@tavojs/ui": {
