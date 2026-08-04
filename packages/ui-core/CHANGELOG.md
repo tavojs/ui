@@ -1,5 +1,11 @@
 # @tavojs/ui-core
 
+## 1.0.1
+
+### Patch Changes
+
+- 232234a: Adopt Tavo.js branding across package metadata, documentation, generated assets, and user-facing messages.
+
 ## 1.0.0
 
 ### Major Changes
