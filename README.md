@@ -1,6 +1,6 @@
-# Tavo UI
+# Tavo.js UI
 
-Public npm workspace monorepo for the Tavo UI web packages:
+Public npm workspace monorepo for the Tavo.js UI web packages:
 
 - `@tavojs/ui-core`
 - `@tavojs/ui-cli`
@@ -48,3 +48,7 @@ Trusted Publishing with GitHub OIDC and create the GitHub releases. No
 
 All three packages are MIT licensed and include their own `LICENSE` files.
 Package metadata and documentation link to [tavojs.dev](https://tavojs.dev).
+
+## Project policies
+
+Read the guidance for [contributing](https://github.com/tavojs/ui/blob/main/CONTRIBUTING.md), [security reporting](https://github.com/tavojs/ui/blob/main/SECURITY.md), the [MIT License](https://github.com/tavojs/ui/blob/main/LICENSE), and the [trademark policy](https://github.com/tavojs/ui/blob/main/TRADEMARKS.md).

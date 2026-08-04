@@ -55,7 +55,7 @@ export function assertThemeConfig(
   resolvedBreakpoints?: Required<ThemeBreakpointsConfig>
 ): void {
   if (!config || typeof config !== "object") {
-    throw new Error("Expected a Tavo UI theme config object.");
+    throw new Error("Expected a Tavo.js UI theme config object.");
   }
   assertKnownProperties(config, THEME_CONFIG_KEYS, "root");
   assertKnownProperties(config.output, THEME_OUTPUT_KEYS, "output");

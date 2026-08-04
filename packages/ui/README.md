@@ -1,10 +1,10 @@
 # @tavojs/ui
 
-`@tavojs/ui` is a Tavo-native web UI library with 80 public components, compiled component CSS, project theme generation, and web tooling provided through `tavo-ui`.
+`@tavojs/ui` is a Tavo.js-native web UI library with 80 public components, compiled component CSS, project theme generation, and web tooling provided through `tavo-ui`.
 
 ## Documentation
 
-Start with the [Tavo UI guide](https://tavojs.dev/docs/ui), configure the library through the [installation guide](https://tavojs.dev/docs/ui/installation), or browse the [80 public web components](https://tavojs.dev/docs/ui/components).
+Start with the [Tavo.js UI guide](https://tavojs.dev/docs/ui), configure the library through the [installation guide](https://tavojs.dev/docs/ui/installation), or browse the [80 public web components](https://tavojs.dev/docs/ui/components).
 
 - [Library guide](docs/library.md)
 - [CLI reference](docs/cli.md)
@@ -17,8 +17,8 @@ Start with the [Tavo UI guide](https://tavojs.dev/docs/ui), configure the librar
 
 - Publishable component entrypoints compiled to `dist/`
 - CSS-variable theme generation from a small config
-- Tavo runtime theme controller helpers
-- A local demo app powered by Tavo's stable router and development entrypoints
+- Tavo.js runtime theme controller helpers
+- A local demo app powered by Tavo.js's stable router and development entrypoints
 
 ## Theme config
 
@@ -126,9 +126,9 @@ export default defineConfig({
 });
 ```
 
-With the plugin enabled, Tavo project source automatically receives the theme CSS generated from `tavo-ui.config.json` during dev and build. No app-level theme import is needed. Without the plugin, importing `@tavojs/ui/theme.css` still loads the package default theme.
+With the plugin enabled, Tavo.js project source automatically receives the theme CSS generated from `tavo-ui.config.json` during dev and build. No app-level theme import is needed. Without the plugin, importing `@tavojs/ui/theme.css` still loads the package default theme.
 
-`tavoUi()` uses the Tavo plugin API. Installing it enables its declared build contribution and the
+`tavoUi()` uses the Tavo.js plugin API. Installing it enables its declared build contribution and the
 `unsafeHeadHtml` permission used to place generated CSS in the server-rendered document head. Run
 `tavo inspect plugins` after installation or upgrades to review the compiled ownership graph and
 permission reason.
@@ -172,13 +172,13 @@ API naming is intentionally consistent across the kit: use `tone` for semantic c
 
 The consumer fixture in [fixtures/consumer](fixtures/consumer) imports the package through root and subpath entrypoints for publish-readiness smoke testing.
 
-For normal Tavo and Vite projects, keep component imports on the default package entrypoints:
+For normal Tavo.js and Vite projects, keep component imports on the default package entrypoints:
 
 ```ts
 import { Button, Grid, Page, Section, Stat, Text } from "@tavojs/ui";
 ```
 
-The default entrypoints automatically load bundled component CSS. Tavo projects using `tavoUi()` also get theme tokens injected automatically; projects without the plugin should import `@tavojs/ui/theme.css` once. The `/css` component entrypoints are equivalent CSS-safe aliases for apps that prefer explicit CSS import paths:
+The default entrypoints automatically load bundled component CSS. Tavo.js projects using `tavoUi()` also get theme tokens injected automatically; projects without the plugin should import `@tavojs/ui/theme.css` once. The `/css` component entrypoints are equivalent CSS-safe aliases for apps that prefer explicit CSS import paths:
 
 ```ts
 import "@tavojs/ui/theme.css";
@@ -212,3 +212,7 @@ npm run release:check
 ```
 
 The release checklist lives in [docs/release.md](docs/release.md).
+
+## Project policies
+
+See the public repository guidance for [contributing](https://github.com/tavojs/ui/blob/main/CONTRIBUTING.md), [security reporting](https://github.com/tavojs/ui/blob/main/SECURITY.md), the [MIT License](https://github.com/tavojs/ui/blob/main/LICENSE), and the [trademark policy](https://github.com/tavojs/ui/blob/main/TRADEMARKS.md).

@@ -1,9 +1,9 @@
 {
   "name": "@tavojs/ui-cli",
   "version": "1.0.0",
-  "description": "Command line interface for Tavo UI web projects.",
+  "description": "Command line interface for Tavo.js UI web projects.",
   "type": "module",
-  "author": "Tavo contributors",
+  "author": "Hrachya Martirosyan",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -30,7 +30,8 @@
     "dist",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "TRADEMARKS.md"
   ],
   "publishConfig": {
     "access": "public"

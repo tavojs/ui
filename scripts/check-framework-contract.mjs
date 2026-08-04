@@ -68,7 +68,7 @@ for (const file of await collectFiles(root)) {
 }
 
 if (violations.length > 0) {
-  throw new Error(`Obsolete Tavo 1.0 contracts found:\n${violations.join("\n")}`);
+  throw new Error(`Obsolete Tavo.js 1.0 contracts found:\n${violations.join("\n")}`);
 }
 
-console.log("Tavo 1.0 downstream contract scan passed.");
+console.log("Tavo.js 1.0 downstream contract scan passed.");

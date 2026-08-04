@@ -133,9 +133,9 @@ export function formatCssTokenDiagnostics(
 ): string {
   return diagnostics.map((diagnostic) => {
     const file = path.relative(cwd, diagnostic.file) || path.basename(diagnostic.file);
-    const label = diagnostic.group === "custom" ? "Tavo UI" : diagnostic.group;
+    const label = diagnostic.group === "custom" ? "Tavo.js UI" : diagnostic.group;
     return [
-      `Unknown Tavo UI token: ${diagnostic.token}`,
+      `Unknown Tavo.js UI token: ${diagnostic.token}`,
       `  at ${file}:${diagnostic.line}:${diagnostic.column}`,
       `Available ${label} tokens:`,
       ...diagnostic.available.map((token) => `  ${token}`)

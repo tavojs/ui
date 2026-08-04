@@ -1,4 +1,4 @@
-# Tavo UI Public Release
+# Tavo.js UI Public Release
 
 ## Release scope
 

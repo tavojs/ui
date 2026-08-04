@@ -10,7 +10,7 @@ export type TavoUiPluginOptions = {
 };
 
 /**
- * Creates the Tavo plugin descriptor for project theme generation.
+ * Creates the Tavo.js plugin descriptor for project theme generation.
  * Build and server implementations stay lazy so Node-only theme generation
  * code is not loaded while the framework compiles the plugin graph.
  */

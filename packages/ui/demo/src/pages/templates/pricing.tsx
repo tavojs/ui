@@ -18,7 +18,7 @@ import {
 } from "@/index";
 
 export const head = {
-  title: "Pricing Template - Tavo UI",
+  title: "Pricing Template - Tavo.js UI",
   head: '<meta name="description" content="A pricing page template composed with @tavojs/ui components">',
 };
 

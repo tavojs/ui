@@ -23,7 +23,7 @@ function htmlFor(name, theme) {
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tavo UI visual fixture: ${name}</title>
+  <title>Tavo.js UI visual fixture: ${name}</title>
   <style>${escapeStyleText(cssText)}</style>
   <style>
     main { min-height: 100vh; padding: var(--tui-space-6); color: var(--tui-color-text); font-family: var(--tui-font-family-text); }
@@ -59,5 +59,5 @@ for (const [name, theme] of variants) {
   links.push(`<li><a href="./${fileName}">${name}</a></li>`);
 }
 
-fs.writeFileSync(path.join(outDir, "index.html"), `<!doctype html><html><body><h1>Tavo UI visual fixtures</h1><ul>${links.join("")}</ul></body></html>`);
+fs.writeFileSync(path.join(outDir, "index.html"), `<!doctype html><html><body><h1>Tavo.js UI visual fixtures</h1><ul>${links.join("")}</ul></body></html>`);
 console.log(`Generated visual regression fixtures at ${outDir}`);

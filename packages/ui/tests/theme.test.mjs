@@ -1150,7 +1150,7 @@ test("CLI preview command writes a static HTML preview", () => {
     const html = readFileSync(previewPath, "utf8");
 
     assert.match(output, /Generated preview/);
-    assert.match(html, /Tavo UI Theme Preview/);
+    assert.match(html, /Tavo.js UI Theme Preview/);
     assert.match(html, /--tui-color-bg:/);
   } finally {
     rmSync(directory, { recursive: true, force: true });
@@ -1366,7 +1366,7 @@ test("published package exposes theme breakpoint SCSS entrypoint", () => {
   assert.match(breakpointScss, /@mixin tui-screen/);
 });
 
-test("tavoUi exposes a declarative Tavo plugin manifest", () => {
+test("tavoUi exposes a declarative Tavo.js plugin manifest", () => {
   const plugin = tavoUi({ silent: true });
 
   assert.equal(plugin.id, "@tavojs/ui");

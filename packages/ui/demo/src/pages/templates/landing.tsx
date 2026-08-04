@@ -17,7 +17,7 @@ import {
 } from "@/index";
 
 export const head = {
-  title: "Landing Template - Tavo UI",
+  title: "Landing Template - Tavo.js UI",
   head: '<meta name="description" content="A product landing page template composed with @tavojs/ui components">',
 };
 
@@ -35,7 +35,7 @@ const LandingTemplate = createTavo<
       <AppBar position="sticky">
         <Toolbar>
           <Inline>
-            <Chip tone="primary">Tavo Launch</Chip>
+            <Chip tone="primary">Tavo.js Launch</Chip>
             <Link href="/">UI Kit</Link>
             <Link href="/templates/pricing">Pricing</Link>
             <Link href="/templates/docs">Docs</Link>

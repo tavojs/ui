@@ -15,7 +15,7 @@ import {
   TimelineItem,
 } from "@/index";
 
-export const head = { title: "Calendar Template - Tavo UI" };
+export const head = { title: "Calendar Template - Tavo.js UI" };
 
 class CalendarTemplateController extends TavoController {}
 

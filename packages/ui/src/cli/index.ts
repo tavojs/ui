@@ -285,7 +285,7 @@ function previewHtml(cssText: string): string {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tavo UI Theme Preview</title>
+  <title>Tavo.js UI Theme Preview</title>
   <style>${escapeStyleText(cssText)}</style>
   <style>
     body { margin: 0; background: var(--tui-color-bg); color: var(--tui-color-text); font-family: var(--tui-font-family-text, var(--tui-font-family)); }
@@ -306,8 +306,8 @@ function previewHtml(cssText: string): string {
 <body>
   <main>
     <header>
-      <h1>Tavo UI Theme Preview</h1>
-      <p class="muted">Generated from your Tavo UI config.</p>
+      <h1>Tavo.js UI Theme Preview</h1>
+      <p class="muted">Generated from your Tavo.js UI config.</p>
     </header>
     <section>
       <h2>Core Surfaces</h2>
@@ -331,7 +331,7 @@ function previewHtml(cssText: string): string {
 export async function runCli(argv = process.argv.slice(2)): Promise<void> {
   if (argv[0] === "native") {
     throw new Error(
-      "React Native commands are not included in the Tavo UI 1.0 web release."
+      "React Native commands are not included in the Tavo.js UI 1.0 web release."
     );
   }
   const options = parseArgs(argv[0] === "web" ? argv.slice(1) : argv);

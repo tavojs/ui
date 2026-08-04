@@ -19,7 +19,7 @@ npm run benchmark:baseline
 ```
 
 The command rebuilds the library and then measures server-side rendering with
-`@tavojs/core` `renderToString`. Each fixture renders through the Tavo style
+`@tavojs/core` `renderToString`. Each fixture renders through the Tavo.js style
 registry, so the timing includes component markup and SSR style collection.
 
 ## Metrics

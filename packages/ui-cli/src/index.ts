@@ -41,7 +41,7 @@ export function usage(): string {
     "Commands:",
     "  web generate      Generate the web theme stylesheet.",
     "  web check         Validate the web theme config.",
-    "  web validate-css  Report unknown Tavo UI variables in application CSS.",
+    "  web validate-css  Report unknown Tavo.js UI variables in application CSS.",
     "  web tokens        Print generated web theme tokens.",
     "  web init          Create a default web theme config.",
     "  web preview       Generate a web theme preview.",
@@ -69,7 +69,7 @@ export function resolveRoute(argv: string[]): Route {
 
   if (first === "native") {
     throw new Error(
-      "React Native commands are not included in the Tavo UI 1.0 web release."
+      "React Native commands are not included in the Tavo.js UI 1.0 web release."
     );
   }
 
@@ -112,7 +112,7 @@ function isMissingImport(error: unknown, specifier: string): boolean {
 
 function installHint(): string {
   return [
-    "Tavo UI web package is not installed.",
+    "Tavo.js UI web package is not installed.",
     "",
     "Install it with: npm install @tavojs/ui",
   ].join("\n");

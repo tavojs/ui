@@ -17,7 +17,7 @@ import {
   TextInput,
 } from "@/index";
 
-export const head = { title: "Onboarding Template - Tavo UI" };
+export const head = { title: "Onboarding Template - Tavo.js UI" };
 
 class OnboardingTemplateController extends TavoController {}
 
@@ -56,7 +56,7 @@ const OnboardingTemplate = createTavo<
         <Card.Root eyebrow="Step 2" title="Team details" surface="raised">
           <Stack>
             <Field label="Workspace name">
-              <TextInput value="Tavo Studio" />
+              <TextInput value="Tavo.js Studio" />
             </Field>
             <Field label="Workspace type">
               <ToggleGroup

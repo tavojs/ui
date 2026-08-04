@@ -1,8 +1,8 @@
 # @tavojs/ui-cli
 
-CLI for Tavo UI web projects.
+CLI for Tavo.js UI web projects.
 
-For web projects, use the explicit `web` command group documented in the [Tavo UI CLI guide](https://tavojs.dev/docs/ui/cli):
+For web projects, use the explicit `web` command group documented in the [Tavo.js UI CLI guide](https://tavojs.dev/docs/ui/cli):
 
 ```bash
 npx tavo-ui web generate
@@ -21,7 +21,11 @@ npm install @tavojs/ui
 
 This package is intentionally separate from `@tavojs/cli`, which installs the
 framework-level `tavo` command for creating, developing, building, previewing,
-and inspecting Tavo applications.
+and inspecting Tavo.js applications.
 
-React Native commands and packages are not part of the Tavo UI 1.0 public
+React Native commands and packages are not part of the Tavo.js UI 1.0 public
 release.
+
+## Project policies
+
+See the public repository guidance for [contributing](https://github.com/tavojs/ui/blob/main/CONTRIBUTING.md), [security reporting](https://github.com/tavojs/ui/blob/main/SECURITY.md), the [MIT License](https://github.com/tavojs/ui/blob/main/LICENSE), and the [trademark policy](https://github.com/tavojs/ui/blob/main/TRADEMARKS.md).

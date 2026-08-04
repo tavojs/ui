@@ -19,7 +19,7 @@ import {
   Textarea,
 } from "@/index";
 
-export const head = { title: "Inbox Template - Tavo UI" };
+export const head = { title: "Inbox Template - Tavo.js UI" };
 
 class InboxTemplateController extends TavoController {}
 

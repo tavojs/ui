@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Guidance for coding agents working in the public Tavo UI repository.
+Guidance for coding agents working in the public Tavo.js UI repository.
 
 ## Repository Shape
 
@@ -14,8 +14,8 @@ The root package is private only to prevent publishing the workspace coordinator
 
 ## Package Boundaries
 
-- `@tavojs/ui-core` is platform-neutral theme/config/token logic. Do not add React, React Native, DOM, Vite, CSS-module, or Tavo runtime dependencies here.
-- `@tavojs/ui` owns web/Tavo components, CSS modules, internal web CLI behavior, plugin integration, docs, and demo.
+- `@tavojs/ui-core` is platform-neutral theme/config/token logic. Do not add React, React Native, DOM, Vite, CSS-module, or Tavo.js runtime dependencies here.
+- `@tavojs/ui` owns web/Tavo.js components, CSS modules, internal web CLI behavior, plugin integration, docs, and demo.
 - `@tavojs/ui-cli` owns the public `tavo-ui` binary and forwards to `@tavojs/ui/cli`.
 - `@tavojs/cli` is the separate framework CLI and publishes the `tavo` binary.
 

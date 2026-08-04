@@ -37,7 +37,7 @@ export const componentFixtures = {
         gap: { base: "sm", lg: 12 },
       },
       [
-        h(UI.Text, { weight: "bold" }, "Tavo"),
+        h(UI.Text, { weight: "bold" }, "Tavo.js"),
         h(UI.ButtonGroup, null, [
           h(UI.Button, null, "Save"),
           h(UI.Button, { variant: "outline" }, "Share"),
@@ -594,7 +594,7 @@ export const scenarioFixtures = {
       UI.Shell,
       {
         header: h(UI.AppBar, { justify: "between" }, [
-          h(UI.Text, { weight: "bold" }, "Tavo"),
+          h(UI.Text, { weight: "bold" }, "Tavo.js"),
           h(UI.CommandMenu, { items: [{ label: "Open docs", href: "/docs" }] }),
         ]),
         sidebar: h(

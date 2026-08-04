@@ -11,7 +11,7 @@ import {
   StatusDot,
 } from "@/index";
 
-export const head = { title: "Project Board Template - Tavo UI" };
+export const head = { title: "Project Board Template - Tavo.js UI" };
 
 class ProjectBoardTemplateController extends TavoController {}
 

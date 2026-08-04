@@ -9,7 +9,7 @@ npm install @tavojs/ui @tavojs/core
 npm install --save-dev @tavojs/cli
 ```
 
-`@tavojs/cli` installs the framework-level `tavo` command. Tavo UI's theme
+`@tavojs/cli` installs the framework-level `tavo` command. Tavo.js UI's theme
 commands remain available through the separate `tavo-ui` executable installed
 by `@tavojs/ui`.
 
@@ -79,7 +79,7 @@ import "./theme/generated/theme.css";
 import { Button, Page, Section } from "@tavojs/ui";
 ```
 
-The generated CSS contains Tavo UI variables such as `--tui-color-bg`, `--tui-color-primary-bg`, `--tui-radius-control`, `--tui-size-md`, and `--tui-font-family-text`.
+The generated CSS contains Tavo.js UI variables such as `--tui-color-bg`, `--tui-color-primary-bg`, `--tui-radius-control`, `--tui-size-md`, and `--tui-font-family-text`.
 
 ## Validate Application CSS
 
@@ -92,7 +92,7 @@ npx tavo-ui validate-css --config tavo-ui.config.json src
 You can pass individual files or multiple paths. The command ignores comments and reports every unsupported `--tui-*` variable with its source location and the available variables in the same token group:
 
 ```text
-Unknown Tavo UI token: --tui-space-8
+Unknown Tavo.js UI token: --tui-space-8
   at src/styles.css:12:18
 Available spacing tokens:
   --tui-space-1
@@ -107,7 +107,7 @@ Tokens declared under `tokens.light` or `tokens.dark` in the selected config are
 
 ## Automatic Generation During Dev And Build
 
-Projects can regenerate theme CSS automatically when `tavo dev` or `tavo build` from `@tavojs/cli` runs by adding the Tavo UI plugin to `tavo.config.ts`:
+Projects can regenerate theme CSS automatically when `tavo dev` or `tavo build` from `@tavojs/cli` runs by adding the Tavo.js UI plugin to `tavo.config.ts`:
 
 ```ts
 import { defineConfig } from "@tavojs/core/config";
@@ -122,9 +122,9 @@ export default defineConfig({
 });
 ```
 
-With the plugin enabled, Tavo project source automatically receives the theme CSS generated from the project config during dev and production builds. No app-level theme import is needed. Without the plugin, importing `@tavojs/ui/theme.css` falls back to the default theme shipped with the package.
+With the plugin enabled, Tavo.js project source automatically receives the theme CSS generated from the project config during dev and production builds. No app-level theme import is needed. Without the plugin, importing `@tavojs/ui/theme.css` falls back to the default theme shipped with the package.
 
-The integration is a Tavo plugin descriptor with lazy server and build phases. Its manifest
+The integration is a Tavo.js plugin descriptor with lazy server and build phases. Its manifest
 declares the named Vite contribution that generates and watches theme CSS, plus the
 `unsafeHeadHtml` permission required to inject that CSS into the server-rendered document head.
 Installing `tavoUi()` enables that declared permission; use `tavo inspect plugins` to review its
@@ -232,7 +232,7 @@ Open the generated HTML file in a browser to inspect the theme without starting 
 
 ## Recommended Project Scripts
 
-For app projects using Tavo UI, add scripts like:
+For app projects using Tavo.js UI, add scripts like:
 
 ```json
 {

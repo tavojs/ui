@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://tavojs.dev/schemas/tavo-ui.schema.json",
-  "title": "Tavo UI theme config",
+  "title": "Tavo.js UI theme config",
   "type": "object",
   "additionalProperties": false,
   "required": ["color"],

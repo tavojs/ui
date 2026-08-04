@@ -63,7 +63,7 @@ function catalogTable(rows) {
 }
 
 const lines = [
-  "# Tavo UI Tokens",
+  "# Tavo.js UI Tokens",
   "",
   "This file is generated from `tavo-ui.config.json` and the current theme builder.",
   "",
@@ -89,8 +89,7 @@ const lines = [
   "",
   "## Dark Mode Semantic Tokens",
   "",
-  table(rowsForMode("dark")),
-  ""
+  table(rowsForMode("dark"))
 ];
 
 fs.mkdirSync(path.dirname(outPath), { recursive: true });

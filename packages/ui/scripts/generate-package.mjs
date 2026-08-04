@@ -52,7 +52,7 @@ const categoryAgentDefaults = {
         name: "sx",
         type: "Sx",
         description:
-          "Mobile-first responsive style overrides registered through Tavo UI.",
+          "Mobile-first responsive style overrides registered through Tavo.js UI.",
       },
     ],
     accessibility: {
@@ -595,7 +595,7 @@ const polymorphicProp = {
   type: "string | Component<Record<string, unknown>>",
   required: false,
   description:
-    "Changes the rendered root element or component while preserving Tavo UI styling and public props.",
+    "Changes the rendered root element or component while preserving Tavo.js UI styling and public props.",
 };
 
 const classNameProp = {

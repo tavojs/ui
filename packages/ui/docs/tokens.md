@@ -1,4 +1,4 @@
-# Tavo UI Tokens
+# Tavo.js UI Tokens
 
 This file is generated from `tavo-ui.config.json` and the current theme builder.
 

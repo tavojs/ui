@@ -23,7 +23,7 @@ import {
 } from "@/index";
 
 export const head = {
-  title: "Checkout Template - Tavo UI",
+  title: "Checkout Template - Tavo.js UI",
   head: '<meta name="description" content="A checkout and billing template composed with @tavojs/ui components">',
 };
 
@@ -92,7 +92,7 @@ const CheckoutTemplate = createTavo<
                   <Text variant="h2">$79</Text>
                 </Inline>
                 <Text color="muted">
-                  Monthly subscription for product teams building with Tavo UI.
+                  Monthly subscription for product teams building with Tavo.js UI.
                 </Text>
                 <Divider />
                 <PropertyList>

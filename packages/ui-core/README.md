@@ -1,8 +1,8 @@
 # @tavojs/ui-core
 
-Platform-neutral Tavo UI theme config validation and token generation.
+Platform-neutral Tavo.js UI theme config validation and token generation.
 
-Most Tavo web applications should install `@tavojs/ui` instead. Use UI Core directly for custom renderers, build tooling, or platform-neutral token pipelines. See the [UI Core documentation](https://tavojs.dev/docs/ui-core) for the task-first guide and API reference.
+Most Tavo.js web applications should install `@tavojs/ui` instead. Use UI Core directly for custom renderers, build tooling, or platform-neutral token pipelines. See the [UI Core documentation](https://tavojs.dev/docs/ui-core) for the task-first guide and API reference.
 
 `@tavojs/ui-core` takes a small theme config and returns resolved color ramps, semantic tokens, static sizing tokens, breakpoint tokens, and accessibility warnings. It does not depend on a renderer, CSS framework, or runtime UI package.
 
@@ -212,3 +212,7 @@ npm run build:lib
 The build emits ESM and `.d.ts` files into `dist/`. Source imports use the `@/` alias and `scripts/postbuild.mjs` rewrites those aliases to relative imports in the published output.
 
 For a map of the internal modules, see [docs/theme-engine.md](./docs/theme-engine.md).
+
+## Project policies
+
+See the public repository guidance for [contributing](https://github.com/tavojs/ui/blob/main/CONTRIBUTING.md), [security reporting](https://github.com/tavojs/ui/blob/main/SECURITY.md), the [MIT License](https://github.com/tavojs/ui/blob/main/LICENSE), and the [trademark policy](https://github.com/tavojs/ui/blob/main/TRADEMARKS.md).

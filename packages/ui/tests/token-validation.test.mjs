@@ -62,7 +62,7 @@ test("validate-css reports unknown tokens with locations and grouped alternative
     );
 
     assert.equal(result.status, 1);
-    assert.match(result.stderr, /Unknown Tavo UI token: --tui-space-8/);
+    assert.match(result.stderr, /Unknown Tavo.js UI token: --tui-space-8/);
     assert.match(result.stderr, /app\.css:2:22/);
     assert.match(result.stderr, /Available spacing tokens:/);
     assert.match(result.stderr, /--tui-space-1/);

@@ -1028,7 +1028,7 @@ test("InputGroup renders addons, input, and button slots", () => {
   assert.match(output, /Apply/);
 });
 
-test("Image uses the Tavo core optimizer while keeping UI classes", () => {
+test("Image uses the Tavo.js core optimizer while keeping UI classes", () => {
   const output = html(
     h(Image, {
       src: "/preview.png",
