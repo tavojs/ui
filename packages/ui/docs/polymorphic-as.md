@@ -1,6 +1,6 @@
 # Polymorphic `as`
 
-Many Tavo UI primitives accept an `as` prop that changes the rendered root element or component while keeping the component's Tavo styling, `className`, `style`, `sx`, `aria-*`, `data-*`, event handlers, and children.
+Many Tavo.js UI primitives accept an `as` prop that changes the rendered root element or component while keeping the component's Tavo.js styling, `className`, `style`, `sx`, `aria-*`, `data-*`, event handlers, and children.
 
 Use `as` when the visual primitive is right but the HTML semantics or integration point should be different.
 
@@ -36,7 +36,7 @@ Use `as` for semantic HTML, routing adapters, custom framework components, and s
 </Box>
 ```
 
-Use a custom component when your app owns navigation or behavior but still wants Tavo UI styling.
+Use a custom component when your app owns navigation or behavior but still wants Tavo.js UI styling.
 
 ```tsx
 function RouterLink({ to, children, ...props }) {
@@ -66,7 +66,7 @@ Prefer the dedicated component when one exists:
 
 ## Accessibility
 
-Changing the root element changes its native semantics. Tavo UI keeps the styling and public props, but your app is responsible for any semantics introduced by the new element.
+Changing the root element changes its native semantics. Tavo.js UI keeps the styling and public props, but your app is responsible for any semantics introduced by the new element.
 
 - If you render a non-button as an interactive control, add the right `role`, keyboard handling, and `tabIndex`.
 - If you render a button-like component as a native `button`, provide `type="button"` when the component does not already do so.

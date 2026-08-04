@@ -1,6 +1,6 @@
 # Component Reference
 
-This reference documents every public component in `@tavojs/ui`. Import examples use focused entrypoints, and every component is also available from the default `@tavojs/ui` root export. New Tavo/Vite projects should use the default entrypoints. The `@tavojs/ui/css` entrypoints are equivalent CSS-safe aliases.
+This reference documents every public component in `@tavojs/ui`. Import examples use focused entrypoints, and every component is also available from the default `@tavojs/ui` root export. New Tavo.js/Vite projects should use the default entrypoints. The `@tavojs/ui/css` entrypoints are equivalent CSS-safe aliases.
 
 ## Shared Types
 
@@ -29,7 +29,7 @@ See the [responsive `sx` guide](responsive-sx.md) for visibility examples and br
 
 ## Polymorphic Roots
 
-Single-root primitives such as `Box`, `Text`, `Card`, `Button`, `Badge`, `Stack`, and `Toolbar` support `as` to change the rendered root element or custom component while preserving Tavo UI styling and public props.
+Single-root primitives such as `Box`, `Text`, `Card`, `Button`, `Badge`, `Stack`, and `Toolbar` support `as` to change the rendered root element or custom component while preserving Tavo.js UI styling and public props.
 
 ```tsx
 <Box as="main" maxWidth="lg" paddingInline="lg" center fullWidth>
@@ -475,7 +475,7 @@ Props:
 - `code?: string`
 - `language?: string`
 - `highlighted?: boolean` - defaults to `true` for string code.
-- `editorTheme?: "auto" | "light" | "dark"` - defaults to `auto` and inherits the active Tavo theme tokens.
+- `editorTheme?: "auto" | "light" | "dark"` - defaults to `auto` and inherits the active Tavo.js theme tokens.
 - `wrap?: boolean`
 
 Example:
@@ -512,7 +512,7 @@ Props:
 Example:
 
 ```tsx
-<Combobox name="framework" options={[{ label: "Tavo", value: "tavo" }]} />
+<Combobox name="framework" options={[{ label: "Tavo.js", value: "tavo" }]} />
 ```
 
 Accessibility: Uses native `input` plus `datalist`.
@@ -952,7 +952,7 @@ Example:
 <Image src="/preview.png" alt="Dashboard preview" width="100%" height={320} objectFit="cover" />
 ```
 
-When `src` is provided, Tavo UI delegates to the Tavo core `Image` component so SSR projects get optimized `/_tavo/image` URLs, responsive `srcset`, lazy loading, and priority support. UI-only behavior such as `skeleton`, `fallback`, and `objectFit` is layered on top. SVG sources are passed through unoptimized by default so they remain vector images; set `unoptimized={false}` only when rasterizing an SVG through the optimizer is intentional.
+When `src` is provided, Tavo.js UI delegates to the Tavo.js core `Image` component so SSR projects get optimized `/_tavo/image` URLs, responsive `srcset`, lazy loading, and priority support. UI-only behavior such as `skeleton`, `fallback`, and `objectFit` is layered on top. SVG sources are passed through unoptimized by default so they remain vector images; set `unoptimized={false}` only when rasterizing an SVG through the optimizer is intentional.
 
 Remote image URLs require app-level SSR configuration. If a remote UI image produces a browser error like `/_tavo/image?... 500`, check the response body. For `tavo image: remote images are disabled.` or `tavo image: remote image host is not allowed.`, add a narrow allowlist in the app's root `tavo.config.ts`:
 
@@ -973,7 +973,7 @@ export default defineConfig({
 });
 ```
 
-Restart the SSR dev server after changing `tavo.config.ts`. Use `unoptimized` for a specific image when it should bypass the Tavo optimizer.
+Restart the SSR dev server after changing `tavo.config.ts`. Use `unoptimized` for a specific image when it should bypass the Tavo.js optimizer.
 
 ## Inline
 
@@ -1782,7 +1782,7 @@ Use `Text` for token-backed typography.
 
 Props:
 
-- `as?: string | Component<Record<string, unknown>>` - Changes the rendered root element or component while preserving Tavo UI styling and public props.
+- `as?: string | Component<Record<string, unknown>>` - Changes the rendered root element or component while preserving Tavo.js UI styling and public props.
 - `className?: string` - Optional class hook for app-level styling.
 - `variant?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "body" | "hint" | "span"`
 - `color?: "auto" | "heading" | "muted" | "inherit" | "primary" | "secondary" | Tone`

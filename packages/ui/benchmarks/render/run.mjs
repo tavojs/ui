@@ -354,7 +354,7 @@ function printTable(title, rows) {
 
 validateCoverage();
 
-console.log(`Tavo UI SSR render benchmark`);
+console.log(`Tavo.js UI SSR render benchmark`);
 console.log(`Iterations: ${iterations}; warmups: ${warmups}; fixtures: ${Object.keys(componentFixtures).length} components, ${Object.keys(scenarioFixtures).length} scenarios`);
 
 const suiteHeapBefore = process.memoryUsage().heapUsed;

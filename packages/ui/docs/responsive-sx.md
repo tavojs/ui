@@ -1,6 +1,6 @@
 # Responsive `sx`
 
-Tavo UI `sx` is mobile-first. Breakpoint keys set styles from that width upward, matching the responsive model used by common UI systems.
+Tavo.js UI `sx` is mobile-first. Breakpoint keys set styles from that width upward, matching the responsive model used by common UI systems.
 
 Default breakpoints:
 
@@ -81,6 +81,6 @@ Nested selectors also work inside breakpoint blocks:
 
 ## Cascade Contract
 
-Generated `sx` rules are registered through the Tavo style registry and wrapped in `@layer tavo-ui.overrides`. Static component CSS is wrapped in `@layer tavo-ui.components`, so `sx` can override component defaults without `!important`.
+Generated `sx` rules are registered through the Tavo.js style registry and wrapped in `@layer tavo-ui.overrides`. Static component CSS is wrapped in `@layer tavo-ui.components`, so `sx` can override component defaults without `!important`.
 
-The `sx` prop is handled only by Tavo UI components that explicitly support it. Raw DOM, custom, or imported SVG components do not process Tavo UI `sx` unless they are wrapped by a Tavo UI component such as `Icon`.
+The `sx` prop is handled only by Tavo.js UI components that explicitly support it. Raw DOM, custom, or imported SVG components do not process Tavo.js UI `sx` unless they are wrapped by a Tavo.js UI component such as `Icon`.

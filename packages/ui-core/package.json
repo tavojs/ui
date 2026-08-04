@@ -1,9 +1,9 @@
 {
   "name": "@tavojs/ui-core",
   "version": "1.0.0",
-  "description": "Platform-neutral Tavo UI theme config and token generation.",
+  "description": "Platform-neutral Tavo.js UI theme config and token generation.",
   "type": "module",
-  "author": "Tavo contributors",
+  "author": "Hrachya Martirosyan",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -30,7 +30,8 @@
     "schema.json",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "TRADEMARKS.md"
   ],
   "publishConfig": {
     "access": "public"

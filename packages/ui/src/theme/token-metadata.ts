@@ -82,10 +82,10 @@ export function getTavoUiTokenMetadata(
     }));
 }
 
-/** Complete built-in Tavo UI CSS variable catalog. */
+/** Complete built-in Tavo.js UI CSS variable catalog. */
 export const tavoUiTokenMetadata = Object.freeze(getTavoUiTokenMetadata());
 
-/** Complete built-in Tavo UI CSS variable names. */
+/** Complete built-in Tavo.js UI CSS variable names. */
 export const tavoUiTokenNames = Object.freeze(
   tavoUiTokenMetadata.map((token) => token.cssVariable)
 );

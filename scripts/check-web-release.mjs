@@ -7,6 +7,29 @@ const publicPackages = [
   ["@tavojs/ui-cli", "packages/ui-cli/package.json"],
   ["@tavojs/ui", "packages/ui/package.json"],
 ];
+const expectedAuthor = "Hrachya Martirosyan";
+const expectedLicense = `MIT License
+
+Copyright (c) 2026 Hrachya Martirosyan and contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+`;
 
 function readJson(relativePath) {
   return JSON.parse(fs.readFileSync(path.join(root, relativePath), "utf8"));
@@ -67,6 +90,27 @@ for (const [expectedName, manifestPath] of publicPackages) {
   );
   assert(packageJson.private !== true, `${expectedName} must be publishable.`);
   assert(
+    packageJson.author === expectedAuthor,
+    `${expectedName} must identify ${expectedAuthor} as its author.`
+  );
+  assert(packageJson.license === "MIT", `${expectedName} must use MIT.`);
+  assert(
+    packageJson.files?.includes("LICENSE") &&
+      packageJson.files?.includes("TRADEMARKS.md"),
+    `${expectedName} must publish LICENSE and TRADEMARKS.md.`
+  );
+  const packageRoot = path.posix.dirname(manifestPath);
+  assert(
+    fs.readFileSync(path.join(root, packageRoot, "LICENSE"), "utf8") ===
+      expectedLicense,
+    `${expectedName} must contain the canonical MIT license text.`
+  );
+  assert(
+    fs.readFileSync(path.join(root, packageRoot, "TRADEMARKS.md"), "utf8") ===
+      fs.readFileSync(path.join(root, "TRADEMARKS.md"), "utf8"),
+    `${expectedName} must contain the canonical trademark policy.`
+  );
+  assert(
     packageJson.publishConfig?.access === "public",
     `${expectedName} must publish with public access.`
   );
@@ -92,6 +136,11 @@ const reactNative = fs.existsSync(reactNativePath)
   ? readJson("packages/ui-react-native/package.json")
   : undefined;
 const lockfile = readJson("package-lock.json");
+
+assert(
+  fs.readFileSync(path.join(root, "LICENSE"), "utf8") === expectedLicense,
+  "The repository LICENSE must contain the canonical MIT license text."
+);
 
 assert(
   satisfiesCaret(uiCore.version, ui.dependencies?.["@tavojs/ui-core"] ?? ""),

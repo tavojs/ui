@@ -1,6 +1,6 @@
-# Tavo UI Monorepo
+# Tavo.js UI Monorepo
 
-This repository contains the public Tavo UI web package family:
+This repository contains the public Tavo.js UI web package family:
 
 - `packages/ui-core` publishes `@tavojs/ui-core`
 - `packages/ui-cli` publishes `@tavojs/ui-cli`

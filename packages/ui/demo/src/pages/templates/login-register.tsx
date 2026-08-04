@@ -19,7 +19,7 @@ import {
 } from "@/index";
 
 export const head = {
-  title: "Login/Register Template - Tavo UI",
+  title: "Login/Register Template - Tavo.js UI",
   head: '<meta name="description" content="A login and registration template composed with @tavojs/ui components">',
 };
 
@@ -37,7 +37,7 @@ const LoginRegisterTemplate = createTavo<
       <AppBar position="static">
         <Toolbar>
           <Inline>
-            <Chip tone="primary">Tavo Auth</Chip>
+            <Chip tone="primary">Tavo.js Auth</Chip>
             <Link href="/">UI Kit</Link>
             <Link href="/templates/blog">Blog</Link>
             <Link href="/templates/admin">Admin</Link>

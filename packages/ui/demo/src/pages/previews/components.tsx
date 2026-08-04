@@ -102,7 +102,7 @@ type ComponentsPreviewState = {
 };
 
 export const head = {
-  title: "Components Preview - Tavo UI",
+  title: "Components Preview - Tavo.js UI",
   head: '<meta name="description" content="A mobile-focused all components preview for @tavojs/ui">',
 };
 
@@ -206,7 +206,7 @@ const ComponentsPreviewPage = createTavo<
                   <AspectRatio ratio="16 / 9">
                     <Image
                       src="/tavo-landscape.svg"
-                      alt="Tavo preview"
+                      alt="Tavo.js preview"
                       width="100%"
                       height="100%"
                       objectFit="cover"
@@ -627,7 +627,7 @@ const ComponentsPreviewPage = createTavo<
               <Card title="Miscellaneous" eyebrow="Small">
                 <Stack>
                   <Inline>
-                    <Avatar name="Tavo UI" />
+                    <Avatar name="Tavo.js UI" />
                     <Chip tone="primary">Chip</Chip>
                     <Chip selected removable>
                       Chip

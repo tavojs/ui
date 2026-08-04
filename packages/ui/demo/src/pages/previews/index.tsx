@@ -13,7 +13,7 @@ import {
 } from "@/index";
 
 export const head = {
-  title: "Previews - Tavo UI",
+  title: "Previews - Tavo.js UI",
   head: '<meta name="description" content="Focused preview pages for testing @tavojs/ui layouts">',
 };
 

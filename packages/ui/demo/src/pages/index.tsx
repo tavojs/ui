@@ -112,8 +112,8 @@ const tones = [
 ] as const;
 
 export const head = {
-  title: "Tavo UI",
-  head: '<meta name="description" content="A Tavo-native UI library with generated theme tokens">',
+  title: "Tavo.js UI",
+  head: '<meta name="description" content="A Tavo.js-native UI library with generated theme tokens">',
 };
 
 class HomeController extends TavoController {
@@ -208,7 +208,7 @@ const HomePage = createTavo<Record<string, never>, DemoState, HomeController>({
         label: "Overview",
         content: (
           <Stack>
-            <Alert title="Tavo-native runtime" tone="info">
+            <Alert title="Tavo.js-native runtime" tone="info">
               The UI kit uses `@tavojs/core` for TSX rendering, stores, and
               theme context rather than a React runtime.
             </Alert>
@@ -302,13 +302,13 @@ const HomePage = createTavo<Record<string, never>, DemoState, HomeController>({
                 variant="h1"
                 style={{ maxWidth: "46rem", textWrap: "balance" }}
               >
-                Generated tokens, colocated SCSS modules, and a Tavo-native
+                Generated tokens, colocated SCSS modules, and a Tavo.js-native
                 runtime.
               </Text>
               <Text color="muted" style={{ maxWidth: "42rem" }}>
                 This package now follows the same logic you liked in `book-ui`,
                 but reworked so styling stays app-owned, the generator is pure,
-                and the component runtime stays squarely inside Tavo.
+                and the component runtime stays squarely inside Tavo.js.
               </Text>
               <Inline>
                 <Button onClick={() => controller?.patch({ status: "Saved" })}>
@@ -471,7 +471,7 @@ const HomePage = createTavo<Record<string, never>, DemoState, HomeController>({
 
                     <Field
                       label="Release email"
-                      hint="Bound to Tavo MVC state."
+                      hint="Bound to Tavo.js MVC state."
                     >
                       <TextInput
                         type="email"
@@ -1112,7 +1112,7 @@ const HomePage = createTavo<Record<string, never>, DemoState, HomeController>({
 
                   <Alert tone="info" title="Controlled primitives">
                     Overlay visibility lives in the page state, which keeps the
-                    API predictable and Tavo-friendly.
+                    API predictable and Tavo.js-friendly.
                   </Alert>
                 </Stack>
               </Card>
@@ -1235,7 +1235,7 @@ const HomePage = createTavo<Record<string, never>, DemoState, HomeController>({
                       meta="09:22"
                       tone="secondary"
                     >
-                      The local Tavo demo is running with the expanded catalog.
+                      The local Tavo.js demo is running with the expanded catalog.
                     </TimelineItem>
                   </Timeline>
                 </Stack>

@@ -1,9 +1,9 @@
 {
   "name": "@tavojs/ui",
   "version": "1.0.0",
-  "description": "A Tavo-native UI library with colocated TSX and SCSS modules plus theme generation tooling.",
+  "description": "A Tavo.js-native UI library with colocated TSX and SCSS modules plus theme generation tooling.",
   "type": "module",
-  "author": "Tavo contributors",
+  "author": "Hrachya Martirosyan",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -34,7 +34,8 @@
     "schema.json",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "TRADEMARKS.md"
   ],
   "publishConfig": {
     "access": "public"

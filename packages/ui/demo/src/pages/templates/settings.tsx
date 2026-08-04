@@ -24,7 +24,7 @@ import {
 } from "@/index";
 
 export const head = {
-  title: "Settings Template - Tavo UI",
+  title: "Settings Template - Tavo.js UI",
   head: '<meta name="description" content="A settings page template composed with @tavojs/ui components">',
 };
 
@@ -71,7 +71,7 @@ const SettingsTemplate = createTavo<
               <Field label="Bio" optional>
                 <Textarea
                   rows={4}
-                  value="Building tidy interfaces with Tavo."
+                  value="Building tidy interfaces with Tavo.js."
                 />
               </Field>
             </Stack>

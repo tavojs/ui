@@ -1,6 +1,6 @@
-# Tavo UI Library Guide
+# Tavo.js UI Library Guide
 
-`@tavojs/ui` is a Tavo-native component library built for product interfaces. It provides TSX components, colocated SCSS modules, generated CSS variables, theme tooling, grouped exports, CSS-only package entrypoints, demo templates, and metadata for documentation or design-system tooling.
+`@tavojs/ui` is a Tavo.js-native component library built for product interfaces. It provides TSX components, colocated SCSS modules, generated CSS variables, theme tooling, grouped exports, CSS-only package entrypoints, demo templates, and metadata for documentation or design-system tooling.
 
 ## Installation
 
@@ -180,7 +180,7 @@ If you generate a physical theme file with the CLI, import that generated theme 
 import "./theme/generated/theme.css";
 ```
 
-For the normal project setup, add the Tavo UI plugin to `tavo.config.ts`:
+For the normal project setup, add the Tavo.js UI plugin to `tavo.config.ts`:
 
 ```ts
 import { defineConfig } from "@tavojs/core/config";
@@ -197,7 +197,7 @@ export default defineConfig({
 
 The plugin automatically attaches project-specific theme CSS generated from `tavo-ui.config.json` during dev and production builds. No app-level theme import is needed. Without the plugin, importing `@tavojs/ui/theme.css` uses the default theme shipped with the package.
 
-The plugin follows the Tavo plugin API and declares its theme build contribution and its required
+The plugin follows the Tavo.js plugin API and declares its theme build contribution and its required
 server-head permission in an inspectable manifest. Run `tavo inspect plugins` after installing or
 upgrading it to review the effective ownership and permission reason.
 

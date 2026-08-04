@@ -1,7 +1,7 @@
 {
   "name": "tavo-ui-monorepo",
   "private": true,
-  "description": "Public monorepo for the Tavo UI web packages.",
+  "description": "Public monorepo for the Tavo.js UI web packages.",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -22,6 +22,8 @@
   ],
   "scripts": {
     "build": "npm run build --workspace @tavojs/ui-core && npm run build --workspace @tavojs/ui-cli && npm run build --workspace @tavojs/ui",
+    "smoke:consumer": "npm run smoke:consumer --workspace @tavojs/ui",
+    "pack:dry": "npm pack --dry-run --workspace @tavojs/ui-core && npm pack --dry-run --workspace @tavojs/ui-cli && npm run pack:dry --workspace @tavojs/ui",
     "test": "npm run check:framework-contract && npm test --workspace @tavojs/ui-core && npm test --workspace @tavojs/ui-cli && npm test --workspace @tavojs/ui",
     "typecheck": "npm run build --workspace @tavojs/ui-core && npm run typecheck --workspaces",
     "format:check": "npm run format:check --workspaces --if-present",

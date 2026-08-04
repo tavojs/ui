@@ -21,7 +21,7 @@ import {
   Text,
 } from "@/index";
 
-export const head = { title: "Analytics Template - Tavo UI" };
+export const head = { title: "Analytics Template - Tavo.js UI" };
 
 class AnalyticsTemplateController extends TavoController {}
 

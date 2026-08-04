@@ -335,7 +335,7 @@ const theme = getThemeSnapshot(controller);
 theme.setMode("dark");
 ```
 
-For reactive Tavo UI, subscribe to `controller.store` from an MVC controller and copy the selected state into the component model:
+For reactive Tavo.js UI, subscribe to `controller.store` from an MVC controller and copy the selected state into the component model:
 
 ```tsx
 import { createTavo, TavoController } from "@tavojs/core";

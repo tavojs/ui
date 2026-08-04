@@ -27,7 +27,7 @@ type GridPreviewState = {
 };
 
 export const head = {
-  title: "Grid Preview - Tavo UI",
+  title: "Grid Preview - Tavo.js UI",
   head: '<meta name="description" content="A focused grid preview page for testing website layout with @tavojs/ui">',
 };
 

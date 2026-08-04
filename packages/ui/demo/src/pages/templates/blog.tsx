@@ -16,7 +16,7 @@ import {
 } from "@/index";
 
 export const head = {
-  title: "Blog Template - Tavo UI",
+  title: "Blog Template - Tavo.js UI",
   head: '<meta name="description" content="A blog template composed with @tavojs/ui components">',
 };
 
@@ -36,7 +36,7 @@ const articles = [
       "A practical layout model for composing editorial pages with reusable primitives.",
   },
   {
-    title: "Shipping a Tavo-native UI kit",
+    title: "Shipping a Tavo.js-native UI kit",
     meta: "Release",
     description:
       "Notes on package exports, CSS-only consumption, and keeping the runtime focused.",
@@ -55,7 +55,7 @@ const BlogTemplate = createTavo<
       <AppBar position="sticky">
         <Toolbar>
           <Inline gap="sm">
-            <Chip tone="primary">Tavo Journal</Chip>
+            <Chip tone="primary">Tavo.js Journal</Chip>
             <Link href="/">UI Kit</Link>
             <Link href="/templates/admin">Admin</Link>
             <Link href="/templates/login-register">Auth</Link>
@@ -86,7 +86,7 @@ const BlogTemplate = createTavo<
             <Box surface="raised" padding="lg" radius="surface" border shadow>
               <Stack gap="md">
                 <Chip tone="secondary">Featured</Chip>
-                <Text variant="h2">The new baseline for Tavo product UI</Text>
+                <Text variant="h2">The new baseline for Tavo.js product UI</Text>
                 <Text color="muted">
                   A full article hero with reusable spacing, surface, badge,
                   text, and action primitives.

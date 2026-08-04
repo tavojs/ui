@@ -29,7 +29,7 @@ import {
 } from "@/index";
 
 export const head = {
-  title: "Admin Template - Tavo UI",
+  title: "Admin Template - Tavo.js UI",
   head: '<meta name="description" content="An admin dashboard template composed with @tavojs/ui components">',
 };
 

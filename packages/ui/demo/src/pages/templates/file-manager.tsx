@@ -23,7 +23,7 @@ import {
   TableRow,
 } from "@/index";
 
-export const head = { title: "File Manager Template - Tavo UI" };
+export const head = { title: "File Manager Template - Tavo.js UI" };
 
 class FileManagerTemplateController extends TavoController {}
 

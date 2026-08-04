@@ -22,7 +22,7 @@ import {
 } from "@/index";
 
 export const head = {
-  title: "Docs Template - Tavo UI",
+  title: "Docs Template - Tavo.js UI",
   head: '<meta name="description" content="A docs and help center template composed with @tavojs/ui components">',
 };
 

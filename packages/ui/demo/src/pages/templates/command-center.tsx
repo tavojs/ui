@@ -14,7 +14,7 @@ import {
   Toast,
 } from "@/index";
 
-export const head = { title: "Command Center Template - Tavo UI" };
+export const head = { title: "Command Center Template - Tavo.js UI" };
 
 class CommandCenterTemplateController extends TavoController {}
 
