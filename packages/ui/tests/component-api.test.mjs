@@ -1130,12 +1130,84 @@ test("Calendar selection is wired through DatePicker", () => {
   const picker = DatePicker({ year: 2026, month: 0, onValueChange });
   const nestedCalendar = findVNode(picker, (node) => node.type === Calendar);
   assert.equal(nestedCalendar.props.onSelect, onValueChange);
+  const calendarTrigger = findVNode(
+    picker,
+    (node) => node.type === Popover.Trigger
+  );
+  assert.ok(calendarTrigger);
   const input = findVNode(
     picker,
     (node) => node.type === TextInput && node.props?.type === "date"
   );
   input.props.onChange({ currentTarget: { value: "2026-01-17" } });
   assert.equal(selected, "2026-01-17");
+});
+
+test("Calendar month and year selectors request controlled changes", () => {
+  const changes = [];
+  const calendar = Calendar({
+    year: 2026,
+    month: 4,
+    yearRange: { start: 2025, end: 2027 },
+    onMonthChange: (year, month) => changes.push([year, month]),
+  });
+  const selects = [];
+
+  function collectSelects(value) {
+    if (Array.isArray(value)) {
+      value.forEach(collectSelects);
+      return;
+    }
+    if (!value || typeof value !== "object" || !("type" in value)) {
+      return;
+    }
+    if (value.type === "select") {
+      selects.push(value);
+    }
+    collectSelects(value.props?.children);
+  }
+
+  collectSelects(calendar);
+  const disclosure = findVNodeByType(calendar, "details");
+  assert.equal(disclosure, undefined);
+  assert.equal(selects.length, 2);
+  assert.equal(selects[0].props["aria-label"], "Month");
+  assert.equal(selects[0].props.value, "4");
+  assert.equal(selects[1].props["aria-label"], "Year");
+  assert.equal(selects[1].props.value, "2026");
+
+  const previousButton = findVNodeByType(calendar, "button");
+  const buttons = [];
+  function collectButtons(value) {
+    if (Array.isArray(value)) {
+      value.forEach(collectButtons);
+      return;
+    }
+    if (!value || typeof value !== "object" || !("type" in value)) return;
+    if (value.type === "button") buttons.push(value);
+    collectButtons(value.props?.children);
+  }
+  collectButtons(calendar);
+  assert.equal(previousButton.props["aria-label"], "Previous month");
+  assert.equal(buttons[1].props["aria-label"], "Next month");
+
+  selects[0].props.onInput({ currentTarget: { value: "8" } });
+  selects[1].props.onInput({ currentTarget: { value: "2027" } });
+  buttons[0].props.onClick();
+  buttons[1].props.onClick();
+  assert.deepEqual(changes, [[2026, 8], [2027, 4], [2026, 3], [2026, 5]]);
+
+  const output = html(h(Calendar, {
+    year: 2026,
+    month: 4,
+    yearRange: { start: 2025, end: 2027 },
+    onMonthChange: () => {},
+  }));
+  assert.doesNotMatch(output, /<details|<summary/);
+  assert.match(output, /aria-label="Month"/);
+  assert.match(output, /aria-label="Year"/);
+  assert.match(output, /value="2025"/);
+  assert.match(output, /value="2027"/);
 });
 
 test("numeric components normalize non-finite and out-of-range inputs", () => {

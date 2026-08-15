@@ -80,6 +80,7 @@ import {
 } from "@/index";
 import { demoThemeController } from "../theme-controller.ts";
 import type { ThemeMode, ThemeRuntimeState } from "@/index";
+import ComponentsCatalogPage from "./previews/components";
 
 type DemoState = {
   activeTab: string;
@@ -112,8 +113,8 @@ const tones = [
 ] as const;
 
 export const head = {
-  title: "Tavo.js UI",
-  head: '<meta name="description" content="A Tavo.js-native UI library with generated theme tokens">',
+  title: "Components - Tavo.js UI Preview",
+  head: '<meta name="description" content="Search and explore every @tavojs/ui component in the package preview">',
 };
 
 class HomeController extends TavoController {
@@ -180,7 +181,7 @@ const ThemeControls = createTavo<
   ),
 });
 
-const HomePage = createTavo<Record<string, never>, DemoState, HomeController>({
+export const HomePage = createTavo<Record<string, never>, DemoState, HomeController>({
   model: () => ({
     activeTab: "overview",
     density: "comfortable",
@@ -1321,4 +1322,4 @@ const HomePage = createTavo<Record<string, never>, DemoState, HomeController>({
   },
 });
 
-export default HomePage;
+export default ComponentsCatalogPage;

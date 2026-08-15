@@ -264,6 +264,35 @@ const categoryAgentDefaults = {
   },
 };
 const componentAgentOverrides = {
+  Calendar: {
+    whenToUse:
+      "Use Calendar for a visible month grid with optional controlled month and year selection and previous/next navigation.",
+    props: [
+      { name: "year", type: "number", description: "Displayed year." },
+      { name: "month", type: "number", description: "Displayed zero-based month." },
+      {
+        name: "yearRange",
+        type: "{ start: number; end: number }",
+        description: "Inclusive year options shown by the year selector.",
+      },
+      {
+        name: "onMonthChange",
+        type: "(year: number, month: number) => void",
+        description: "Makes the month and year in the top heading selectable and requests a controlled visible-month change.",
+      },
+      {
+        name: "onSelect",
+        type: "(value: string) => void",
+        description: "Runs when an enabled date is selected.",
+      },
+    ],
+    examples: [
+      {
+        title: "Selectable month and year",
+        code: '<Calendar year={year} month={month} yearRange={{ start: 2020, end: 2030 }} onMonthChange={(nextYear, nextMonth) => setView({ year: nextYear, month: nextMonth })} />',
+      },
+    ],
+  },
   Button: {
     whenToUse:
       "Use Button for primary, secondary, destructive, or link-style actions.",

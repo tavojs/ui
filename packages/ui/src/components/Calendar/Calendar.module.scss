@@ -14,6 +14,142 @@
   font-size: var(--tui-font-size-h3);
 }
 
+.picker {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) calc(4rem + var(--tui-space-1));
+  align-items: center;
+  gap: var(--tui-space-2);
+  width: 100%;
+  margin-bottom: var(--tui-space-3);
+}
+
+.titleSelectors,
+.navigation {
+  display: flex;
+  align-items: center;
+}
+
+.titleSelectors {
+  gap: 0.35em;
+  min-width: 0;
+}
+
+.navigation {
+  gap: var(--tui-space-1);
+  justify-content: flex-end;
+  width: calc(4rem + var(--tui-space-1));
+}
+
+.titleSelectControl {
+  position: relative;
+  display: inline-flex;
+  border-radius: var(--tui-radius-control);
+}
+
+.titleValue {
+  color: var(--tui-color-heading);
+  cursor: pointer;
+  font-family: var(--tui-font-family-heading, var(--tui-font-family-text, var(--tui-font-family)));
+  font-size: 1.25rem;
+  pointer-events: none;
+}
+
+.titleSelector {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--tui-font-family-text, var(--tui-font-family));
+  font-size: 16px;
+  opacity: 0;
+  z-index: 1;
+}
+
+.titleSelector option {
+  font-family: var(--tui-font-family-text, var(--tui-font-family));
+  font-size: 16px;
+}
+
+.titleSelectControl:has(.titleSelector:focus-visible) {
+  outline: var(--tui-focus-width) solid
+    color-mix(
+      in srgb,
+      var(--tui-color-focus)
+        calc(var(--tui-interaction-focus-alpha, 0.28) * 100%),
+      transparent
+    );
+  outline-offset: var(--tui-focus-offset);
+}
+
+.navigationButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--tui-radius-control);
+  background: transparent;
+  color: var(--tui-color-heading);
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--tui-font-size-h3);
+  line-height: 1;
+}
+
+.navigationIcon {
+  display: block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-bottom: 2px solid currentColor;
+  border-left: 2px solid currentColor;
+}
+
+.previousIcon {
+  transform: rotate(45deg);
+}
+
+.nextIcon {
+  transform: rotate(225deg);
+}
+
+.navigationButton:hover {
+  background: var(--tui-color-surface-subtle);
+}
+
+.navigationButton:focus-visible {
+  outline: var(--tui-focus-width) solid
+    color-mix(
+      in srgb,
+      var(--tui-color-focus)
+        calc(var(--tui-interaction-focus-alpha, 0.28) * 100%),
+      transparent
+    );
+  outline-offset: var(--tui-focus-offset);
+}
+
+.navigationButton:disabled {
+  cursor: not-allowed;
+  opacity: var(--tui-interaction-disabled-opacity, var(--tui-opacity-disabled));
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
