@@ -3,13 +3,15 @@ import { cx, sxClassName, type BaseProps } from "@/components/shared";
 
 export type CollapsibleProps = BaseProps & {
   open?: boolean;
+  showArrow?: boolean;
+  centerTrigger?: boolean;
 };
 
 export type CollapsibleTriggerProps = BaseProps;
 export type CollapsibleContentProps = BaseProps;
 
-function CollapsibleBase({ children, className = "", open = false, ...props }: CollapsibleProps) {
-  return <details className={sxClassName(props, cx(styles.root, className))} open={open} {...props}>{children}</details>;
+function CollapsibleBase({ children, className = "", open = false, showArrow = true, centerTrigger = false, ...props }: CollapsibleProps) {
+  return <details className={sxClassName(props, cx(styles.root, className))} open={open} data-show-arrow={showArrow ? undefined : "false"} data-center-trigger={centerTrigger ? "true" : undefined} {...props}>{children}</details>;
 }
 
 export function CollapsibleTrigger({ children, className = "", ...props }: CollapsibleTriggerProps) {
