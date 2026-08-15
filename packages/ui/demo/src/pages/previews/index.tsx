@@ -56,16 +56,17 @@ const PreviewsPage = createTavo<
                 <Link href="/previews/grid">Open grid preview</Link>
               </Stack>
             </Card>
-            <Card title="All components" eyebrow="Mobile">
+            <Card title="Component catalog" eyebrow="Reference">
               <Stack>
                 <Text color="muted">
-                  Exercise every component family in one narrow-screen preview.
+                  Search all public components and open dedicated pages for
+                  examples, props, imports, and accessibility guidance.
                 </Text>
                 <Inline>
-                  <Chip tone="success">Mobile</Chip>
-                  <Chip tone="info">Overflow</Chip>
+                  <Chip tone="success">80 components</Chip>
+                  <Chip tone="info">Searchable</Chip>
                 </Inline>
-                <Link href="/previews/components">Open components preview</Link>
+                <Link href="/previews/components">Browse components</Link>
               </Stack>
             </Card>
           </Grid>

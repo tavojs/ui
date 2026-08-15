@@ -6,6 +6,7 @@ import { TextInput } from "@/components/TextInput";
 
 export type DatePickerProps = BaseProps & {
   name?: string;
+  inputLabel?: string;
   value?: string;
   min?: string;
   max?: string;
@@ -20,6 +21,7 @@ export type DatePickerProps = BaseProps & {
 export function DatePicker({
   className = "",
   name,
+  inputLabel,
   value,
   min,
   max,
@@ -39,6 +41,7 @@ export function DatePicker({
         <TextInput
           type="date"
           name={name}
+          aria-label={inputLabel}
           value={value}
           min={min}
           max={max}

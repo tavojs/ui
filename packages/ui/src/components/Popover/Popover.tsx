@@ -71,18 +71,34 @@ const keepPopoverContentInViewport = createDirective<HTMLDivElement>(
       const overflowRight = rect.right - (viewportWidth - VIEWPORT_MARGIN);
       const overflowTop = VIEWPORT_MARGIN - rect.top;
       const overflowBottom = rect.bottom - (viewportHeight - VIEWPORT_MARGIN);
+      const ownerRect = owner.getBoundingClientRect();
+      const placement = owner.dataset.placement ?? "bottom-start";
       const translateX =
         overflowLeft > 0
           ? overflowLeft
           : overflowRight > 0
             ? -overflowRight
             : 0;
-      const translateY =
+      let translateY =
         overflowTop > 0
           ? overflowTop
           : overflowBottom > 0
             ? -overflowBottom
             : 0;
+
+      if (placement.startsWith("bottom") && overflowBottom > 0) {
+        const gap = Math.max(0, rect.top - ownerRect.bottom);
+        const flippedTop = ownerRect.top - gap - rect.height;
+        if (flippedTop >= VIEWPORT_MARGIN) {
+          translateY = flippedTop - rect.top;
+        }
+      } else if (placement.startsWith("top") && overflowTop > 0) {
+        const gap = Math.max(0, ownerRect.top - rect.bottom);
+        const flippedTop = ownerRect.bottom + gap;
+        if (flippedTop + rect.height <= viewportHeight - VIEWPORT_MARGIN) {
+          translateY = flippedTop - rect.top;
+        }
+      }
       const availableHeight = Math.max(0, viewportHeight - VIEWPORT_MARGIN * 2);
 
       if (translateX !== 0) {
@@ -195,6 +211,7 @@ function PopoverBase({
         ),
       )}
       open={open}
+      data-placement={placement}
       {...props}
     >
       {children}
