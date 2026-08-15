@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.3
+
+### Patch Changes
+
+- b7268c2: Add `showArrow` to Collapsible and DropdownMenu, add centered Collapsible triggers that are unaffected by arrow width, and prevent an open Collapsible from rotating arrows owned by nested Collapsibles.
+
 ## 1.0.2
 
 ### Patch Changes
