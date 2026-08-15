@@ -210,7 +210,7 @@ function ComponentPreview({
     case "code-block":
       return <CodeBlock language="tsx" code={'import { Button } from "@tavojs/ui/button";\n\n<Button>Ship it</Button>'} />;
     case "collapsible":
-      return <Collapsible open><Collapsible.Trigger>Advanced settings</Collapsible.Trigger><Collapsible.Content>Developer-only controls live here.</Collapsible.Content></Collapsible>;
+      return <Collapsible open centerTrigger><Collapsible.Trigger>Advanced settings</Collapsible.Trigger><Collapsible.Content>Developer-only controls live here.</Collapsible.Content></Collapsible>;
     case "combobox":
       return <Field label="Framework"><Combobox name="framework" options={[{ label: "Tavo.js", value: "tavo" }, { label: "React", value: "react" }, { label: "Vue", value: "vue" }]} /></Field>;
     case "command-menu":

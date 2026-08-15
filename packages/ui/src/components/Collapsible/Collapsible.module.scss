@@ -30,8 +30,29 @@
   transition: transform var(--tui-interaction-transition-fast, var(--tui-motion-fast)) var(--tui-motion-ease);
 }
 
-.root[open] .trigger::after {
+.root[open] > .trigger::after {
   transform: rotate(225deg);
+}
+
+.root[data-center-trigger="true"] > .trigger {
+  position: relative;
+  justify-content: center;
+}
+
+.root[data-center-trigger="true"] > .trigger::after {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-end: var(--tui-space-1);
+  margin: 0;
+  transform: translateY(-62.5%) rotate(45deg);
+}
+
+.root[data-center-trigger="true"][open] > .trigger::after {
+  transform: translateY(-37.5%) rotate(225deg);
+}
+
+.root[data-show-arrow="false"] > .trigger::after {
+  display: none;
 }
 
 .content {

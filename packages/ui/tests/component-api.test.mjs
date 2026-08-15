@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import test from "node:test";
 import {
   createStyleRegistry,
@@ -911,6 +912,63 @@ test("DropdownMenuItem renders links when href is provided", () => {
   assert.match(output, /<a/);
   assert.match(output, /href="\/settings"/);
   assert.match(output, /role="menuitem"/);
+});
+
+test("Collapsible and DropdownMenu can hide their arrows", () => {
+  const collapsible = html(
+    h(Collapsible, { showArrow: false }, [
+      h(Collapsible.Trigger, null, "More"),
+      h(Collapsible.Content, null, "Details"),
+    ])
+  );
+  const dropdown = html(
+    h(DropdownMenu, { showArrow: false }, [
+      h(DropdownMenu.Trigger, null, "Actions"),
+      h(DropdownMenu.Content, null, h(DropdownMenu.Item, null, "Edit")),
+    ])
+  );
+
+  assert.match(collapsible, /data-show-arrow="false"/);
+  assert.match(dropdown, /data-show-arrow="false"/);
+  assert.doesNotMatch(html(h(Collapsible, null, h(Collapsible.Trigger, null, "More"))), /data-show-arrow/);
+  assert.doesNotMatch(html(h(DropdownMenu, null, h(DropdownMenu.Trigger, null, "Actions"))), /data-show-arrow/);
+});
+
+test("Collapsible can center its trigger independently of the arrow", () => {
+  const centered = html(
+    h(Collapsible, { centerTrigger: true },
+      h(Collapsible.Trigger, null, "Centered")
+    )
+  );
+  const defaultAlignment = html(
+    h(Collapsible, null, h(Collapsible.Trigger, null, "Default"))
+  );
+
+  assert.match(centered, /data-center-trigger="true"/);
+  assert.doesNotMatch(defaultAlignment, /data-center-trigger/);
+});
+
+test("nested Collapsible arrows respond only to their directly owned open state", () => {
+  const output = html(
+    h(Collapsible, { open: true }, [
+      h(Collapsible.Trigger, null, "Outer"),
+      h(Collapsible.Content, null,
+        h(Collapsible, { open: false }, [
+          h(Collapsible.Trigger, null, "Inner"),
+          h(Collapsible.Content, null, "Inner content"),
+        ])
+      ),
+    ])
+  );
+  const css = readFileSync(
+    new URL("../src/components/Collapsible/Collapsible.module.scss", import.meta.url),
+    "utf8"
+  );
+
+  assert.match(output, /<details[^>]* open/);
+  assert.match(output, /<details[^>]*><summary/);
+  assert.match(css, /\.root\[open\]\s*>\s*\.trigger::after/);
+  assert.doesNotMatch(css, /\.root\[open\]\s+\.trigger::after/);
 });
 
 test("CodeBlock highlights code strings with editor theme tokens", () => {

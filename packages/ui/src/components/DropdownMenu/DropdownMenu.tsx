@@ -6,6 +6,7 @@ export type DropdownMenuProps = BaseProps & {
   open?: boolean;
   align?: "start" | "end";
   onClose?: () => void;
+  showArrow?: boolean;
 };
 
 export type DropdownMenuTriggerProps = BaseProps & {
@@ -17,13 +18,13 @@ export type DropdownMenuItemProps = BaseProps & {
   disabled?: boolean;
 };
 
-function DropdownMenuBase({ children, className = "", open = false, align = "end", onClose, onKeyDown, ...props }: DropdownMenuProps) {
+function DropdownMenuBase({ children, className = "", open = false, align = "end", onClose, showArrow = true, onKeyDown, ...props }: DropdownMenuProps) {
   function handleKeyDown(event: KeyboardEvent) {
     closeOnEscape(event, onClose);
     onKeyDown?.(event);
   }
 
-  return <details className={sxClassName(props, cx(styles.root, cv(styles, "align", align, "end"), className))} open={open} onKeyDown={handleKeyDown} {...props}>{children}</details>;
+  return <details className={sxClassName(props, cx(styles.root, cv(styles, "align", align, "end"), className))} open={open} data-show-arrow={showArrow ? undefined : "false"} onKeyDown={handleKeyDown} {...props}>{children}</details>;
 }
 
 export function DropdownMenuTrigger({ children, className = "", label, ...props }: DropdownMenuTriggerProps) {

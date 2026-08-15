@@ -29,7 +29,7 @@
     "format:check": "npm run format:check --workspaces --if-present",
     "check:framework-contract": "node scripts/check-framework-contract.mjs",
     "changeset": "changeset",
-    "version-packages": "changeset version",
+    "version-packages": "changeset version && npm install --package-lock-only --ignore-scripts --no-audit --no-fund",
     "release:manifest": "node scripts/check-web-release.mjs",
     "release:audit": "npm audit --omit=dev",
     "release:check": "npm run release:manifest && npm run release:audit && npm run check:framework-contract && npm test --workspace @tavojs/ui-core && npm test --workspace @tavojs/ui-cli && npm run release:check --workspace @tavojs/ui && npm run release:pack",
