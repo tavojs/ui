@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.2
+
+### Patch Changes
+
+- ebe34c0: Add controlled month and year selectors directly in the Calendar's top heading, with previous and next month navigation.
+
 ## 1.0.1
 
 ### Patch Changes
