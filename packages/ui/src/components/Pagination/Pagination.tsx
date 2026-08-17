@@ -1,5 +1,6 @@
 import styles from "./Pagination.module.scss";
 import { cx, sxClassName, type BaseProps } from "@/components/shared";
+import { Link } from "@/components/Link";
 
 export type PaginationProps = {
   children?: BaseProps["children"];
@@ -60,17 +61,18 @@ export function Pagination({
 
     if (href) {
       return (
-        <a
+        <Link
           className={cx(styles.control, disabled && styles.disabled)}
-          href={disabled ? undefined : href}
-          aria-disabled={disabled ? "true" : undefined}
+          href={href}
+          disabled={disabled}
+          noUnderline
           tabIndex={disabled ? -1 : undefined}
           onClick={() => {
             if (!disabled) onChange?.(targetPage);
           }}
         >
           {labelText}
-        </a>
+        </Link>
       );
     }
 
@@ -86,14 +88,15 @@ export function Pagination({
 
     if (href) {
       return (
-        <a
+        <Link
           className={cx(styles.page, isActive && styles.active)}
           href={href}
+          noUnderline
           aria-current={isActive ? "page" : undefined}
           onClick={() => onChange?.(item)}
         >
           {item}
-        </a>
+        </Link>
       );
     }
 

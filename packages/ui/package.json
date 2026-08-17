@@ -970,14 +970,14 @@
     "prepublishOnly": "npm run release:registry && npm run typecheck && npm run test && npm run build && npm run smoke:consumer && npm run pack:dry"
   },
   "peerDependencies": {
-    "@tavojs/core": "^1.0.0"
+    "@tavojs/core": "^1.0.3"
   },
   "dependencies": {
     "@tavojs/ui-cli": "^1.0.1",
     "@tavojs/ui-core": "^1.0.1"
   },
   "devDependencies": {
-    "@tavojs/core": "^1.0.0",
+    "@tavojs/core": "^1.0.3",
     "@types/node": "^24.0.0",
     "sass": "^1.89.0",
     "typescript": "^5.9.3",

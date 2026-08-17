@@ -9,7 +9,7 @@
     "build": "vite build"
   },
   "dependencies": {
-    "@tavojs/core": "^1.0.0",
+    "@tavojs/core": "^1.0.3",
     "@tavojs/ui": "^1.0.0",
     "sass": "^1.89.0"
   },

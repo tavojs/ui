@@ -1,5 +1,6 @@
 import styles from "./Menubar.module.scss";
 import { cx, sxClassName, type BaseProps } from "@/components/shared";
+import { Link } from "@/components/Link";
 
 export type MenubarProps = BaseProps;
 export type MenubarItemProps = BaseProps & {
@@ -15,7 +16,7 @@ function MenubarBase({ children, className = "", ...props }: MenubarProps) {
 export function MenubarItem({ children, className = "", href, current = false, disabled = false, ...props }: MenubarItemProps) {
   const classNames = sxClassName(props, cx(styles.item, current && styles.current, disabled && styles.disabled, className));
   if (href) {
-    return <a className={classNames} href={disabled ? undefined : href} role="menuitem" aria-current={current ? "page" : undefined} aria-disabled={disabled ? "true" : undefined} {...props}>{children}</a>;
+    return <Link className={classNames} href={href} disabled={disabled} noUnderline role="menuitem" aria-current={current ? "page" : undefined} {...props}>{children}</Link>;
   }
   return <button type="button" className={classNames} role="menuitem" disabled={disabled} aria-current={current ? "page" : undefined} {...props}>{children}</button>;
 }

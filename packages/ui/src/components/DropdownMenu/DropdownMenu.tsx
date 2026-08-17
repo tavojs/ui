@@ -1,6 +1,7 @@
 import styles from "./DropdownMenu.module.scss";
 import { cv, cx, sxClassName, type BaseProps } from "@/components/shared";
 import { closeOnEscape, focusMenuItem } from "@/components/a11y";
+import { Link } from "@/components/Link";
 
 export type DropdownMenuProps = BaseProps & {
   open?: boolean;
@@ -57,17 +58,18 @@ export function DropdownMenuItem({ children, className = "", href, disabled = fa
 
   if (href) {
     return (
-      <a
+      <Link
         className={sxClassName(props, cx(styles.item, disabled && styles.disabled, className))}
-        href={disabled ? undefined : href}
-        aria-disabled={disabled ? "true" : undefined}
+        href={href}
+        disabled={disabled}
+        noUnderline
         role="menuitem"
         tabIndex={disabled ? -1 : 0}
         {...props}
         onKeyDown={handleKeyDown}
       >
         {children}
-      </a>
+      </Link>
     );
   }
 

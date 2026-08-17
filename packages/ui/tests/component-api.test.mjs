@@ -8,6 +8,7 @@ import {
   renderStyleTags,
   withStyleRegistry,
 } from "@tavojs/core";
+import { createRouter, RouterProvider } from "@tavojs/core/router";
 import {
   AppBar,
   Box,
@@ -907,11 +908,53 @@ test("DropdownMenu exposes menu and menuitem roles", () => {
 });
 
 test("DropdownMenuItem renders links when href is provided", () => {
-  const output = html(h(DropdownMenu.Item, { href: "/settings" }, "Settings"));
+  const output = [
+    html(h(DropdownMenu.Item, {
+      href: "/settings",
+      className: "custom-item",
+      target: "_blank",
+      rel: "noreferrer",
+      download: "settings.html",
+    }, "Settings")),
+    html(h(DropdownMenu.Item, { href: "/disabled", disabled: true }, "Disabled")),
+  ].join("");
 
   assert.match(output, /<a/);
   assert.match(output, /href="\/settings"/);
   assert.match(output, /role="menuitem"/);
+  assert.match(output, /tabIndex="0"/);
+  assert.match(output, /class="[^"]*custom-item/);
+  assert.match(output, /target="_blank"/);
+  assert.match(output, /rel="noreferrer"/);
+  assert.match(output, /download="settings\.html"/);
+  assert.match(output, /aria-disabled="true"/);
+  assert.match(output, /tabIndex="-1"/);
+  assert.doesNotMatch(output, /href="\/disabled"/);
+});
+
+test("DropdownMenuItem preserves user click and keyboard handlers", () => {
+  let clicks = 0;
+  let keydowns = 0;
+  const item = resolveComponentVNode(
+    h(DropdownMenu.Item, {
+      href: "https://example.com/settings",
+      onClick: () => { clicks += 1; },
+      onKeyDown: () => { keydowns += 1; },
+    }, "Settings")
+  );
+
+  item.props.onClick({
+    defaultPrevented: false,
+    button: 0,
+    metaKey: false,
+    ctrlKey: false,
+    shiftKey: false,
+    altKey: false,
+  });
+  item.props.onKeyDown({ key: "Enter" });
+
+  assert.equal(clicks, 1);
+  assert.equal(keydowns, 1);
 });
 
 test("Collapsible and DropdownMenu can hide their arrows", () => {
@@ -1679,4 +1722,39 @@ test("Section titleSize controls heading element and variant", () => {
   assert.match(output, /<h3/);
   assert.match(output, /variant-h3/);
   assert.doesNotMatch(output, /<h2/);
+});
+
+test("DropdownMenu.Item canonicalizes internal hrefs through the active router", () => {
+  const router = createRouter(
+    [{ path: "/docs", component: () => null }],
+    { routing: { trailingSlash: "always" } }
+  );
+  const output = html(
+    h(
+      RouterProvider,
+      { router, pathname: "/" },
+      h(
+        DropdownMenu,
+        { open: true },
+        h(DropdownMenu.Content, null, [
+          h(DropdownMenu.Item, { href: "/docs" }, "Docs"),
+          h(DropdownMenu.Item, {
+            href: "https://example.com/docs",
+            target: "_blank",
+            rel: "noreferrer",
+          }, "External"),
+          h(DropdownMenu.Item, { href: "/assets/guide.pdf", download: true }, "Guide"),
+        ])
+      )
+    )
+  );
+
+  assert.match(output, /href="\/docs\/"/);
+  assert.match(output, /role="menuitem"/);
+  assert.match(output, /href="https:\/\/example\.com\/docs"/);
+  assert.match(output, /target="_blank"/);
+  assert.match(output, /rel="noreferrer"/);
+  assert.match(output, /href="\/assets\/guide\.pdf"/);
+  assert.match(output, /download/);
+  assert.doesNotMatch(output, /guide\.pdf\//);
 });
