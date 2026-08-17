@@ -1,5 +1,6 @@
 import styles from "./NavigationMenu.module.scss";
 import { cv, cx, sxClassName, type BaseProps } from "@/components/shared";
+import { Link } from "@/components/Link";
 
 export type NavigationMenuItem = {
   label: string;
@@ -20,10 +21,10 @@ export function NavigationMenu({ children, className = "", items, orientation = 
         <ul className={styles.list}>
           {items.map((item) => (
             <li className={styles.item}>
-              <a className={cx(styles.link, item.current && styles.current)} href={item.href} aria-current={item.current ? "page" : undefined}>
+              <Link className={cx(styles.link, item.current && styles.current)} href={item.href} noUnderline aria-current={item.current ? "page" : undefined}>
                 <span>{item.label}</span>
                 {item.description ? <small>{item.description}</small> : null}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>

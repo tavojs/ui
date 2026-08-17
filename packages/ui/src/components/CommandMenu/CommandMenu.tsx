@@ -2,6 +2,7 @@ import styles from "./CommandMenu.module.scss";
 import { cx, sxClassName, type BaseProps } from "@/components/shared";
 import { SearchInput } from "@/components/SearchInput";
 import { Text } from "@/components/Text";
+import { Link } from "@/components/Link";
 
 export type CommandMenuItem = {
   label: string;
@@ -45,15 +46,16 @@ function CommandMenuItemContent({ item }: { item: CommandMenuItem }) {
 function CommandMenuItemView({ item }: { item: CommandMenuItem }) {
   if (item.href) {
     return (
-      <a
+      <Link
         className={cx(styles.item, item.disabled && styles.disabled)}
-        href={item.disabled ? undefined : item.href}
-        aria-disabled={item.disabled ? "true" : undefined}
+        href={item.href}
+        disabled={item.disabled}
+        noUnderline
         tabIndex={item.disabled ? -1 : undefined}
         role="menuitem"
       >
         <CommandMenuItemContent item={item} />
-      </a>
+      </Link>
     );
   }
 
