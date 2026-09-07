@@ -1,4 +1,7 @@
-import { Image as CoreImage, type ImageProps as CoreImageProps } from "@tavojs/core";
+import {
+  Image as CoreImage,
+  type ImageProps as CoreImageProps,
+} from "@tavojs/core/runtime";
 import styles from "./Image.module.scss";
 import { cv, cx, styleObject, sxClassName, type BaseProps } from "@/components/shared";
 import { Skeleton } from "@/components/Skeleton";

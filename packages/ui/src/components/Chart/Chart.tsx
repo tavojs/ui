@@ -13,7 +13,7 @@ export type ChartProps = BaseProps & {
   label?: string;
 };
 
-export function Chart({ className = "", data, max, label = "Chart", ...props }: ChartProps) {
+export function Chart({ className = "", data = [], max, label = "Chart", ...props }: ChartProps) {
   let resolvedMax = Number.isFinite(max) && (max as number) > 0 ? (max as number) : 1;
   if (!Number.isFinite(max) || (max as number) <= 0) {
     for (const item of data) {

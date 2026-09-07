@@ -1,16 +1,35 @@
 # Changelog
 
-## 1.0.4
+## 1.0.5
 
 ### Patch Changes
 
-- 5569f6a: Route internal component links through the active Tavo.js router while preserving native anchor attributes, custom link components, disabled behavior, and user event handlers across menus, navigation, pagination, and toggles. Require `@tavojs/core@^1.0.3` for the corresponding router link contract.
+- 7df43a3: Add fixed, fluid, and stepped root-font viewport strategies, default new themes
+  to a fixed 16px root, preserve fluid behavior for existing explicit viewport
+  configs, and enable component backdrop filters only when a glass theme provides
+  the shared filter token.
+- 7df43a3: Add a native-backed ColorPicker form component with token-aware sizing, focused package entry points, metadata, documentation, and catalog coverage.
+- 7df43a3: Add NumberInput, FileTrigger, ObjectField, and TreeView; enhance ToggleGroup, ColorPicker, Resizable, Collapsible, DropdownMenu, and Popover with generic authoring, accessibility, keyboard, controlled-state, and collision-aware behavior.
+- Add the browser-safe `runtime-catalog` export with raw serializable component
+  metadata, reviewed compound exports, deterministic executable mappings,
+  trusted instrumentation adapters, and owner-document-scoped theme lifecycle
+  controls for local rendering.
+- Consume the render-only `@tavojs/core/runtime` entrypoint so the executable
+  catalog does not pull application page discovery into embedded renderers.
+- 7df43a3: Add a live web theme controller for real-time config, property, and token updates with coalesced stylesheet replacement, reactive validation state, reset and cleanup controls, and CSP nonce support.
+- 7df43a3: Batch client component and `sx` rules into two managed layer stylesheets and
+  keep client style lookups document-scoped instead of delegating them through
+  the framework's linear global style lookup.
+- c09fa7c: Route internal component links through the active Tavo.js router while preserving native anchor attributes, custom link components, disabled behavior, and user event handlers across menus, navigation, pagination, and toggles. Require `@tavojs/core@^1.0.3` for the corresponding router link contract.
+- Updated dependencies [7df43a3]
+  - @tavojs/ui-core@1.0.2
+  - @tavojs/ui-cli@1.0.2
 
 ## 1.0.3
 
 ### Patch Changes
 
-- b7268c2: Add `showArrow` to Collapsible and DropdownMenu, add centered Collapsible triggers that are unaffected by arrow width, and prevent an open Collapsible from rotating arrows owned by nested Collapsibles.
+- 237959a: Add `showArrow` to Collapsible and DropdownMenu, add centered Collapsible triggers that are unaffected by arrow width, and prevent an open Collapsible from rotating arrows owned by nested Collapsibles.
 
 ## 1.0.2
 

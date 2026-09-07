@@ -75,10 +75,11 @@ function pushTokens(
 }
 
 function rootFontSize(config: TavoUiThemeConfig): string {
-  const { rootMin, rootMax, minWidth, maxWidth } = resolveThemeViewport(config);
+  const { strategy, rootMin, rootMax, minWidth, maxWidth } = resolveThemeViewport(config);
 
-  if (rootMin === rootMax) {
-    return `${(rootMax / 16).toFixed(4)}rem`;
+  if (strategy !== "fluid" || rootMin === rootMax) {
+    const size = strategy === "stepped" ? rootMin : rootMax;
+    return `${(size / 16).toFixed(4)}rem`;
   }
 
   const slope = (rootMax - rootMin) / (maxWidth - minWidth);
@@ -86,6 +87,42 @@ function rootFontSize(config: TavoUiThemeConfig): string {
   const intercept = rootMin - slope * minWidth;
 
   return `clamp(${(rootMin / 16).toFixed(4)}rem, calc(${(intercept / 16).toFixed(4)}rem + ${viewportFactor.toFixed(4)}vw), ${(rootMax / 16).toFixed(4)}rem)`;
+}
+
+function steppedRootFontCss(
+  config: TavoUiThemeConfig,
+  breakpoints: Record<"sm" | "md" | "lg", number>,
+  selector: string,
+  style: ThemeCssStyle
+): string {
+  const { strategy, rootMin, rootMax, minWidth, maxWidth } = resolveThemeViewport(config);
+  if (strategy !== "stepped" || rootMin === rootMax) {
+    return "";
+  }
+
+  const widths = [...new Set([...Object.values(breakpoints), maxWidth])]
+    .filter((width) => width > minWidth && width <= maxWidth)
+    .sort((left, right) => left - right);
+  const fontSizeAt = (width: number) => {
+    const progress = (width - minWidth) / (maxWidth - minWidth);
+    return rootMin + (rootMax - rootMin) * progress;
+  };
+
+  if (style === "compressed") {
+    return widths
+      .map(
+        (width) =>
+          `@media(min-width:${width}px){${selector}{font-size:${(fontSizeAt(width) / 16).toFixed(4)}rem;}}`
+      )
+      .join("");
+  }
+
+  return widths
+    .map(
+      (width) =>
+        `@media (min-width: ${width}px) {\n\t${selector} {\n\t\tfont-size: ${(fontSizeAt(width) / 16).toFixed(4)}rem;\n\t}\n}\n`
+    )
+    .join("\n");
 }
 
 function modeBody(
@@ -197,9 +234,18 @@ function buildThemeWithStyle(
   )}${modeBody(defaultMode, style, result.staticTokens)}`;
   const lightSelector = `${output.selector}[data-tavo-theme="light"]`;
   const cssSections: string[] = [];
+  const steppedRootCss = steppedRootFontCss(
+    result.config,
+    result.breakpoints,
+    output.selector,
+    style
+  );
 
   if (style === "compressed") {
     cssSections.push(`${output.selector}{${defaultBody}}`);
+    if (steppedRootCss) {
+      cssSections.push(steppedRootCss);
+    }
 
     if (defaultResolvedMode === "dark") {
       cssSections.push(`${lightSelector}{${lightBody}}`);
@@ -214,6 +260,9 @@ function buildThemeWithStyle(
     cssSections.push(globalResetCss(style));
   } else {
     cssSections.push(`${output.selector} {\n${defaultBody}`, "}\n\n");
+    if (steppedRootCss) {
+      cssSections.push(steppedRootCss, "\n");
+    }
 
     if (defaultResolvedMode === "dark") {
       cssSections.push(`${lightSelector} {\n${lightBody}}\n\n`);

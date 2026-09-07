@@ -151,8 +151,8 @@ assert(
   "@tavojs/ui must depend on the current @tavojs/ui-cli version."
 );
 assert(
-  ui.peerDependencies?.["@tavojs/core"] === "^1.0.3",
-  "@tavojs/ui must peer on @tavojs/core@^1.0.3."
+  ui.peerDependencies?.["@tavojs/core"] === "^1.0.4",
+  "@tavojs/ui must peer on @tavojs/core@^1.0.4."
 );
 assert(ui.bin === undefined, "@tavojs/ui must not publish the tavo-ui binary.");
 assert(

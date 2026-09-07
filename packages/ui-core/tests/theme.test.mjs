@@ -18,6 +18,11 @@ test("schema exposes only canonical scale and output properties", () => {
   assert.equal("prefix" in schema.properties.output.properties, false);
   assert.ok("controlHeight" in schema.properties.scale.properties);
   assert.ok("radius" in schema.properties.scale.properties);
+  assert.deepEqual(schema.properties.viewport.properties.strategy.enum, [
+    "fixed",
+    "fluid",
+    "stepped"
+  ]);
 });
 
 test("buildThemeTokens resolves light and dark token sets", () => {
@@ -135,6 +140,23 @@ test("explicit dimensions win over density scaling", () => {
 test("resolveThemeViewport applies defaults before validating one-sided overrides", () => {
   const config = { color: { light: { primary: "#116a67" } } };
   assert.deepEqual(resolveThemeViewport(config), {
+    strategy: "fixed",
+    rootMin: 16,
+    rootMax: 16,
+    minWidth: 320,
+    maxWidth: 960
+  });
+
+  assert.deepEqual(resolveThemeViewport({ ...config, viewport: { rootMin: 14, rootMax: 16 } }), {
+    strategy: "fluid",
+    rootMin: 14,
+    rootMax: 16,
+    minWidth: 320,
+    maxWidth: 960
+  });
+
+  assert.deepEqual(resolveThemeViewport({ ...config, viewport: { strategy: "stepped" } }), {
+    strategy: "stepped",
     rootMin: 14,
     rootMax: 16,
     minWidth: 320,
@@ -152,6 +174,14 @@ test("resolveThemeViewport applies defaults before validating one-sided override
   assert.throws(
     () => buildThemeTokens({ ...config, viewport: { minWidth: 960 } }),
     /minWidth must be less than viewport\.maxWidth/
+  );
+  assert.throws(
+    () => buildThemeTokens({ ...config, viewport: { strategy: "fixed", rootMin: 14 } }),
+    /fixed viewport strategy requires viewport\.rootMin and viewport\.rootMax to match/
+  );
+  assert.throws(
+    () => buildThemeTokens({ ...config, viewport: { strategy: "unknown" } }),
+    /viewport\.strategy must be "fixed", "fluid", or "stepped"/
   );
 });
 

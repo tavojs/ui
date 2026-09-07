@@ -1,5 +1,14 @@
 # @tavojs/ui-core
 
+## 1.0.2
+
+### Patch Changes
+
+- 7df43a3: Add fixed, fluid, and stepped root-font viewport strategies, default new themes
+  to a fixed 16px root, preserve fluid behavior for existing explicit viewport
+  configs, and enable component backdrop filters only when a glass theme provides
+  the shared filter token.
+
 ## 1.0.1
 
 ### Patch Changes

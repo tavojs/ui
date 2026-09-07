@@ -12,6 +12,16 @@
   display: inline-flex;
 }
 
+.fullWidth {
+  display: flex;
+  inline-size: 100%;
+}
+
+.fullWidth .item,
+.fullWidth .item > span {
+  flex: 1 1 0;
+}
+
 .item input {
   position: absolute;
   inline-size: 1px;
@@ -19,6 +29,16 @@
   overflow: hidden;
   clip: rect(0 0 0 0);
   white-space: nowrap;
+}
+
+.item input:checked + span {
+  background: var(--tui-color-primary-soft-bg);
+  color: var(--tui-color-primary-soft-text);
+}
+
+.item input:focus-visible + span {
+  outline: var(--tui-focus-width) solid var(--tui-color-focus);
+  outline-offset: var(--tui-focus-offset);
 }
 
 .disabled {

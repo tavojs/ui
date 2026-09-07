@@ -1,0 +1,139 @@
+.picker {
+  appearance: none;
+  box-sizing: border-box;
+  inline-size: var(--tui-size-md);
+  block-size: var(--tui-size-md);
+  margin: 0;
+  padding: var(--tui-space-1);
+  border: var(--tui-input-border-width, var(--tui-border-width)) solid var(--tui-input-border-color, var(--tui-color-border));
+  border-radius: var(--tui-input-radius, var(--tui-radius-control, var(--tui-radius-md)));
+  background: var(--tui-input-bg, var(--tui-color-surface-raised));
+  cursor: pointer;
+}
+
+.picker::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.picker::-webkit-color-swatch,
+.picker::-moz-color-swatch {
+  border: 0;
+  border-radius: var(--tui-radius-sm);
+}
+
+.picker:focus {
+  border-color: var(--tui-input-focus-border-color, var(--tui-color-focus));
+  outline: var(--tui-focus-width) solid color-mix(in srgb, var(--tui-color-focus) calc(var(--tui-interaction-focus-alpha, 0.28) * 100%), transparent);
+  outline-offset: var(--tui-focus-offset);
+}
+
+.picker[aria-invalid="true"] {
+  border-color: var(--tui-color-danger);
+}
+
+.picker:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+.size-sm {
+  inline-size: var(--tui-size-sm);
+  block-size: var(--tui-size-sm);
+}
+
+.size-lg {
+  inline-size: var(--tui-size-lg);
+  block-size: var(--tui-size-lg);
+}
+
+.cssRoot {
+  display: grid;
+  gap: var(--tui-space-1);
+  color: var(--tui-color-text);
+  font-family: var(--tui-font-family-text, var(--tui-font-family));
+}
+
+.label {
+  font-size: var(--tui-font-size-caption, 0.875rem);
+  font-weight: var(--tui-font-weight-medium, 500);
+}
+
+.cssControl {
+  display: flex;
+  align-items: center;
+  min-inline-size: 0;
+  block-size: var(--tui-size-md);
+  border: var(--tui-input-border-width, var(--tui-border-width)) solid var(--tui-input-border-color, var(--tui-color-border));
+  border-radius: var(--tui-input-radius, var(--tui-radius-control));
+  background: var(--tui-input-bg, var(--tui-color-surface-raised));
+}
+
+.cssControl:focus-within {
+  border-color: var(--tui-input-focus-border-color, var(--tui-color-focus));
+  outline: var(--tui-focus-width) solid color-mix(in srgb, var(--tui-color-focus) calc(var(--tui-interaction-focus-alpha, 0.28) * 100%), transparent);
+  outline-offset: var(--tui-focus-offset);
+}
+
+.preview {
+  flex: 0 0 auto;
+  inline-size: 1.5rem;
+  block-size: 1.5rem;
+  margin-inline-start: var(--tui-space-2);
+  border: var(--tui-border-width) solid var(--tui-color-border);
+  border-radius: var(--tui-radius-sm);
+  background-image:
+    linear-gradient(45deg, var(--tui-color-border) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--tui-color-border) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--tui-color-border) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--tui-color-border) 75%);
+  background-position: 0 0, 0 4px, 4px -4px, -4px 0;
+  background-size: 8px 8px;
+}
+
+.cssInput {
+  min-inline-size: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  padding-inline: var(--tui-space-2);
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+
+.cssNativePicker {
+  flex: 0 0 auto;
+  inline-size: 2rem;
+  block-size: 2rem;
+  margin-inline-end: var(--tui-space-1);
+  border: 0;
+}
+
+.cssRoot.size-sm .cssControl {
+  block-size: var(--tui-size-sm);
+}
+
+.cssRoot.size-lg .cssControl {
+  block-size: var(--tui-size-lg);
+}
+
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tui-space-1);
+}
+
+.option {
+  inline-size: 1.5rem;
+  block-size: 1.5rem;
+  padding: 0;
+  border: var(--tui-border-width) solid var(--tui-color-border);
+  border-radius: var(--tui-radius-sm);
+  cursor: pointer;
+}
+
+.option:focus-visible {
+  outline: var(--tui-focus-width) solid var(--tui-color-focus);
+  outline-offset: var(--tui-focus-offset);
+}

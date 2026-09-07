@@ -34,10 +34,11 @@ function pushTokens(css, tokens) {
 }
 
 function rootFontSize(config) {
-  const { rootMin, rootMax, minWidth, maxWidth } = resolveThemeViewport(config);
+  const { strategy, rootMin, rootMax, minWidth, maxWidth } = resolveThemeViewport(config);
 
-  if (rootMin === rootMax) {
-    return `${(rootMax / 16).toFixed(4)}rem`;
+  if (strategy !== "fluid" || rootMin === rootMax) {
+    const size = strategy === "stepped" ? rootMin : rootMax;
+    return `${(size / 16).toFixed(4)}rem`;
   }
 
   const slope = (rootMax - rootMin) / (maxWidth - minWidth);
@@ -45,6 +46,28 @@ function rootFontSize(config) {
   const intercept = rootMin - slope * minWidth;
 
   return `clamp(${(rootMin / 16).toFixed(4)}rem, calc(${(intercept / 16).toFixed(4)}rem + ${viewportFactor.toFixed(4)}vw), ${(rootMax / 16).toFixed(4)}rem)`;
+}
+
+function steppedRootFontCss(config, breakpoints, selector) {
+  const { strategy, rootMin, rootMax, minWidth, maxWidth } = resolveThemeViewport(config);
+  if (strategy !== "stepped" || rootMin === rootMax) {
+    return "";
+  }
+
+  const widths = [...new Set([...Object.values(breakpoints), maxWidth])]
+    .filter((width) => width > minWidth && width <= maxWidth)
+    .sort((left, right) => left - right);
+  const fontSizeAt = (width) => {
+    const progress = (width - minWidth) / (maxWidth - minWidth);
+    return rootMin + (rootMax - rootMin) * progress;
+  };
+
+  return widths
+    .map(
+      (width) =>
+        `@media (min-width: ${width}px) {\n\t${selector} {\n\t\tfont-size: ${(fontSizeAt(width) / 16).toFixed(4)}rem;\n\t}\n}\n`
+    )
+    .join("\n");
 }
 
 function modeBody(mode, staticTokenMap) {
@@ -79,6 +102,10 @@ export function buildThemeCss(config) {
 
   chunks.push(modeBody(defaultMode, result.staticTokens));
   chunks.push("}\n\n");
+  const steppedRootCss = steppedRootFontCss(result.config, result.breakpoints, output.selector);
+  if (steppedRootCss) {
+    chunks.push(steppedRootCss, "\n");
+  }
 
   if (defaultResolvedMode === "dark") {
     chunks.push(`${output.selector}[data-tavo-theme="light"] {\n${lightBody}}\n\n`);

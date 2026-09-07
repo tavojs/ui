@@ -82,13 +82,17 @@ This section is generated from `scripts/component-manifest.mjs`. Run `npm run ge
 | `ButtonGroup` | `@tavojs/ui/button-group` | `@tavojs/ui/css/button-group` | Grouped action container for related buttons. |
 | `Calendar` | `@tavojs/ui/calendar` | `@tavojs/ui/css/calendar` | Month grid date selection primitive. |
 | `Checkbox` | `@tavojs/ui/checkbox` | `@tavojs/ui/css/checkbox` | Token-styled checkbox control with indeterminate support. |
+| `ColorPicker` | `@tavojs/ui/color-picker` | `@tavojs/ui/css/color-picker` | Native color selection control with token-backed styling. |
 | `Combobox` | `@tavojs/ui/combobox` | `@tavojs/ui/css/combobox` | Input with datalist-backed option suggestions. |
 | `DatePicker` | `@tavojs/ui/date-picker` | `@tavojs/ui/css/date-picker` | Date input and calendar popover composition. |
 | `Field` | `@tavojs/ui/field` | `@tavojs/ui/css/field` | Label, message, and ARIA wiring wrapper for form controls. |
+| `FileTrigger` | `@tavojs/ui/file-trigger` | `@tavojs/ui/css/file-trigger` | Accessible file-input trigger styled through the button system. |
 | `FormControl` | `@tavojs/ui/form-control` | `@tavojs/ui/css/form-control` | Form wrapper primitive for grouped controls. |
 | `FormControlLabel` | `@tavojs/ui/form-control-label` | `@tavojs/ui/css/form-control-label` | Label composition for checkbox, radio, and switch controls. |
 | `FormLabel` | `@tavojs/ui/form-label` | `@tavojs/ui/css/form-label` | Standalone form label primitive. |
 | `InputGroup` | `@tavojs/ui/input-group` | `@tavojs/ui/css/input-group` | Composed input with addons and inline action controls. |
+| `NumberInput` | `@tavojs/ui/number-input` | `@tavojs/ui/css/number-input` | Numeric input with draft-safe typed value callbacks and optional affixes. |
+| `ObjectField` | `@tavojs/ui/object-field` | `@tavojs/ui/css/object-field` | Structured JSON-compatible object property editor with validation. |
 | `Radio` | `@tavojs/ui/radio` | `@tavojs/ui/css/radio` | Token-styled radio input primitive. |
 | `RadioGroup` | `@tavojs/ui/radio-group` | `@tavojs/ui/css/radio-group` | Radio fieldset that propagates names to child radio controls. |
 | `SearchInput` | `@tavojs/ui/search-input` | `@tavojs/ui/css/search-input` | Search input primitive with consistent control sizing. |
@@ -113,6 +117,7 @@ This section is generated from `scripts/component-manifest.mjs`. Run `npm run ge
 | `Stepper` | `@tavojs/ui/stepper` | `@tavojs/ui/css/stepper` | Horizontal or vertical progress steps for setup and checkout flows. |
 | `Table` | `@tavojs/ui/table` | `@tavojs/ui/css/table` | Accessible table primitives with caption, head, rows, and cells. |
 | `Timeline` | `@tavojs/ui/timeline` | `@tavojs/ui/css/timeline` | Chronological timeline for events and milestones. |
+| `TreeView` | `@tavojs/ui/tree-view` | `@tavojs/ui/css/tree-view` | Keyboard-accessible hierarchical view with multi-selection and drop states. |
 
 ### Feedback
 
@@ -217,6 +222,8 @@ Accessibility: Uses `role="status"` by default.
 Import: `@tavojs/ui/app-bar`
 
 Use `AppBar` for page or app headers.
+
+Backdrop filtering is enabled only by a glass theme token. Analogous and monochromatic themes keep it disabled to avoid unnecessary full-width repaint work.
 
 Props:
 
@@ -444,6 +451,50 @@ Example:
 ```
 
 Accessibility: Use with `FormControlLabel` or provide `aria-label`.
+
+## ColorPicker
+
+Import: `@tavojs/ui/color-picker`
+
+Use `ColorPicker` for native solid-color selection or CSS paint strings such as alpha colors, variables, and gradients.
+
+Props:
+
+- `value?: string` - Controlled color value in `#rrggbb` format.
+- `defaultValue?: string` - Initial color value for an uncontrolled picker.
+- `name?: string` - Form field name submitted with the selected color.
+- `size?: Size` - Control scale: `sm`, `md`, or `lg`.
+- `format?: "hex" | "css"` - Keeps the backward-compatible native picker or enables CSS-string editing.
+- `swatches?: Array<string | ColorPickerOption>` - Optional reusable paint choices.
+- `tokens?: ColorPickerOption[]` - Optional labeled CSS token choices.
+- `onValueInput?: (value: string) => void` - Runs for transient paint previews.
+- `disabled?: boolean` - Disables color selection.
+- `required?: boolean` - Marks the native input as required.
+- `onValueChange?: (value: string) => void` - Runs with the selected hexadecimal color after a committed change.
+- `onChange?: ValueChangeHandler<HTMLInputElement>` - Receives the native change event.
+
+Example:
+
+```tsx
+<Field label="Brand color">
+  <ColorPicker
+    name="brand-color"
+    value={brandColor}
+    onValueChange={setBrandColor}
+  />
+</Field>
+
+<ColorPicker
+  format="css"
+  label="Background"
+  value="linear-gradient(90deg, #6633ff, transparent)"
+  tokens={[{ label: "Accent", value: "var(--accent)" }]}
+  onValueInput={previewPaint}
+  onValueChange={commitPaint}
+/>
+```
+
+Accessibility: Pair native mode with `Field` or `aria-label`; CSS mode accepts a visible `label` and keeps the solid-color chooser keyboard reachable.
 
 ## Chip
 
@@ -1286,17 +1337,31 @@ Use `Resizable` for adjustable panel layouts.
 Props:
 
 - `direction?: "horizontal" | "vertical"`
+- `orientation?: "horizontal" | "vertical"` - Separator orientation; `direction` remains supported for compatibility.
+- `value?: number` / `defaultValue?: number`
+- `min?: number` / `max?: number`
+- `step?: number` / `largeStep?: number`
+- `onValueInput?: (value: number) => void` / `onValueChange?: (value: number) => void`
 - `Resizable.Panel.defaultSize?: ResponsiveValue<string>`
 
 Example:
 
 ```tsx
-<Resizable>
-  <Resizable.Panel defaultSize={{ base: "100%", lg: "40%" }}>Filters</Resizable.Panel>
-  <Resizable.Handle />
-  <Resizable.Panel>Results</Resizable.Panel>
+<Resizable
+  orientation="vertical"
+  value={inspectorWidth}
+  min={260}
+  max={560}
+  step={8}
+  onValueInput={previewWidth}
+  onValueChange={saveWidth}
+>
+  <Resizable.Panel>Inspector</Resizable.Panel>
+  <Resizable.Handle aria-label="Resize inspector" />
 </Resizable>
 ```
+
+Accessibility: Handles expose separator orientation and numeric ARIA values. Arrow keys resize by `step`; Shift+Arrow uses `largeStep`; Escape cancels pointer drags.
 
 ## ResourceCard
 
@@ -1919,12 +1984,15 @@ Use `Collapsible` for compact reveal/hide sections.
 Props:
 
 - `open?: boolean`
+- `defaultOpen?: boolean`
+- `onOpenChange?: (open, reason) => void`
 
 Subcomponents:
 
 - `Collapsible.Root`
 - `Collapsible.Trigger`
 - `Collapsible.Content`
+- `Collapsible.Close`
 
 Example:
 
@@ -1946,8 +2014,10 @@ Use `DropdownMenu` for contextual action lists opened from a trigger.
 Props:
 
 - `open?: boolean`
+- `defaultOpen?: boolean`
 - `align?: "start" | "end"`
 - `onClose?: () => void`
+- `onOpenChange?: (open, reason) => void`
 
 Subcomponents:
 
@@ -1955,6 +2025,7 @@ Subcomponents:
 - `DropdownMenu.Trigger`
 - `DropdownMenu.Content`
 - `DropdownMenu.Item`
+- `DropdownMenu.Close`
 
 Example:
 
@@ -1962,7 +2033,8 @@ Example:
 <DropdownMenu>
   <DropdownMenu.Trigger>Actions</DropdownMenu.Trigger>
   <DropdownMenu.Content>
-    <DropdownMenu.Item href="/settings">Settings</DropdownMenu.Item>
+    <DropdownMenu.Item onSelect={duplicate}>Duplicate</DropdownMenu.Item>
+    <DropdownMenu.Item closeOnSelect={false}>Keep menu open</DropdownMenu.Item>
   </DropdownMenu.Content>
 </DropdownMenu>
 ```
@@ -2005,13 +2077,16 @@ Use `Popover` for lightweight contextual panels.
 Props:
 
 - `open?: boolean`
+- `defaultOpen?: boolean`
 - `placement?: "bottom-start" | "bottom-end" | "top-start" | "top-end"`
+- `onOpenChange?: (open, reason) => void`
 
 Subcomponents:
 
 - `Popover.Root`
 - `Popover.Trigger`
 - `Popover.Content`
+- `Popover.Close`
 
 Example:
 
@@ -2055,8 +2130,12 @@ Props:
 
 - `name?: string`
 - `value?: string | string[]`
-- `items: { label: string; value: string; disabled?: boolean }[]`
+- `defaultValue?: string | string[]`
+- `items: { label: Child; value: string; accessibleLabel?: string; title?: string; disabled?: boolean }[]`
 - `type?: "single" | "multiple"`
+- `allowEmpty?: boolean`
+- `fullWidth?: boolean`
+- `onValueChange?: (value: string | string[] | undefined) => void`
 - `size?: Size`
 - `variant?: "default" | "outline" | "ghost"`
 
@@ -2087,3 +2166,134 @@ Example:
 ```
 
 Accessibility: Use `focusable` for skip links or hidden interactive labels.
+
+## FileTrigger
+
+Import: `@tavojs/ui/file-trigger`
+
+Use `FileTrigger` when a native file picker should use the same visual and interaction contract as `Button`.
+
+Props:
+
+- `accept?: string` - Native accepted file types.
+- `multiple?: boolean` - Allows more than one selected file.
+- `capture?: boolean | "user" | "environment" | string` - Forwards the native capture hint.
+- `name?: string` - Native form field name.
+- `resetAfterSelection?: boolean` - Clears the native value so the same file can be selected again.
+- `onFilesChange?: (files: FileList, event) => void` - Exposes selected native files without reading or uploading them.
+- `variant?: ButtonVariant` - Reuses Button styling.
+- `size?: Size` - Reuses Button sizing.
+
+Example:
+
+```tsx
+<FileTrigger
+  accept="application/json,.json"
+  variant="text"
+  onFilesChange={(files) => importFile(files[0])}
+>
+  Import JSON
+</FileTrigger>
+```
+
+Accessibility: The visible trigger is a native button and works with pointer, Enter, and Space activation. The file input remains native and is reset only after the callback runs.
+
+## NumberInput
+
+Import: `@tavojs/ui/number-input`
+
+Use `NumberInput` for numeric values that need typed preview and commit callbacks while preserving empty, signed, and decimal typing drafts.
+
+Props:
+
+- `value?: number | null` - Controlled numeric or unset value.
+- `defaultValue?: number | null` - Initial uncontrolled value.
+- `min?: number` / `max?: number` - Commit and keyboard-step limits.
+- `step?: number` - Arrow-key increment.
+- `label?: Child` - Visible accessible label.
+- `prefix?: Child` / `suffix?: Child` - Visual affixes kept out of the accessible value.
+- `onValueInput?: (value, draft) => void` - Typed transient callback for valid drafts.
+- `onValueChange?: (value, draft) => void` - Typed commit callback.
+
+Example:
+
+```tsx
+<NumberInput
+  label="Width"
+  value={width}
+  min={0}
+  step={1}
+  suffix="px"
+  onValueInput={previewWidth}
+  onValueChange={saveWidth}
+/>
+```
+
+Accessibility: The visible label wraps the input, affixes are hidden from assistive technology, and Arrow keys support native-like stepping with Shift for a larger increment.
+
+## ObjectField
+
+Import: `@tavojs/ui/object-field`
+
+Use `ObjectField` for JSON-compatible records whose keys, value types, values, and raw JSON need structured editing.
+
+Props:
+
+- `label: Child` - Fieldset legend.
+- `value: ObjectFieldValue` - Controlled JSON-compatible object.
+- `valueKinds?: ObjectFieldValueKind[]` - Allowed row types.
+- `showRaw?: boolean` - Enables the advanced JSON escape hatch.
+- `error?: Child` - Host validation message.
+- `onDraft?: (value, validation) => void` - Transient valid-object draft and validation state.
+- `onCommit?: (value, validation) => void` - Valid structured commit.
+- `onValidationChange?: (validation) => void` - Duplicate-key, number, and JSON validation updates.
+
+Example:
+
+```tsx
+<ObjectField
+  label="Options"
+  value={{ color: "primary", hidden: false }}
+  valueKinds={["text", "number", "boolean", "object", "array", "null"]}
+  onDraft={setDraftOptions}
+  onCommit={saveOptions}
+/>
+```
+
+Accessibility: Rows have explicit Key, Type, and Value labels; add/remove controls have accessible names; errors use alert semantics without moving focus.
+
+## TreeView
+
+Import: `@tavojs/ui/tree-view`
+
+Use `TreeView` for hierarchical content that needs roving focus, single or multiple selection, expansion, activation, and generic drop feedback.
+
+Props:
+
+- `selectedIds?: readonly string[]` - Controlled selected identifiers.
+- `defaultSelectedIds?: readonly string[]` - Initial selection.
+- `selectionMode?: "none" | "single" | "multiple"` - Selection behavior.
+- `selectionAnchorId?: string` - Explicit contiguous-range anchor.
+- `expandedIds?: readonly string[]` - Controlled expanded identifiers.
+- `onSelectionChange?: (ids: string[]) => void` - Selection callback.
+- `onActivate?: (id: string) => void` - Enter or double-click activation.
+- `onDrop?: (event: TreeViewDropEvent) => void` - Opaque in-memory source/target drop request.
+
+Example:
+
+```tsx
+<TreeView
+  aria-label="Page layers"
+  selectedIds={selectedIds}
+  selectionMode="multiple"
+  onSelectionChange={setSelectedIds}
+  onActivate={revealNode}
+  onDrop={moveNode}
+>
+  <TreeView.Item id="hero" label="Hero" description="Box" draggable>
+    <TreeView.Item id="heading" label="Heading" />
+  </TreeView.Item>
+</TreeView>
+```
+
+Accessibility: Items use ARIA tree semantics and roving tab stops. Arrow, Home, End, Space, and Enter behavior is keyboard complete; expansion buttons are separately named.

@@ -59,7 +59,8 @@
     "transition": 1
   },
   "viewport": {
-    "rootMin": 14,
+    "strategy": "fixed",
+    "rootMin": 16,
     "rootMax": 16,
     "minWidth": 320,
     "maxWidth": 960

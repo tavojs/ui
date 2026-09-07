@@ -40,6 +40,6 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.7",
-    "@tavojs/core": "^1.0.3"
+    "@tavojs/core": "^1.0.4"
   }
 }

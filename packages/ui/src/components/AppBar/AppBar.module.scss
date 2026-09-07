@@ -14,8 +14,8 @@
     --tui-appbar-bg,
     color-mix(in srgb, var(--tui-color-surface) var(--tui-appbar-bg-alpha, var(--tui-glass-chrome-alpha, 62%)), transparent)
   );
-  -webkit-backdrop-filter: var(--tui-backdrop-filter, blur(var(--tui-blur-surface, 22px)) saturate(1.35));
-  backdrop-filter: var(--tui-backdrop-filter, blur(var(--tui-blur-surface, 22px)) saturate(1.35));
+  -webkit-backdrop-filter: var(--tui-backdrop-filter, none);
+  backdrop-filter: var(--tui-backdrop-filter, none);
   box-shadow: var(--tui-shadow-md);
   position: sticky;
   top: 0;

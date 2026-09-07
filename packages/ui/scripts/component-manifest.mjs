@@ -94,6 +94,12 @@ export const componentEntries = [
     description: "Native disclosure primitive with trigger and content slots.",
   },
   {
+    name: "ColorPicker",
+    slug: "color-picker",
+    category: "forms",
+    description: "Native color selection control with token-backed styling.",
+  },
+  {
     name: "Combobox",
     slug: "combobox",
     category: "forms",
@@ -149,6 +155,12 @@ export const componentEntries = [
     description: "Label, message, and ARIA wiring wrapper for form controls.",
     accessibility:
       "Adds id, aria-describedby, and aria-invalid to child controls.",
+  },
+  {
+    name: "FileTrigger",
+    slug: "file-trigger",
+    category: "forms",
+    description: "Accessible file-input trigger styled through the button system.",
   },
   {
     name: "Flex",
@@ -253,6 +265,18 @@ export const componentEntries = [
     slug: "navigation-menu",
     category: "navigation",
     description: "Responsive navigation list with current-page semantics.",
+  },
+  {
+    name: "NumberInput",
+    slug: "number-input",
+    category: "forms",
+    description: "Numeric input with draft-safe typed value callbacks and optional affixes.",
+  },
+  {
+    name: "ObjectField",
+    slug: "object-field",
+    category: "forms",
+    description: "Structured JSON-compatible object property editor with validation.",
   },
   {
     name: "Overlay",
@@ -458,6 +482,12 @@ export const componentEntries = [
     description: "Chronological timeline for events and milestones.",
   },
   {
+    name: "TreeView",
+    slug: "tree-view",
+    category: "data",
+    description: "Keyboard-accessible hierarchical view with multi-selection and drop states.",
+  },
+  {
     name: "Toast",
     slug: "toast",
     category: "feedback",
@@ -522,13 +552,17 @@ export const groupEntries = {
     "ButtonGroup",
     "Calendar",
     "Checkbox",
+    "ColorPicker",
     "Combobox",
     "DatePicker",
     "Field",
+    "FileTrigger",
     "FormControl",
     "FormControlLabel",
     "FormLabel",
     "InputGroup",
+    "NumberInput",
+    "ObjectField",
     "Radio",
     "RadioGroup",
     "SearchInput",
@@ -550,6 +584,7 @@ export const groupEntries = {
     "Stepper",
     "Table",
     "Timeline",
+    "TreeView",
   ],
   feedback: [
     "Alert",

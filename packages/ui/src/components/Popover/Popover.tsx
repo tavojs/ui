@@ -1,10 +1,13 @@
-import {
-  createDirective,
-  type ElementDirective,
-  type ElementDirectiveInput,
-} from "@tavojs/core";
+import type { ElementDirectiveInput } from "@tavojs/core";
 import styles from "./Popover.module.scss";
 import { cv, cx, sxClassName, type BaseProps } from "@/components/shared";
+import {
+  createDetailsBehavior,
+  createFloatingDetailsContent,
+  mergeDirectives,
+  requestDetailsOpenChange,
+  type DisclosureOpenChangeReason,
+} from "@/components/disclosure";
 
 export type PopoverPlacement =
   | "bottom-start"
@@ -12,11 +15,11 @@ export type PopoverPlacement =
   | "top-start"
   | "top-end";
 
-const VIEWPORT_MARGIN = 8;
-
 export type PopoverProps = BaseProps & {
   open?: boolean;
+  defaultOpen?: boolean;
   placement?: PopoverPlacement;
+  onOpenChange?: (open: boolean, reason: DisclosureOpenChangeReason) => void;
 };
 
 export type PopoverTriggerProps = BaseProps & {
@@ -25,193 +28,37 @@ export type PopoverTriggerProps = BaseProps & {
 export type PopoverContentProps = BaseProps & {
   use?: ElementDirectiveInput<HTMLDivElement>;
 };
-
-function mergeContentDirectives(
-  ...inputs: ElementDirectiveInput<HTMLDivElement>[]
-): Array<ElementDirective<HTMLDivElement> | null | undefined | false> {
-  const directives: Array<ElementDirective<HTMLDivElement> | null | undefined | false> = [
-    keepPopoverContentInViewport
-  ];
-  for (const input of inputs) {
-    if (Array.isArray(input)) {
-      directives.push(...input);
-    } else {
-      directives.push(input);
-    }
-  }
-  return directives;
-}
-
-const keepPopoverContentInViewport = createDirective<HTMLDivElement>(
-  (element) => {
-    const owner = element.parentElement as HTMLDetailsElement | null;
-    let frame = 0;
-    let active = false;
-
-    function resetPosition() {
-      element.removeAttribute("data-tui-popover-positioned");
-      element.style.removeProperty("--tui-popover-translate-x");
-      element.style.removeProperty("--tui-popover-translate-y");
-      element.style.removeProperty("--tui-popover-available-height");
-    }
-
-    function updatePosition() {
-      frame = 0;
-      if (!owner?.open) {
-        resetPosition();
-        return;
-      }
-
-      resetPosition();
-
-      const rect = element.getBoundingClientRect();
-      const viewportWidth = window.innerWidth;
-      const viewportHeight = window.innerHeight;
-      const overflowLeft = VIEWPORT_MARGIN - rect.left;
-      const overflowRight = rect.right - (viewportWidth - VIEWPORT_MARGIN);
-      const overflowTop = VIEWPORT_MARGIN - rect.top;
-      const overflowBottom = rect.bottom - (viewportHeight - VIEWPORT_MARGIN);
-      const ownerRect = owner.getBoundingClientRect();
-      const placement = owner.dataset.placement ?? "bottom-start";
-      const translateX =
-        overflowLeft > 0
-          ? overflowLeft
-          : overflowRight > 0
-            ? -overflowRight
-            : 0;
-      let translateY =
-        overflowTop > 0
-          ? overflowTop
-          : overflowBottom > 0
-            ? -overflowBottom
-            : 0;
-
-      if (placement.startsWith("bottom") && overflowBottom > 0) {
-        const gap = Math.max(0, rect.top - ownerRect.bottom);
-        const flippedTop = ownerRect.top - gap - rect.height;
-        if (flippedTop >= VIEWPORT_MARGIN) {
-          translateY = flippedTop - rect.top;
-        }
-      } else if (placement.startsWith("top") && overflowTop > 0) {
-        const gap = Math.max(0, ownerRect.top - rect.bottom);
-        const flippedTop = ownerRect.bottom + gap;
-        if (flippedTop + rect.height <= viewportHeight - VIEWPORT_MARGIN) {
-          translateY = flippedTop - rect.top;
-        }
-      }
-      const availableHeight = Math.max(0, viewportHeight - VIEWPORT_MARGIN * 2);
-
-      if (translateX !== 0) {
-        element.style.setProperty(
-          "--tui-popover-translate-x",
-          `${Math.round(translateX)}px`,
-        );
-      }
-      if (translateY !== 0) {
-        element.style.setProperty(
-          "--tui-popover-translate-y",
-          `${Math.round(translateY)}px`,
-        );
-      }
-      element.style.setProperty(
-        "--tui-popover-available-height",
-        `${Math.round(availableHeight)}px`,
-      );
-      element.setAttribute("data-tui-popover-positioned", "true");
-    }
-
-    function schedulePositionUpdate() {
-      if (frame) {
-        return;
-      }
-      frame = requestAnimationFrame(updatePosition);
-    }
-
-    function handleOutsidePointerDown(event: PointerEvent) {
-      if (!owner?.open) {
-        return;
-      }
-
-      const path = event.composedPath();
-      if (path.includes(owner)) {
-        return;
-      }
-
-      owner.open = false;
-      resetPosition();
-    }
-
-    const resizeObserver =
-      typeof ResizeObserver === "function"
-        ? new ResizeObserver(schedulePositionUpdate)
-        : null;
-
-    function activate() {
-      if (active || !owner) {
-        return;
-      }
-      active = true;
-      resizeObserver?.observe(element);
-      document.addEventListener("pointerdown", handleOutsidePointerDown);
-      window.addEventListener("resize", schedulePositionUpdate);
-      window.addEventListener("scroll", schedulePositionUpdate, true);
-      schedulePositionUpdate();
-    }
-
-    function deactivate() {
-      if (!active) {
-        resetPosition();
-        return;
-      }
-      active = false;
-      if (frame) {
-        cancelAnimationFrame(frame);
-        frame = 0;
-      }
-      resizeObserver?.disconnect();
-      document.removeEventListener("pointerdown", handleOutsidePointerDown);
-      window.removeEventListener("resize", schedulePositionUpdate);
-      window.removeEventListener("scroll", schedulePositionUpdate, true);
-      resetPosition();
-    }
-
-    function handleToggle() {
-      if (owner?.open) {
-        activate();
-      } else {
-        deactivate();
-      }
-    }
-
-    owner?.addEventListener("toggle", handleToggle);
-    handleToggle();
-
-    return () => {
-      owner?.removeEventListener("toggle", handleToggle);
-      deactivate();
-    };
-  },
-);
+export type PopoverCloseProps = BaseProps;
 
 function PopoverBase({
   children,
   className = "",
-  open = false,
+  open,
+  defaultOpen = false,
   placement = "bottom-start",
+  onOpenChange,
   ...props
 }: PopoverProps) {
+  const classNames = sxClassName(
+    props,
+    cx(styles.root, cv(styles, "placement", placement, "bottom-start"), className),
+  );
+  const existingUse = props.use as ElementDirectiveInput<HTMLDetailsElement>;
+  delete props.use;
+  const behavior = createDetailsBehavior({
+    open,
+    onOpenChange,
+    dismissOnOutsidePointer: true,
+    focusOnOpen: '[role="dialog"] input:not([disabled]), [role="dialog"] button:not([disabled]), [role="dialog"][tabindex]',
+    restoreFocus: true,
+  });
+
   return (
     <details
-      className={sxClassName(
-        props,
-        cx(
-          styles.root,
-          cv(styles, "placement", placement, "bottom-start"),
-          className,
-        ),
-      )}
-      open={open}
+      className={classNames}
+      open={open ?? defaultOpen}
       data-placement={placement}
+      use={mergeDirectives(existingUse, behavior)}
       {...props}
     >
       {children}
@@ -219,12 +66,7 @@ function PopoverBase({
   );
 }
 
-export function PopoverTrigger({
-  children,
-  className = "",
-  label,
-  ...props
-}: PopoverTriggerProps) {
+export function PopoverTrigger({ children, className = "", label, ...props }: PopoverTriggerProps) {
   return (
     <summary
       className={sxClassName(props, cx(styles.trigger, className))}
@@ -237,12 +79,7 @@ export function PopoverTrigger({
   );
 }
 
-export function PopoverContent({
-  children,
-  className = "",
-  use,
-  ...props
-}: PopoverContentProps) {
+export function PopoverContent({ children, className = "", use, ...props }: PopoverContentProps) {
   const contentClassName = sxClassName(props, cx(styles.content, className));
   const sxUse = props.use as ElementDirectiveInput<HTMLDivElement>;
   delete props.use;
@@ -250,11 +87,30 @@ export function PopoverContent({
     <div
       className={contentClassName}
       role="dialog"
-      use={mergeContentDirectives(use, sxUse)}
+      tabIndex={-1}
+      use={mergeDirectives(createFloatingDetailsContent(), use, sxUse)}
       {...props}
     >
       {children}
     </div>
+  );
+}
+
+export function PopoverClose({ children, className = "", onClick, ...props }: PopoverCloseProps) {
+  return (
+    <button
+      type="button"
+      className={sxClassName(props, cx(styles.close, className))}
+      onClick={(event: MouseEvent & { currentTarget: HTMLElement }) => {
+        onClick?.(event);
+        if (event.defaultPrevented) return;
+        const owner = event.currentTarget.closest("details");
+        if (owner) requestDetailsOpenChange(owner, false, "close");
+      }}
+      {...props}
+    >
+      {children}
+    </button>
   );
 }
 
@@ -263,4 +119,5 @@ export const Popover = Object.assign(PopoverBase, {
   Root: PopoverRoot,
   Trigger: PopoverTrigger,
   Content: PopoverContent,
+  Close: PopoverClose,
 });

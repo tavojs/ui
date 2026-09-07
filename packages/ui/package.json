@@ -1,6 +1,6 @@
 {
   "name": "@tavojs/ui",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A Tavo.js-native UI library with colocated TSX and SCSS modules plus theme generation tooling.",
   "type": "module",
   "author": "Hrachya Martirosyan",
@@ -56,6 +56,11 @@
     "./cli": {
       "types": "./dist/cli/index.d.ts",
       "import": "./dist/cli/index.js"
+    },
+    "./runtime-catalog": {
+      "types": "./dist/runtime-catalog/index.d.ts",
+      "browser": "./dist/browser/runtime-catalog/index.js",
+      "import": "./dist/runtime-catalog/index.js"
     },
     "./css": {
       "types": "./dist/css/index.d.ts",
@@ -294,6 +299,16 @@
       "browser": "./dist/browser/components/Collapsible/index.js",
       "import": "./dist/css/components/Collapsible/index.js"
     },
+    "./color-picker": {
+      "types": "./dist/components/ColorPicker/index.d.ts",
+      "browser": "./dist/browser/components/ColorPicker/index.js",
+      "import": "./dist/components/ColorPicker/index.js"
+    },
+    "./css/color-picker": {
+      "types": "./dist/css/components/ColorPicker/index.d.ts",
+      "browser": "./dist/browser/components/ColorPicker/index.js",
+      "import": "./dist/css/components/ColorPicker/index.js"
+    },
     "./combobox": {
       "types": "./dist/components/Combobox/index.d.ts",
       "browser": "./dist/browser/components/Combobox/index.js",
@@ -383,6 +398,16 @@
       "types": "./dist/css/components/Field/index.d.ts",
       "browser": "./dist/browser/components/Field/index.js",
       "import": "./dist/css/components/Field/index.js"
+    },
+    "./file-trigger": {
+      "types": "./dist/components/FileTrigger/index.d.ts",
+      "browser": "./dist/browser/components/FileTrigger/index.js",
+      "import": "./dist/components/FileTrigger/index.js"
+    },
+    "./css/file-trigger": {
+      "types": "./dist/css/components/FileTrigger/index.d.ts",
+      "browser": "./dist/browser/components/FileTrigger/index.js",
+      "import": "./dist/css/components/FileTrigger/index.js"
     },
     "./flex": {
       "types": "./dist/components/Flex/index.d.ts",
@@ -553,6 +578,26 @@
       "types": "./dist/css/components/NavigationMenu/index.d.ts",
       "browser": "./dist/browser/components/NavigationMenu/index.js",
       "import": "./dist/css/components/NavigationMenu/index.js"
+    },
+    "./number-input": {
+      "types": "./dist/components/NumberInput/index.d.ts",
+      "browser": "./dist/browser/components/NumberInput/index.js",
+      "import": "./dist/components/NumberInput/index.js"
+    },
+    "./css/number-input": {
+      "types": "./dist/css/components/NumberInput/index.d.ts",
+      "browser": "./dist/browser/components/NumberInput/index.js",
+      "import": "./dist/css/components/NumberInput/index.js"
+    },
+    "./object-field": {
+      "types": "./dist/components/ObjectField/index.d.ts",
+      "browser": "./dist/browser/components/ObjectField/index.js",
+      "import": "./dist/components/ObjectField/index.js"
+    },
+    "./css/object-field": {
+      "types": "./dist/css/components/ObjectField/index.d.ts",
+      "browser": "./dist/browser/components/ObjectField/index.js",
+      "import": "./dist/css/components/ObjectField/index.js"
     },
     "./overlay": {
       "types": "./dist/components/Overlay/index.d.ts",
@@ -884,6 +929,16 @@
       "browser": "./dist/browser/components/Timeline/index.js",
       "import": "./dist/css/components/Timeline/index.js"
     },
+    "./tree-view": {
+      "types": "./dist/components/TreeView/index.d.ts",
+      "browser": "./dist/browser/components/TreeView/index.js",
+      "import": "./dist/components/TreeView/index.js"
+    },
+    "./css/tree-view": {
+      "types": "./dist/css/components/TreeView/index.d.ts",
+      "browser": "./dist/browser/components/TreeView/index.js",
+      "import": "./dist/css/components/TreeView/index.js"
+    },
     "./toast": {
       "types": "./dist/components/Toast/index.d.ts",
       "browser": "./dist/browser/components/Toast/index.js",
@@ -970,14 +1025,14 @@
     "prepublishOnly": "npm run release:registry && npm run typecheck && npm run test && npm run build && npm run smoke:consumer && npm run pack:dry"
   },
   "peerDependencies": {
-    "@tavojs/core": "^1.0.3"
+    "@tavojs/core": "^1.0.4"
   },
   "dependencies": {
-    "@tavojs/ui-cli": "^1.0.1",
-    "@tavojs/ui-core": "^1.0.1"
+    "@tavojs/ui-cli": "^1.0.2",
+    "@tavojs/ui-core": "^1.0.2"
   },
   "devDependencies": {
-    "@tavojs/core": "^1.0.3",
+    "@tavojs/core": "^1.0.4",
     "@types/node": "^24.0.0",
     "sass": "^1.89.0",
     "typescript": "^5.9.3",

@@ -1,5 +1,18 @@
 # @tavojs/ui-cli
 
+## 1.0.2
+
+### Patch Changes
+
+- Updated dependencies [7df43a3]
+- Updated dependencies [7df43a3]
+- Updated dependencies [7df43a3]
+- Updated dependencies [7df43a3]
+- Updated dependencies [7df43a3]
+- Updated dependencies [c09fa7c]
+- Updated dependencies
+  - @tavojs/ui@1.0.5
+
 ## 1.0.1
 
 ### Patch Changes

@@ -73,8 +73,8 @@ export function TableCell({ children, className = "", numeric = false, sx, ...pr
 }
 
 export function TableData<TRow extends Record<string, unknown> = Record<string, unknown>>({
-  columns,
-  rows,
+  columns = [],
+  rows = [],
   compact = false,
   ...props
 }: TableDataProps<TRow>) {

@@ -132,6 +132,10 @@ Presets are starting points. You can override any nested value in the same confi
 - `monochromatic`: keeps the UI strictly black, white, and neutral while preserving exact action colors.
 - `glass`: emits translucent surface tokens and a `backdrop-filter` token for glass-style interfaces.
 
+## Viewport Strategies
+
+The root font size defaults to a fixed 16px value. Set `viewport.strategy` to `fluid` for continuous `clamp()` scaling or `stepped` for discrete changes at the resolved UI breakpoints. Existing viewport objects without a strategy retain fluid behavior. Fixed configurations require matching `rootMin` and `rootMax` values.
+
 ## Token Overrides
 
 Use `tokens.light` and `tokens.dark` for targeted overrides.

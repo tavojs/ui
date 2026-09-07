@@ -37,11 +37,42 @@
 }
 
 .handle {
-  flex: 0 0 var(--tui-resizable-handle-size, 0.5rem);
+  position: relative;
+  z-index: 1;
+  flex: 0 0 var(--tui-resizable-handle-size, 1px);
   background: var(--tui-color-border);
   cursor: col-resize;
+  touch-action: none;
+  outline: 0;
+}
+
+.handle::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 50%;
+  inline-size: var(--tui-resizable-hit-area, 0.75rem);
+  transform: translateX(-50%);
+}
+
+.handle:focus-visible,
+.handle:hover {
+  background: var(--tui-color-focus);
 }
 
 .direction-vertical .handle {
   cursor: row-resize;
+}
+
+.direction-vertical .handle::before {
+  inset-inline: 0;
+  inset-block-start: 50%;
+  inline-size: auto;
+  block-size: var(--tui-resizable-hit-area, 0.75rem);
+  transform: translateY(-50%);
+}
+
+.root[data-disabled="true"] .handle {
+  cursor: not-allowed;
+  opacity: var(--tui-interaction-disabled-opacity, var(--tui-opacity-disabled));
 }

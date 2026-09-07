@@ -34,7 +34,6 @@ const uiCliPackageDependency = fs.existsSync(
 )
   ? `file:${localUiCliPackageDir}`
   : packageJson.dependencies?.["@tavojs/ui-cli"];
-
 function run(command, args, options = {}) {
   const env = {
     HOME: tmpRoot,
@@ -150,6 +149,7 @@ import { auditThemeA11y } from "@tavojs/ui/a11y";
 import { auditThemeA11y as cssAuditThemeA11y } from "@tavojs/ui/css/a11y";
 import { componentMetadata, findComponentsForIntent, getAgentComponentGuide } from "@tavojs/ui/metadata";
 import { componentMetadata as cssMetadata, getComponentsByCategory as getCssComponentsByCategory } from "@tavojs/ui/css/metadata";
+import runtimeCatalog, { tavoUiRuntimeCatalog } from "@tavojs/ui/runtime-catalog";
 import "@tavojs/ui/theme.css";
 
 function App() {
@@ -159,13 +159,14 @@ function App() {
   const buttonGuide = getAgentComponentGuide("button");
   const intentMatch = findComponentsForIntent("modal dialog focus")[0]?.name;
   const cssFormCount = getCssComponentsByCategory("forms").length;
+  const runtimeButton = runtimeCatalog.resolve("button");
 
   return (
     <Page>
       <CssPage>
         <Box>
           <Card title="Packed consumer" eyebrow={componentMetadata[0]?.name ?? cssMetadata[0]?.name}>
-            <Stack data-audit-issues={audit.issues.length + cssAudit.issues.length} data-theme-length={theme.cssText.length} data-agent-guide={buttonGuide?.importPath} data-intent-match={intentMatch} data-css-form-count={cssFormCount}>
+            <Stack data-audit-issues={audit.issues.length + cssAudit.issues.length} data-theme-length={theme.cssText.length} data-agent-guide={buttonGuide?.importPath} data-intent-match={intentMatch} data-css-form-count={cssFormCount} data-runtime-component={runtimeButton?.metadata.name} data-catalog-size={tavoUiRuntimeCatalog.list().length} data-catalog-default={runtimeCatalog === tavoUiRuntimeCatalog}>
               <Toolbar title="Imports" actions={<Toast tone="success">Ready</Toast>} />
               <Field label="Search">
                 <SearchInput placeholder="Package import smoke" />
