@@ -1,0 +1,127 @@
+.root {
+  display: grid;
+  min-inline-size: 0;
+  color: var(--tui-color-text);
+  font-family: var(--tui-font-family-text, var(--tui-font-family));
+}
+
+.itemContainer,
+.group {
+  display: grid;
+  min-inline-size: 0;
+}
+
+.item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--tui-space-1);
+  min-inline-size: 0;
+  padding-block: var(--tui-space-1);
+  padding-inline-end: var(--tui-space-2);
+  border-radius: var(--tui-radius-sm);
+  cursor: default;
+  user-select: none;
+}
+
+.item:hover {
+  background: var(--tui-color-surface-subtle);
+}
+
+.item:focus-visible {
+  outline: var(--tui-focus-width) solid var(--tui-color-focus);
+  outline-offset: calc(-1 * var(--tui-focus-width));
+}
+
+.selected {
+  background: var(--tui-color-primary-soft-bg);
+  color: var(--tui-color-primary-soft-text);
+}
+
+.disabled {
+  opacity: var(--tui-interaction-disabled-opacity, var(--tui-opacity-disabled));
+}
+
+.indent {
+  flex: 0 0 calc(var(--tui-tree-depth, 0) * var(--tui-tree-indent, 1rem));
+}
+
+.expand,
+.expandPlaceholder {
+  flex: 0 0 1.25rem;
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+}
+
+.expand {
+  position: relative;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.expand::before {
+  content: "";
+  position: absolute;
+  inset: 0.35rem 0.45rem;
+  border-inline-end: var(--tui-border-width-strong) solid currentColor;
+  border-block-end: var(--tui-border-width-strong) solid currentColor;
+  transform: rotate(-45deg);
+}
+
+.expand[aria-expanded="true"]::before {
+  transform: rotate(45deg) translate(-0.1rem, -0.1rem);
+}
+
+.content {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--tui-space-2);
+  min-inline-size: 0;
+  inline-size: 100%;
+}
+
+.label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.description {
+  flex: 0 0 auto;
+  color: var(--tui-color-text-muted);
+  font-size: var(--tui-font-size-caption, 0.875rem);
+}
+
+.item[data-dragging="true"] {
+  opacity: 0.55;
+}
+
+.drop-before::before,
+.drop-after::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  block-size: 2px;
+  background: var(--tui-color-focus);
+}
+
+.drop-before::before {
+  inset-block-start: -1px;
+}
+
+.drop-after::after {
+  inset-block-end: -1px;
+}
+
+.drop-inside {
+  outline: 2px solid var(--tui-color-focus);
+  outline-offset: -2px;
+}
+
+.invalidDrop {
+  --tui-color-focus: var(--tui-color-danger);
+}

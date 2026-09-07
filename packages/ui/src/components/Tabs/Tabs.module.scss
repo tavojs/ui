@@ -24,7 +24,7 @@
 
 .active {
   color: var(--tui-color-text);
-  border-color: var(--tui-color-secondary-bg);
+  border-color: var(--tui-color-primary-bg);
 }
 
 .panel {
@@ -35,5 +35,5 @@
   width: 2rem;
   height: 0.1875rem;
   border-radius: 999px;
-  background: var(--tui-color-secondary-bg);
+  background: var(--tui-color-primary-bg);
 }

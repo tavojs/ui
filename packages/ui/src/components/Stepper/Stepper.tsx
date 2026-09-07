@@ -21,7 +21,7 @@ export type StepperProps = BaseProps & {
   orientation?: "horizontal" | "vertical";
 };
 
-export function Stepper({ steps, orientation = "horizontal", className = "", ...props }: StepperProps) {
+export function Stepper({ steps = [], orientation = "horizontal", className = "", ...props }: StepperProps) {
   return (
     <ol className={sxClassName(props, cx(styles.stepper, cv(styles, "orientation", orientation, "horizontal"), className))} {...props}>
       {steps.map((step, index) => {

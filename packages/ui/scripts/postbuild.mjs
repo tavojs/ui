@@ -249,12 +249,12 @@ function copyThemeScssEntrypoints() {
   }
 }
 
-function writeBrowserWrapper(targetPath, sourcePath) {
+function writeBrowserWrapper(targetPath, sourcePath, includeDefault = false) {
   fs.mkdirSync(path.dirname(targetPath), { recursive: true });
   const sourceImport = toRelativeImport(targetPath, sourcePath);
   fs.writeFileSync(
     targetPath,
-    `export * from ${JSON.stringify(sourceImport)};\n`
+    `${includeDefault ? `export { default } from ${JSON.stringify(sourceImport)};\n` : ""}export * from ${JSON.stringify(sourceImport)};\n`
   );
 }
 
@@ -264,6 +264,11 @@ function writeBrowserEntrypoints() {
   writeBrowserWrapper(
     path.join(browserDir, "index.js"),
     path.join(distDir, "index.js")
+  );
+  writeBrowserWrapper(
+    path.join(browserDir, "runtime-catalog", "index.js"),
+    path.join(distDir, "runtime-catalog", "index.js"),
+    true
   );
 
   for (const groupName of Object.keys(groupEntries)) {

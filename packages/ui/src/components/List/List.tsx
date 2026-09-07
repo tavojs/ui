@@ -14,7 +14,7 @@ export type ListItemProps = BaseProps & {
   meta?: Child;
 };
 
-export function List({
+function ListBase({
   children,
   className = "",
   ordered = false,
@@ -41,3 +41,9 @@ export function ListItem({ children, className = "", title, meta, ...props }: Li
     </li>
   );
 }
+
+export const ListRoot = ListBase;
+export const List = Object.assign(ListBase, {
+  Root: ListRoot,
+  Item: ListItem
+});

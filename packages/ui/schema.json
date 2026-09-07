@@ -177,10 +177,14 @@
       }
     },
     "viewport": {
-      "description": "Viewport-aware root font-size scale. Because generated component dimensions use rem tokens, this scales spacing, controls, radii, and type rhythm across screen sizes.",
+      "description": "Root font-size strategy. Fixed avoids viewport-wide rem invalidation, fluid scales continuously, and stepped changes only at configured breakpoints.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "strategy": {
+          "description": "Root font-size behavior. Defaults to fixed when viewport is omitted. Existing viewport objects without strategy retain fluid behavior.",
+          "enum": ["fixed", "fluid", "stepped"]
+        },
         "rootMin": {
           "description": "Minimum root font size in pixels.",
           "type": "number",

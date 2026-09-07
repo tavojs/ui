@@ -7,8 +7,8 @@
   height: 100vh;
   inset: 0;
   background: var(--tui-color-overlay-bg, rgba(15, 23, 42, 0.52));
-  -webkit-backdrop-filter: var(--tui-backdrop-filter, blur(4px));
-  backdrop-filter: var(--tui-backdrop-filter, blur(4px));
+  -webkit-backdrop-filter: var(--tui-backdrop-filter, none);
+  backdrop-filter: var(--tui-backdrop-filter, none);
   z-index: 39;
 }
 

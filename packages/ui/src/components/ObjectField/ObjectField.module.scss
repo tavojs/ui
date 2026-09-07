@@ -1,0 +1,118 @@
+.root {
+  display: grid;
+  gap: var(--tui-space-3);
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: var(--tui-color-text);
+  font-family: var(--tui-font-family-text, var(--tui-font-family));
+}
+
+.legend {
+  margin-block-end: var(--tui-space-2);
+  font-weight: var(--tui-font-weight-semibold, 600);
+}
+
+.rows {
+  display: grid;
+  gap: var(--tui-space-2);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(6rem, 1fr) minmax(6rem, 0.65fr) minmax(8rem, 1.5fr) auto;
+  align-items: end;
+  gap: var(--tui-space-2);
+  padding: var(--tui-space-2);
+  border: var(--tui-border-width) solid var(--tui-color-border);
+  border-radius: var(--tui-radius-md);
+  background: var(--tui-color-surface);
+}
+
+.row[data-invalid="true"] {
+  border-color: var(--tui-color-danger);
+}
+
+.controlLabel {
+  display: grid;
+  gap: var(--tui-space-1);
+  min-inline-size: 0;
+  color: var(--tui-color-text-muted);
+  font-size: var(--tui-font-size-caption, 0.875rem);
+}
+
+.input,
+.select,
+.textarea,
+.rawInput {
+  box-sizing: border-box;
+  min-inline-size: 0;
+  inline-size: 100%;
+  min-block-size: var(--tui-size-sm);
+  padding: var(--tui-space-2);
+  border: var(--tui-input-border-width, var(--tui-border-width)) solid var(--tui-input-border-color, var(--tui-color-border));
+  border-radius: var(--tui-input-radius, var(--tui-radius-control));
+  background: var(--tui-input-bg, var(--tui-color-surface-raised));
+  color: var(--tui-color-text);
+  font: inherit;
+}
+
+.textarea,
+.rawInput {
+  resize: vertical;
+  font-family: var(--tui-font-family-mono, monospace);
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus,
+.rawInput:focus {
+  border-color: var(--tui-color-focus);
+  outline: var(--tui-focus-width) solid color-mix(in srgb, var(--tui-color-focus) 28%, transparent);
+  outline-offset: var(--tui-focus-offset);
+}
+
+.remove,
+.add {
+  justify-self: start;
+}
+
+.rowError,
+.error {
+  color: var(--tui-color-danger);
+  font-size: var(--tui-font-size-caption, 0.875rem);
+}
+
+.rowError {
+  grid-column: 1 / -1;
+}
+
+.raw {
+  padding-block-start: var(--tui-space-2);
+  border-block-start: var(--tui-border-width) solid var(--tui-color-border);
+}
+
+.raw > summary {
+  cursor: pointer;
+  font-weight: var(--tui-font-weight-medium, 500);
+}
+
+.rawInput {
+  margin-block-start: var(--tui-space-2);
+}
+
+.invalid .legend {
+  color: var(--tui-color-danger);
+}
+
+@media (max-width: 48rem) {
+  .row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .valueControl,
+  .rowError {
+    grid-column: 1 / -1;
+  }
+}

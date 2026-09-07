@@ -14,7 +14,7 @@ export type ComboboxProps = BaseProps & {
   listId?: string;
 };
 
-export function Combobox({ name, options, size = "md", listId, className = "", ...props }: ComboboxProps) {
+export function Combobox({ name, options = [], size = "md", listId, className = "", ...props }: ComboboxProps) {
   const id = listId ?? `${name ?? "combobox"}-options`;
 
   return (

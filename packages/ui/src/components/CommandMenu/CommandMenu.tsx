@@ -18,7 +18,7 @@ export type CommandMenuProps = BaseProps & {
   placeholder?: string;
 };
 
-export function CommandMenu({ items, placeholder = "Search commands", className = "", ...props }: CommandMenuProps) {
+export function CommandMenu({ items = [], placeholder = "Search commands", className = "", ...props }: CommandMenuProps) {
   return (
     <div className={sxClassName(props, cx(styles.menu, className))} role="menu" {...props}>
       <SearchInput placeholder={placeholder} aria-label={placeholder} />

@@ -17,6 +17,7 @@ import {
   Card,
   Chart,
   Chip,
+  ColorPicker,
   CodeBlock,
   AspectRatio,
   Collapsible,
@@ -27,6 +28,7 @@ import {
   DropdownMenu,
   Flex,
   Field,
+  FileTrigger,
   Grid,
   GridRuler,
   HoverCard,
@@ -38,6 +40,8 @@ import {
   Link,
   Menubar,
   NavigationMenu,
+  NumberInput,
+  ObjectField,
   Page,
   Pagination,
   Popover,
@@ -65,6 +69,11 @@ import {
   Toggle,
   ToggleGroup,
   Toolbar,
+  TreeView,
+  clampResizableValue,
+  nextTreeSelection,
+  parseNumberInputDraft,
+  validateObjectFieldEntries,
 } from "../dist/css/index.js";
 
 function html(vnode) {
@@ -97,6 +106,53 @@ function findVNodeByType(vnode, type) {
 
   return undefined;
 }
+
+test("ColorPicker preserves native color input semantics and value changes", () => {
+  let selected;
+  const picker = ColorPicker({
+    name: "brand-color",
+    value: "#5b5bd6",
+    size: "lg",
+    onValueChange: (value) => {
+      selected = value;
+    },
+  });
+
+  assert.equal(picker.type, "input");
+  assert.equal(picker.props.type, "color");
+  assert.equal(picker.props.name, "brand-color");
+  assert.equal(picker.props.value, "#5b5bd6");
+  assert.match(picker.props.className, /size-lg/);
+
+  picker.props.onChange({ currentTarget: { value: "#0f766e" } });
+  assert.equal(selected, "#0f766e");
+});
+
+test("ColorPicker composes native and value change handlers", () => {
+  const calls = [];
+  const picker = ColorPicker({
+    onChange: (event) => calls.push(`event:${event.currentTarget.value}`),
+    onValueChange: (value) => calls.push(`value:${value}`),
+  });
+
+  picker.props.onChange({ currentTarget: { value: "#112233" } });
+  assert.deepEqual(calls, ["event:#112233", "value:#112233"]);
+});
+
+test("Field labels and describes ColorPicker through its native input root", () => {
+  const output = html(
+    h(
+      Field,
+      { label: "Brand color", hint: "Choose a six-digit color." },
+      h(ColorPicker, { name: "brand-color", value: "#5b5bd6" })
+    )
+  );
+
+  assert.match(output, /<label[^>]*for="tui-brand-color"/);
+  assert.match(output, /<input[^>]*type="color"/);
+  assert.match(output, /<input[^>]*id="tui-brand-color"/);
+  assert.match(output, /aria-describedby="tui-brand-color-message"/);
+});
 
 test("Button exposes loading and disabled state through native attributes", () => {
   const output = html(
@@ -1757,4 +1813,269 @@ test("DropdownMenu.Item canonicalizes internal hrefs through the active router",
   assert.match(output, /href="\/assets\/guide\.pdf"/);
   assert.match(output, /download/);
   assert.doesNotMatch(output, /guide\.pdf\//);
+});
+
+test("NumberInput preserves intermediate drafts and emits typed preview and commit values", () => {
+  assert.deepEqual(parseNumberInputDraft("-"), { valid: false, value: null });
+  assert.deepEqual(parseNumberInputDraft("."), { valid: false, value: null });
+  assert.deepEqual(parseNumberInputDraft(""), { valid: true, value: null });
+  assert.deepEqual(parseNumberInputDraft("-1.25"), { valid: true, value: -1.25 });
+
+  const inputs = [];
+  const changes = [];
+  const number = NumberInput({
+    label: "Width",
+    value: 12,
+    min: 0,
+    max: 20,
+    suffix: "px",
+    onValueInput: (value, draft) => inputs.push([value, draft]),
+    onValueChange: (value, draft) => changes.push([value, draft]),
+  });
+  const input = findVNodeByType(number, "input");
+
+  input.props.onInput({ defaultPrevented: false, currentTarget: { value: "-" }, target: { value: "-" } });
+  assert.deepEqual(inputs, []);
+  input.props.onInput({ defaultPrevented: false, currentTarget: { value: "14.5" }, target: { value: "14.5" } });
+  assert.deepEqual(inputs, [[14.5, "14.5"]]);
+  const currentTarget = { value: "24" };
+  input.props.onChange({ defaultPrevented: false, currentTarget, target: currentTarget });
+  assert.deepEqual(changes, [[20, "20"]]);
+  assert.equal(currentTarget.value, "20");
+
+  const output = html(number);
+  assert.match(output, />Width</);
+  assert.match(output, /inputMode="decimal"/);
+  assert.match(output, /aria-valuemin="0"/);
+});
+
+test("NumberInput keyboard stepping supports a larger modified step", () => {
+  const committed = [];
+  const number = NumberInput({ value: 5, min: 0, max: 20, step: 2, onValueChange: (value) => committed.push(value) });
+  const input = findVNodeByType(number, "input");
+  const currentTarget = { value: "5" };
+  input.props.onKeyDown({
+    key: "ArrowUp",
+    shiftKey: true,
+    defaultPrevented: false,
+    currentTarget,
+    preventDefault() {},
+  });
+  assert.equal(currentTarget.value, "20");
+  assert.deepEqual(committed, [20]);
+});
+
+test("ToggleGroup supports Child labels, empty single selection, and full-width layout", () => {
+  const values = [];
+  const group = ToggleGroup({
+    value: "grid",
+    allowEmpty: true,
+    fullWidth: true,
+    onValueChange: (value) => values.push(value),
+    items: [
+      { label: h(Icon, null, "L"), accessibleLabel: "List view", title: "List", value: "list" },
+      { label: h(Icon, null, "G"), accessibleLabel: "Grid view", title: "Grid", value: "grid" },
+    ],
+  });
+  const selectedInput = group.props.children[1].props.children[0];
+  selectedInput.props.onClick({ preventDefault() {}, currentTarget: { checked: true }, defaultPrevented: false });
+
+  assert.deepEqual(values, [undefined]);
+  assert.match(group.props.className, /fullWidth/);
+  const output = html(group);
+  assert.match(output, /aria-label="Grid view"/);
+  assert.match(output, /title="Grid"/);
+});
+
+test("ColorPicker CSS mode previews arbitrary CSS paints and separates input from commit", () => {
+  const inputs = [];
+  const changes = [];
+  const picker = ColorPicker({
+    format: "css",
+    label: "Background",
+    value: "linear-gradient(90deg, #000, transparent)",
+    tokens: [{ label: "Accent", value: "var(--accent)" }],
+    onValueInput: (value) => inputs.push(value),
+    onValueChange: (value) => changes.push(value),
+  });
+  const textInput = findVNodeByType(picker, "input");
+  const eventTarget = { value: "color(display-p3 1 0 0 / .5)" };
+  textInput.props.onInput({ defaultPrevented: false, currentTarget: eventTarget, target: eventTarget });
+  textInput.props.onChange({ defaultPrevented: false, currentTarget: eventTarget, target: eventTarget });
+
+  assert.deepEqual(inputs, [eventTarget.value]);
+  assert.deepEqual(changes, [eventTarget.value]);
+  const output = html(picker);
+  assert.match(output, /linear-gradient/);
+  assert.match(output, /aria-label="Accent"/);
+  assert.match(output, /var\(--accent\)/);
+});
+
+test("FileTrigger forwards native files and resets the input after selection", () => {
+  let selected;
+  const trigger = FileTrigger({
+    accept: ".json",
+    variant: "text",
+    onFilesChange: (files) => { selected = files; },
+    children: "Import",
+  });
+  const fileInput = trigger.props.children[1];
+  const files = { 0: { name: "project.json" }, length: 1 };
+  const currentTarget = { files, value: "/fake/project.json" };
+  fileInput.props.onChange({ currentTarget });
+
+  assert.equal(selected, files);
+  assert.equal(currentTarget.value, "");
+  const output = html(trigger);
+  assert.match(output, /type="file"/);
+  assert.match(output, /accept="\.json"/);
+  assert.match(output, />Import</);
+});
+
+test("Resizable exposes controlled separator values and clamps keyboard changes", () => {
+  assert.equal(clampResizableValue(12, 20, 40), 20);
+  assert.equal(clampResizableValue(55, 20, 40), 40);
+  const values = [];
+  const root = Resizable({
+    orientation: "vertical",
+    value: 32,
+    min: 24,
+    max: 48,
+    step: 4,
+    largeStep: 12,
+    onValueChange: (value) => values.push(value),
+    children: h(Resizable.Handle, { "aria-label": "Resize inspector" }),
+  });
+  const handle = resolveComponentVNode(root.props.children[0]);
+  const owner = {
+    dataset: { value: "32" },
+    style: { setProperty() {} },
+  };
+  const attributes = {};
+  handle.props.onKeyDown({
+    key: "ArrowRight",
+    shiftKey: true,
+    defaultPrevented: false,
+    preventDefault() {},
+    currentTarget: {
+      closest: () => owner,
+      setAttribute: (name, value) => { attributes[name] = value; },
+    },
+  });
+
+  assert.deepEqual(values, [44]);
+  assert.equal(attributes["aria-valuenow"], "44");
+  const output = html(root);
+  assert.match(output, /aria-orientation="vertical"/);
+  assert.match(output, /aria-valuemin="24"/);
+  assert.match(output, /aria-valuemax="48"/);
+});
+
+test("TreeView implements deterministic additive and contiguous multi-selection", () => {
+  const order = ["a", "b", "c", "d"];
+  assert.deepEqual(nextTreeSelection(order, ["a"], "c", "multiple", { range: true, anchorId: "a" }), ["a", "b", "c"]);
+  assert.deepEqual(nextTreeSelection(order, ["a", "c"], "c", "multiple", { additive: true }), ["a"]);
+  assert.deepEqual(nextTreeSelection(order, [], "b", "single"), ["b"]);
+
+  const output = html(
+    h(TreeView, { "aria-label": "Layers", selectedIds: ["child"], selectionMode: "multiple", expandedIds: ["parent"] },
+      h(TreeView.Item, { id: "parent", label: "Parent" },
+        h(TreeView.Item, { id: "child", label: "Child", description: "Text" })
+      )
+    )
+  );
+  assert.match(output, /role="tree"/);
+  assert.match(output, /aria-multiselectable="true"/);
+  assert.match(output, /role="group"/);
+  assert.match(output, /aria-selected="true"/);
+  assert.match(output, /aria-level="2"/);
+});
+
+test("ObjectField validates duplicate keys and renders structured accessible controls", () => {
+  const validation = validateObjectFieldEntries([["color", "red"], ["color", "blue"]]);
+  assert.equal(validation.valid, false);
+  assert.equal(validation.issues.filter((issue) => issue.field === "key").length, 2);
+
+  const output = html(
+    h(ObjectField, {
+      label: "Options",
+      value: { color: "primary", hidden: false, count: 2 },
+      showRaw: true,
+    })
+  );
+  assert.match(output, /<fieldset/);
+  assert.match(output, /<legend[^>]*>Options/);
+  assert.match(output, />Key</);
+  assert.match(output, />Type</);
+  assert.match(output, />Value</);
+  assert.match(output, /Advanced JSON/);
+  assert.match(output, /aria-label="Remove color"/);
+});
+
+test("controlled overlay APIs expose defaults, close-on-select, and close primitives", () => {
+  const output = [
+    html(h(Collapsible, { defaultOpen: true }, [h(Collapsible.Trigger, null, "More"), h(Collapsible.Content, null, "Body")])),
+    html(h(Popover, { defaultOpen: true }, [h(Popover.Trigger, null, "Open"), h(Popover.Content, null, "Body"), h(Popover.Close, null, "Done")])),
+    html(h(DropdownMenu, { defaultOpen: true }, [h(DropdownMenu.Trigger, null, "Actions"), h(DropdownMenu.Content, null, h(DropdownMenu.Close, null, "Done"))])),
+  ].join("");
+  assert.equal((output.match(/<details[^>]* open/g) ?? []).length, 3);
+  assert.match(output, />Done</);
+
+  const details = { dataset: {}, open: true, dispatchEvent() {} };
+  let selected = 0;
+  const item = resolveComponentVNode(h(DropdownMenu.Item, { onSelect: () => { selected += 1; } }, "Save"));
+  item.props.onClick({
+    defaultPrevented: false,
+    currentTarget: { closest: () => details },
+  });
+  assert.equal(selected, 1);
+  assert.equal(details.open, false);
+  assert.equal(details.dataset.tuiOpenReason, "selection");
+});
+
+test("overlay behavior handles Escape and restores focus to its trigger", async () => {
+  const changes = [];
+  const root = Popover({ defaultOpen: true, onOpenChange: (open, reason) => changes.push([open, reason]) });
+  const behavior = root.props.use.find((candidate) => typeof candidate === "function");
+  const previousDocument = globalThis.document;
+  const documentListeners = new Map();
+  globalThis.document = {
+    addEventListener: (name, listener) => documentListeners.set(name, listener),
+    removeEventListener: (name) => documentListeners.delete(name),
+  };
+
+  let triggerFocus = 0;
+  let contentFocus = 0;
+  const trigger = { focus: () => { triggerFocus += 1; } };
+  const content = { focus: () => { contentFocus += 1; } };
+  const listeners = new Map();
+  const details = {
+    dataset: {},
+    open: true,
+    querySelector: (selector) => selector === ":scope > summary" ? trigger : content,
+    addEventListener: (name, listener) => listeners.set(name, listener),
+    removeEventListener: (name) => listeners.delete(name),
+    dispatchEvent: (event) => listeners.get(event.type)?.(event),
+  };
+
+  try {
+    const cleanup = behavior(details);
+    let prevented = false;
+    listeners.get("keydown")({
+      key: "Escape",
+      defaultPrevented: false,
+      preventDefault: () => { prevented = true; },
+      stopPropagation() {},
+    });
+    listeners.get("toggle")();
+    await Promise.resolve();
+
+    assert.equal(prevented, true);
+    assert.deepEqual(changes, [[false, "escape"]]);
+    assert.equal(contentFocus, 1);
+    assert.equal(triggerFocus, 1);
+    cleanup();
+  } finally {
+    globalThis.document = previousDocument;
+  }
 });

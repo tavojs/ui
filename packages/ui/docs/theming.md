@@ -139,7 +139,7 @@ Glass product:
 }
 ```
 
-In `glass` mode, `scale.blur` drives `--tui-blur-surface` and the shared `--tui-backdrop-filter`. Increase it for stronger Sheet, Sheet, Dialog, popover, menu, and surface blur. `scale.glassAlpha` drives `--tui-glass-chrome-alpha`, which controls how opaque sticky chrome such as AppBar should be before blur is applied.
+In `glass` mode, `scale.blur` drives `--tui-blur-surface` and the shared `--tui-backdrop-filter`. Increase it for stronger Sheet, Dialog, popover, menu, and surface blur. Non-glass themes resolve these component filters to `none`, so sticky chrome and overlays avoid unnecessary backdrop paint. `scale.glassAlpha` drives `--tui-glass-chrome-alpha`, which controls how opaque sticky chrome such as AppBar should be before blur is applied.
 
 ## Typography Fonts
 
@@ -158,11 +158,32 @@ Use `typography.fontFamily` when the whole product should use one font stack. Us
 
 ## Viewport Scale
 
-Use `viewport` to scale the root `font-size` between mobile and desktop widths. Because generated size, spacing, radius, and typography tokens use `rem`, this improves mobile density across the component system:
+New themes use a fixed 16px root by default. This keeps `rem`-based spacing, controls, radii, and typography stable during a continuous browser resize. Configure `viewport.strategy` when a product needs a different behavior:
+
+- `fixed`: one root size; `rootMin` and `rootMax` must match.
+- `fluid`: continuous `clamp()` interpolation between the configured widths.
+- `stepped`: discrete interpolated sizes at `sm`, `md`, `lg`, and `maxWidth`.
+
+Existing viewport objects without `strategy` retain the earlier fluid behavior. For an explicit fixed root:
 
 ```json
 {
   "viewport": {
+    "strategy": "fixed",
+    "rootMin": 16,
+    "rootMax": 16,
+    "minWidth": 320,
+    "maxWidth": 960
+  }
+}
+```
+
+For discrete responsive density without changing every `rem` value at every viewport pixel:
+
+```json
+{
+  "viewport": {
+    "strategy": "stepped",
     "rootMin": 14,
     "rootMax": 16,
     "minWidth": 320,
@@ -171,7 +192,7 @@ Use `viewport` to scale the root `font-size` between mobile and desktop widths. 
 }
 ```
 
-This emits a `font-size: clamp(...)` declaration on the configured root selector.
+Use `strategy: "fluid"` with the same range when continuous scaling is worth the additional full-page style and layout invalidation.
 
 ## Breakpoints
 
@@ -334,6 +355,54 @@ mountThemeController(controller);
 const theme = getThemeSnapshot(controller);
 theme.setMode("dark");
 ```
+
+### Live Theme Properties
+
+Use a live theme controller when an editor, preview, or application setting needs to change generated theme properties without reloading the page:
+
+```ts
+import config from "../tavo-ui.config.json";
+import {
+  createLiveThemeController,
+  mountLiveThemeController,
+} from "@tavojs/ui/theme";
+
+const theme = createLiveThemeController(config);
+const unmountTheme = mountLiveThemeController(theme);
+
+theme.setProperty("color.light.primary", "#ff4d67");
+theme.patchConfig({
+  scale: { radius: 12 },
+  typography: { bodySize: 18 },
+});
+
+// Call when the application shell is unmounted.
+unmountTheme();
+```
+
+`setProperty` accepts a dot-separated config path. `patchConfig` recursively merges a typed partial config, `setConfig` replaces the complete source config, and `updateConfig` supports immutable updater functions. `resetConfig` restores the config passed to `createLiveThemeController`.
+
+Updates regenerate both color modes and all derived tokens, then replace one dedicated `style[data-tavo-style="tavo-ui.theme.runtime"]` element. Multiple changes in the same animation frame are coalesced, so sliders and color inputs can update on their normal `input` event. The current mode is preserved while properties change.
+
+The controller keeps the last valid stylesheet when an update fails. Read `error`, `warnings`, `config`, and `revision` from `controller.store`, or use `subscribeLiveTheme`:
+
+```ts
+import { subscribeLiveTheme } from "@tavojs/ui/theme";
+
+const unsubscribe = subscribeLiveTheme(theme, (snapshot) => {
+  validationMessage.textContent = snapshot.error ?? snapshot.warnings.join("\n");
+}, { immediate: true });
+```
+
+Applications with a Content Security Policy can pass the style nonce:
+
+```ts
+const theme = createLiveThemeController(config, { nonce });
+```
+
+`breakpoints` and `output` are build-time sections. A live update that changes either section returns `{ applied: false, error }` and leaves the active config and stylesheet unchanged. CSS media-query thresholds are compiled into component and responsive `sx` rules, while output selectors define the build-time stylesheet contract. Changing `defaultTheme` updates the stored live config but does not replace the user's current mode; it is used the next time a controller is created.
+
+### Reactive Tavo.js UI
 
 For reactive Tavo.js UI, subscribe to `controller.store` from an MVC controller and copy the selected state into the component model:
 

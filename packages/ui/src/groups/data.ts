@@ -7,3 +7,4 @@ export * from "@/components/StatusDot";
 export * from "@/components/Stepper";
 export * from "@/components/Table";
 export * from "@/components/Timeline";
+export * from "@/components/TreeView";

@@ -189,7 +189,20 @@ test("typography fontFamily remains the fallback for text and heading fonts", ()
   );
 });
 
-test("viewport config emits responsive root font sizing", () => {
+test("viewport defaults to a fixed root font size", () => {
+  const result = buildTheme({
+    color: {
+      light: {
+        primary: "#116a67",
+      },
+    },
+  });
+
+  assert.match(result.cssText, /:root \{\n\tcolor-scheme: light;\n\tfont-size: 1\.0000rem;/);
+  assert.doesNotMatch(result.cssText, /font-size: clamp\(/);
+});
+
+test("legacy viewport config keeps fluid root font sizing", () => {
   const result = buildTheme({
     color: {
       light: {
@@ -207,6 +220,44 @@ test("viewport config emits responsive root font sizing", () => {
   assert.match(
     result.cssText,
     /:root \{\n\tcolor-scheme: light;\n\tfont-size: clamp\(0\.8750rem, calc\(0\.8125rem \+ 0\.3125vw\), 1\.0000rem\);/
+  );
+});
+
+test("stepped viewport config changes root sizing only at discrete widths", () => {
+  const themeConfig = {
+    color: {
+      light: {
+        primary: "#116a67",
+      },
+    },
+    viewport: {
+      strategy: "stepped",
+      rootMin: 14,
+      rootMax: 16,
+      minWidth: 320,
+      maxWidth: 960,
+    },
+  };
+  const expanded = buildTheme(themeConfig).cssText;
+  const compressed = buildCompressedTheme(themeConfig).cssText;
+
+  assert.match(expanded, /:root \{\n\tcolor-scheme: light;\n\tfont-size: 0\.8750rem;/);
+  assert.match(
+    expanded,
+    /@media \(min-width: 480px\) \{\n\t:root \{\n\t\tfont-size: 0\.9063rem;/
+  );
+  assert.match(
+    expanded,
+    /@media \(min-width: 768px\) \{\n\t:root \{\n\t\tfont-size: 0\.9625rem;/
+  );
+  assert.match(
+    expanded,
+    /@media \(min-width: 960px\) \{\n\t:root \{\n\t\tfont-size: 1\.0000rem;/
+  );
+  assert.doesNotMatch(expanded, /font-size: clamp\(/);
+  assert.match(
+    compressed,
+    /@media\(min-width:480px\)\{:root\{font-size:0\.9063rem;\}\}/
   );
 });
 
@@ -467,6 +518,187 @@ test("theme runtime tolerates blocked storage and keeps snapshot callbacks stabl
     assert.equal(first.mode, "dark");
     assert.equal(first.setMode, second.setMode);
     assert.equal(first.toggleMode, second.toggleMode);
+  } finally {
+    globalThis.document = previousDocument;
+    globalThis.window = previousWindow;
+  }
+});
+
+test("live theme runtime updates generated properties without replacing the style node", async () => {
+  const previousDocument = globalThis.document;
+  const previousWindow = globalThis.window;
+  const attributes = new Map();
+  const styles = [];
+  const animationFrames = [];
+
+  globalThis.document = {
+    getElementById() {
+      return null;
+    },
+    documentElement: {
+      setAttribute(name, value) {
+        attributes.set(name, value);
+      },
+      removeAttribute(name) {
+        attributes.delete(name);
+      },
+    },
+    createElement() {
+      const node = {
+        attributes: new Map(),
+        isConnected: false,
+        textContent: "",
+        setAttribute(name, value) {
+          this.attributes.set(name, value);
+        },
+        getAttribute(name) {
+          return this.attributes.get(name) ?? null;
+        },
+        remove() {
+          const index = styles.indexOf(this);
+          if (index >= 0) styles.splice(index, 1);
+          this.isConnected = false;
+        },
+      };
+      return node;
+    },
+    head: {
+      querySelectorAll() {
+        return styles;
+      },
+      appendChild(node) {
+        node.isConnected = true;
+        styles.push(node);
+      },
+    },
+  };
+  globalThis.window = {
+    localStorage: {
+      getItem() {
+        return null;
+      },
+      setItem() {},
+    },
+    matchMedia() {
+      return {
+        matches: false,
+        addEventListener() {},
+        removeEventListener() {},
+      };
+    },
+    requestAnimationFrame(callback) {
+      animationFrames.push(callback);
+      return animationFrames.length;
+    },
+    cancelAnimationFrame() {},
+  };
+
+  try {
+    const {
+      createLiveThemeController,
+      getLiveThemeSnapshot,
+      mountLiveThemeController,
+    } = await import("../dist/theme/runtime.js");
+    const controller = createLiveThemeController(
+      {
+        defaultTheme: "system",
+        color: { light: { primary: "#7C5CFF" } },
+        scale: { radius: 8 },
+      },
+      { nonce: "theme-nonce" }
+    );
+    const unmount = mountLiveThemeController(controller);
+
+    assert.equal(styles.length, 1);
+    assert.equal(styles[0].getAttribute("data-tavo-style"), "tavo-ui.theme.runtime");
+    assert.equal(styles[0].getAttribute("nonce"), "theme-nonce");
+    assert.match(styles[0].textContent, /--tui-color-primary-bg: #7c5cff;/);
+    const styleNode = styles[0];
+
+    const first = controller.setProperty("color.light.primary", "#ff4d67");
+    const second = controller.patchConfig({ scale: { radius: 12 } });
+
+    assert.equal(first.applied, true);
+    assert.equal(second.applied, true);
+    assert.equal(animationFrames.length, 1);
+    assert.equal(styles[0].textContent.includes("#ff4d67"), false);
+
+    animationFrames.shift()();
+
+    assert.equal(styles.length, 1);
+    assert.equal(styles[0], styleNode);
+    assert.match(styles[0].textContent, /--tui-color-primary-bg: #ff4d67;/);
+    assert.match(styles[0].textContent, /--tui-radius-md: 0\.750rem;/);
+    const snapshot = getLiveThemeSnapshot(controller);
+    assert.equal(snapshot.config.color.light.primary, "#ff4d67");
+    assert.equal(snapshot.config.scale.radius, 12);
+    assert.equal(snapshot.revision, 2);
+    assert.equal(snapshot.error, null);
+
+    const invalid = controller.setProperty("color.light.primary", "not-a-color");
+    assert.equal(invalid.applied, false);
+    assert.match(invalid.error, /hex color/i);
+    assert.equal(controller.store.getState().config.color.light.primary, "#ff4d67");
+    assert.equal(animationFrames.length, 0);
+
+    const buildOnly = controller.patchConfig({ breakpoints: { md: 900 } });
+    assert.equal(buildOnly.applied, false);
+    assert.match(buildOnly.error, /build-time/);
+    assert.equal(controller.store.getState().config.breakpoints, undefined);
+
+    const reset = controller.resetConfig();
+    assert.equal(reset.applied, true);
+    assert.equal(controller.store.getState().config.color.light.primary, "#7C5CFF");
+    assert.equal(animationFrames.length, 1);
+    animationFrames.shift()();
+    assert.match(styles[0].textContent, /--tui-color-primary-bg: #7c5cff;/);
+
+    unmount();
+    assert.equal(styles.length, 0);
+  } finally {
+    globalThis.document = previousDocument;
+    globalThis.window = previousWindow;
+  }
+});
+
+test("live theme runtime publishes config updates and blocks unsafe property paths", async () => {
+  const previousDocument = globalThis.document;
+  const previousWindow = globalThis.window;
+  globalThis.document = undefined;
+  globalThis.window = undefined;
+
+  try {
+    const { createLiveThemeController, subscribeLiveTheme } = await import(
+      "../dist/theme/runtime.js"
+    );
+    const source = {
+      color: { light: { primary: "#116a67" } },
+      typography: { bodySize: 16 },
+    };
+    const controller = createLiveThemeController(source);
+    const snapshots = [];
+    const unsubscribe = subscribeLiveTheme(
+      controller,
+      (snapshot) => snapshots.push(snapshot),
+      { immediate: true }
+    );
+
+    const update = controller.updateConfig((current) => ({
+      ...current,
+      typography: { ...current.typography, bodySize: 18 },
+    }));
+    assert.equal(update.applied, true);
+    assert.equal(source.typography.bodySize, 16);
+    assert.equal(snapshots.at(-1).config.typography.bodySize, 18);
+    assert.equal(snapshots.at(-1).revision, 1);
+
+    const unsafe = controller.setProperty("tokens.__proto__.polluted", true);
+    assert.equal(unsafe.applied, false);
+    assert.match(unsafe.error, /unsafe/);
+    assert.equal({}.polluted, undefined);
+
+    unsubscribe();
+    controller.dispose();
   } finally {
     globalThis.document = previousDocument;
     globalThis.window = previousWindow;
@@ -1446,7 +1678,8 @@ test("tavoUi server phase emits compact SSR theme CSS", async () => {
   assert.ok(css.length > 0);
   assert.doesNotMatch(css, /[\r\n\t]/);
   assert.match(css, /^:root\{/);
-  assert.match(css, /calc\([^;]* \+ [^;]*\)/);
+  assert.match(css, /^:root\{color-scheme:light;font-size:1\.0000rem;/);
+  assert.doesNotMatch(css, /font-size:clamp\(/);
   assert.doesNotThrow(() => compileString(css, { style: "compressed" }));
 });
 
@@ -1599,11 +1832,7 @@ test("glass-capable chrome and panels consume backdrop filter tokens", () => {
   assert.match(appBarCss, /--tui-glass-chrome-alpha, 62%/);
   assert.match(
     appBarCss,
-    /-webkit-backdrop-filter:\s*var\(--tui-backdrop-filter, blur\(var\(--tui-blur-surface, 22px\)\) saturate\(1\.35\)\)/
-  );
-  assert.match(
-    sheetCss,
-    /-webkit-backdrop-filter:\s*var\(--tui-backdrop-filter, blur\(4px\)\)/
+    /-webkit-backdrop-filter:\s*var\(--tui-backdrop-filter, none\)/
   );
   assert.match(
     sheetCss,

@@ -100,6 +100,12 @@ export function assertThemeConfig(
   assertPositiveNumber(config.viewport?.rootMax, "viewport.rootMax");
   assertPositiveNumber(config.viewport?.minWidth, "viewport.minWidth");
   assertPositiveNumber(config.viewport?.maxWidth, "viewport.maxWidth");
+  if (
+    config.viewport?.strategy &&
+    !["fixed", "fluid", "stepped"].includes(config.viewport.strategy)
+  ) {
+    throw new Error('Theme config viewport.strategy must be "fixed", "fluid", or "stepped".');
+  }
   assertPositiveNumber(config.breakpoints?.sm, "breakpoints.sm");
   assertPositiveNumber(config.breakpoints?.md, "breakpoints.md");
   assertPositiveNumber(config.breakpoints?.lg, "breakpoints.lg");
@@ -111,6 +117,11 @@ export function assertThemeConfig(
   }
   if (viewport.minWidth >= viewport.maxWidth) {
     throw new Error("Theme config viewport.minWidth must be less than viewport.maxWidth.");
+  }
+  if (viewport.strategy === "fixed" && viewport.rootMin !== viewport.rootMax) {
+    throw new Error(
+      "Theme config fixed viewport strategy requires viewport.rootMin and viewport.rootMax to match."
+    );
   }
   const breakpoints = resolvedBreakpoints ?? resolveThemeBreakpoints(config);
   if (breakpoints.sm >= breakpoints.md || breakpoints.md >= breakpoints.lg) {

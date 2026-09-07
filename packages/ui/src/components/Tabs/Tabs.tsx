@@ -72,7 +72,7 @@ function findContentPanel(children: Child | undefined, id: string): (VNode & { p
   return undefined;
 }
 
-function TabsBase({ tabs, activeId, children, className = "", onChange, idPrefix = "tavo", orientation = "horizontal" }: TabsProps) {
+function TabsBase({ tabs = [], activeId, children, className = "", onChange, idPrefix = "tavo", orientation = "horizontal" }: TabsProps) {
   if (tabs.length === 0) {
     return null;
   }

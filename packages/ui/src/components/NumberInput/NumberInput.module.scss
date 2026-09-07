@@ -1,0 +1,63 @@
+.root {
+  display: grid;
+  gap: var(--tui-space-1);
+  color: var(--tui-color-text);
+  font-family: var(--tui-font-family-text, var(--tui-font-family));
+  font-size: var(--tui-font-size-body);
+}
+
+.label {
+  font-size: var(--tui-font-size-caption, 0.875rem);
+  font-weight: var(--tui-font-weight-medium, 500);
+}
+
+.control {
+  display: inline-flex;
+  align-items: center;
+  min-inline-size: 0;
+  block-size: var(--tui-size-md);
+  border: var(--tui-input-border-width, var(--tui-border-width)) solid var(--tui-input-border-color, var(--tui-color-border));
+  border-radius: var(--tui-input-radius, var(--tui-radius-control));
+  background: var(--tui-input-bg, var(--tui-color-surface-raised));
+}
+
+.control:focus-within {
+  border-color: var(--tui-input-focus-border-color, var(--tui-color-focus));
+  outline: var(--tui-focus-width) solid color-mix(in srgb, var(--tui-color-focus) calc(var(--tui-interaction-focus-alpha, 0.28) * 100%), transparent);
+  outline-offset: var(--tui-focus-offset);
+}
+
+.input {
+  box-sizing: border-box;
+  min-inline-size: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  padding-inline: var(--tui-space-3);
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+}
+
+.affix {
+  flex: 0 0 auto;
+  padding-inline: var(--tui-space-2);
+  color: var(--tui-color-text-muted);
+  font-size: var(--tui-font-size-caption, 0.875rem);
+  user-select: none;
+}
+
+.size-sm .control {
+  block-size: var(--tui-size-sm);
+}
+
+.size-lg .control {
+  block-size: var(--tui-size-lg);
+}
+
+.disabled {
+  cursor: not-allowed;
+  opacity: var(--tui-interaction-disabled-opacity, var(--tui-opacity-disabled));
+}

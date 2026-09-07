@@ -28,6 +28,7 @@ const requiredFields = [
 const a11yCriticalComponents = new Set([
   "Button",
   "Checkbox",
+  "ColorPicker",
   "Combobox",
   "CommandMenu",
   "ConfirmDialog",
@@ -36,7 +37,10 @@ const a11yCriticalComponents = new Set([
   "DropdownMenu",
   "Sheet",
   "Field",
+  "FileTrigger",
   "FocusTrap",
+  "NumberInput",
+  "ObjectField",
   "Pagination",
   "Progress",
   "Radio",
@@ -52,11 +56,12 @@ const a11yCriticalComponents = new Set([
   "TextInput",
   "Toast",
   "Tooltip",
+  "TreeView",
   "VisuallyHidden",
 ]);
 
 test("componentMetadata exposes complete agent-facing records for every public component", () => {
-  assert.equal(componentMetadata.length, 80);
+  assert.equal(componentMetadata.length, 85);
 
   for (const component of componentMetadata) {
     for (const field of requiredFields) {
@@ -112,7 +117,36 @@ test("componentMetadata exposes complete agent-facing records for every public c
       component.status === "stable" || component.status === "experimental",
       `${component.name} should use a current component status`
     );
+    assert.ok(component.authoring, `${component.name} should expose authoring metadata`);
+    for (const propName of component.authoring.designProps) {
+      const prop = component.props.find((candidate) => candidate.name === propName);
+      assert.ok(prop?.authoring, `${component.name}.${propName} should have an authoring target`);
+    }
+    for (const member of component.composition.compoundMembers ?? []) {
+      assert.ok(
+        component.authoring.members?.[member],
+        `${component.name}.${member} should declare member authoring coverage`
+      );
+    }
   }
+});
+
+test("design authoring metadata keeps curated and documented props", () => {
+  const button = componentMetadata.find((component) => component.name === "Button");
+  assert.ok(button?.props.some((prop) => prop.name === "size"));
+  assert.deepEqual(
+    button?.props.find((prop) => prop.name === "size")?.authoring?.choices,
+    ["sm", "md", "lg"]
+  );
+  assert.deepEqual(
+    button?.authoring.designProps.sort(),
+    ["size", "tone", "variant"]
+  );
+  assert.deepEqual(
+    componentMetadata.find((component) => component.name === "Card")
+      ?.authoring.members?.Content.designProps,
+    []
+  );
 });
 
 test("only Icon exposes the implementation component prop", () => {
@@ -178,6 +212,7 @@ test("compound component metadata exposes expected members", () => {
   ]);
   assert.deepEqual(getComponentMetadata("Table")?.composition.compoundMembers, [
     "Root",
+    "Caption",
     "Head",
     "Body",
     "Row",
@@ -185,10 +220,28 @@ test("compound component metadata exposes expected members", () => {
     "Cell",
     "Data",
   ]);
+  assert.deepEqual(getComponentMetadata("Dialog")?.composition.compoundMembers, [
+    "Root",
+    "Content",
+    "Header",
+    "Body",
+    "Footer",
+  ]);
+  assert.deepEqual(getComponentMetadata("Field")?.composition.compoundMembers, [
+    "Root",
+    "Message",
+    "Fieldset",
+    "Legend",
+  ]);
+  assert.deepEqual(getComponentMetadata("Menubar")?.composition.compoundMembers, [
+    "Root",
+    "Item",
+  ]);
   assert.deepEqual(
     getComponentMetadata("Popover")?.composition.compoundMembers,
-    ["Root", "Trigger", "Content"]
+    ["Root", "Trigger", "Content", "Close"]
   );
+  assert.deepEqual(getComponentMetadata("TreeView")?.composition.compoundMembers, ["Root", "Item"]);
 });
 
 test("intent search ranks common agent queries to the expected components", () => {

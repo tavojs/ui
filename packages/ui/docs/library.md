@@ -94,7 +94,7 @@ Available presets are `minimal`, `glass`, `enterprise`, `editorial`, `dense`, `m
 
 `monochromatic` keeps exact primary and secondary action colors while enforcing strict white light canvases and black dark canvases. It is useful for stark brand systems and monochrome products.
 
-`glass` keeps exact action colors, shade-driven hover and soft colors, translucent surfaces, borders, neutral fills, and `backdrop-filter`. Components that support glass surfaces use the token automatically.
+`glass` keeps exact action colors, shade-driven hover and soft colors, translucent surfaces, borders, neutral fills, and `backdrop-filter`. Components that support glass surfaces use the token automatically; other methods leave backdrop filtering disabled.
 
 `fixShade` defaults to `true`, so generated ramps are centered around shade `500` unless a config explicitly opts out.
 
@@ -124,7 +124,7 @@ The `scale` config controls product feel:
 }
 ```
 
-Set `shadow` to `0` for flat products. Use fractional `border` values for hairlines. Use `density` to quickly move between compact, comfortable, and spacious UIs. In `glass` mode, `blur` controls the generated `--tui-blur-surface` token and shared `--tui-backdrop-filter`; Sheet, Sheet, Dialog, menus, popovers, and other glass-capable surfaces consume it automatically. `glassAlpha` controls sticky chrome opacity through `--tui-glass-chrome-alpha`; lower values make AppBar-style surfaces feel more transparent.
+Set `shadow` to `0` for flat products. Use fractional `border` values for hairlines. Use `density` to quickly move between compact, comfortable, and spacious UIs. In `glass` mode, `blur` controls the generated `--tui-blur-surface` token and shared `--tui-backdrop-filter`; Sheet, Dialog, menus, popovers, and other glass-capable surfaces consume it automatically. Non-glass themes use `none` instead of an expensive blur fallback. `glassAlpha` controls sticky chrome opacity through `--tui-glass-chrome-alpha`; lower values make AppBar-style surfaces feel more transparent.
 
 ## Generated Token Families
 

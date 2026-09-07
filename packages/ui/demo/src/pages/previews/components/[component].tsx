@@ -17,6 +17,7 @@ import {
   Chart,
   Checkbox,
   Chip,
+  ColorPicker,
   CodeBlock,
   Collapsible,
   Combobox,
@@ -28,6 +29,7 @@ import {
   DropdownMenu,
   EmptyState,
   Field,
+  FileTrigger,
   Flex,
   FocusTrap,
   FormControl,
@@ -46,6 +48,8 @@ import {
   ListItem,
   Menubar,
   NavigationMenu,
+  NumberInput,
+  ObjectField,
   Overlay,
   Page,
   Pagination,
@@ -90,6 +94,7 @@ import {
   Toggle,
   ToggleGroup,
   Toolbar,
+  TreeView,
   Tooltip,
   VisuallyHidden,
 } from "@/index";
@@ -109,6 +114,7 @@ type ComponentDetailState = {
   activeTab: string;
   calendarMonth: number;
   calendarYear: number;
+  color: string;
   enabled: boolean;
   page: number;
   previewOpen: boolean;
@@ -205,6 +211,8 @@ function ComponentPreview({
       );
     case "checkbox":
       return <Checkbox checked aria-label="Enable notifications" />;
+    case "color-picker":
+      return <Field label="Brand color" hint={state.color}><ColorPicker name="brand-color" value={state.color} onValueChange={(color) => controller?.patch({ color })} /></Field>;
     case "chip":
       return <Inline><Chip tone="primary" selected>Active</Chip><Chip tone="success">Stable</Chip><Chip tone="neutral">Metadata</Chip></Inline>;
     case "code-block":
@@ -229,6 +237,8 @@ function ComponentPreview({
       return <EmptyState icon={<Icon width={32} height={32}><path d="M4 7h16v12H4zM8 3h8v4H8z" /></Icon>} title="No components found" description="Try changing the current search or create a component." actions={<Button>Create component</Button>} />;
     case "field":
       return <Field label="Project name" hint="Use a short, recognizable name."><TextInput value="Tavo.js UI" /></Field>;
+    case "file-trigger":
+      return <FileTrigger accept="application/json,.json" variant="outline" onFilesChange={() => undefined}>Import JSON</FileTrigger>;
     case "flex":
       return <Flex gap="md" wrap>{["One", "Two", "Three"].map((label) => <Box padding="md" border radius="md">{label}</Box>)}</Flex>;
     case "focus-trap":
@@ -258,11 +268,15 @@ function ComponentPreview({
     case "link":
       return <Inline><Link href="/components/button">Default link</Link><Link href="/components/button" noUnderline>Without underline</Link><Link href="/components/button" disabled>Disabled link</Link></Inline>;
     case "list":
-      return <List marker="secondary"><ListItem title="Theme" meta="Ready">Generated semantic tokens.</ListItem><ListItem title="Components" meta="80 public">Accessible building blocks.</ListItem><ListItem title="Release" meta="Next">Publish through Changesets.</ListItem></List>;
+      return <List marker="secondary"><ListItem title="Theme" meta="Ready">Generated semantic tokens.</ListItem><ListItem title="Components" meta="85 public">Accessible building blocks.</ListItem><ListItem title="Release" meta="Next">Publish through Changesets.</ListItem></List>;
     case "menubar":
       return <Menubar aria-label="Editor menu"><Menubar.Item current>File</Menubar.Item><Menubar.Item>Edit</Menubar.Item><Menubar.Item>View</Menubar.Item><Menubar.Item disabled>Deploy</Menubar.Item></Menubar>;
     case "navigation-menu":
       return <NavigationMenu aria-label="Documentation" items={[{ label: "Components", href: "/", description: "Browse the catalog", current: true }, { label: "Themes", href: "/components/box", description: "Customize tokens" }, { label: "Guides", href: "/components/page", description: "Compose interfaces" }]} />;
+    case "number-input":
+      return <NumberInput label="Width" value={state.value} min={0} max={100} suffix="px" onValueChange={(value) => controller?.patch({ value: value ?? 0 })} />;
+    case "object-field":
+      return <ObjectField label="Options" value={{ color: "primary", hidden: false, count: 2 }} onDraft={() => undefined} onCommit={() => undefined} />;
     case "overlay":
       return <><Button onClick={() => controller?.patch({ previewOpen: true })}>Open overlay</Button><Overlay open={state.previewOpen}><Card title="Overlay content" description="A centered surface over a soft scrim."><Button onClick={() => controller?.patch({ previewOpen: false })}>Close overlay</Button></Card></Overlay></>;
     case "page":
@@ -280,7 +294,13 @@ function ComponentPreview({
     case "radio":
       return <Inline><FormControlLabel label="Primary" control={<Radio name="tone-preview" checked tone="primary" />} /><FormControlLabel label="Secondary" control={<Radio name="tone-preview" tone="secondary" />} /><FormControlLabel label="Disabled" control={<Radio name="tone-preview" disabled />} /></Inline>;
     case "radio-group":
-      return <RadioGroup name="density" value="comfortable" options={[{ label: "Compact", value: "compact" }, { label: "Comfortable", value: "comfortable" }, { label: "Spacious", value: "spacious" }]} />;
+      return (
+        <RadioGroup name="density" orientation="horizontal">
+          <FormControlLabel label="Compact" control={<Radio value="compact" />} />
+          <FormControlLabel label="Comfortable" control={<Radio value="comfortable" checked />} />
+          <FormControlLabel label="Spacious" control={<Radio value="spacious" />} />
+        </RadioGroup>
+      );
     case "resizable":
       return <Resizable><Resizable.Panel defaultSize="38%"><Box padding="md" surface="subtle">Filters</Box></Resizable.Panel><Resizable.Handle /><Resizable.Panel><Box padding="md" surface="raised">Results</Box></Resizable.Panel></Resizable>;
     case "search-input":
@@ -324,11 +344,19 @@ function ComponentPreview({
     case "text":
       return <Stack gap="sm"><Text variant="h2">Heading text</Text><Text>Body text for comfortable reading.</Text><Text color="muted">Muted supporting text.</Text></Stack>;
     case "text-input":
-      return <Field label="Email"><TextInput type="email" placeholder="team@tavo.dev" /></Field>;
+      return (
+        <Stack gap="sm" sx={{ width: "min(100%, 24rem)" }}>
+          <TextInput size="sm" aria-label="Small text input" placeholder="Small input" />
+          <TextInput aria-label="Medium text input" placeholder="Medium input" />
+          <TextInput size="lg" aria-label="Large text input" placeholder="Large input" />
+        </Stack>
+      );
     case "textarea":
       return <Field label="Release notes"><Textarea value="A compact multiline input that follows the active theme." /></Field>;
     case "timeline":
       return <Timeline><TimelineItem title="Documentation refreshed" meta="Today" tone="success">Added searchable component pages.</TimelineItem><TimelineItem title="Theme generated" meta="Yesterday">Synchronized package tokens.</TimelineItem></Timeline>;
+    case "tree-view":
+      return <TreeView aria-label="Page layers" selectedIds={["heading"]} expandedIds={["hero"]} selectionMode="multiple"><TreeView.Item id="hero" label="Hero" description="Box"><TreeView.Item id="heading" label="Heading" description="Text" /><TreeView.Item id="cta" label="Call to action" description="Button" /></TreeView.Item></TreeView>;
     case "toast":
       return <Toast title="Saved" tone="success">Your changes were stored locally.</Toast>;
     case "toggle":
@@ -355,6 +383,7 @@ const ComponentDetailPage = createTavo<
     activeTab: "preview",
     calendarMonth: 6,
     calendarYear: 2026,
+    color: "#5b5bd6",
     enabled: true,
     page: 4,
     previewOpen: false,

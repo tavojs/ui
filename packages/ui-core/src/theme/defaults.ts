@@ -27,6 +27,15 @@ export const DEFAULT_BREAKPOINTS: Required<ThemeBreakpointsConfig> = {
 };
 
 export const DEFAULT_VIEWPORT: Required<ThemeViewportConfig> = {
+  strategy: "fixed",
+  rootMin: 16,
+  rootMax: 16,
+  minWidth: 320,
+  maxWidth: 960
+};
+
+export const LEGACY_FLUID_VIEWPORT: Required<ThemeViewportConfig> = {
+  strategy: "fluid",
   rootMin: 14,
   rootMax: 16,
   minWidth: 320,

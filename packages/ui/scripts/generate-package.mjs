@@ -1,11 +1,28 @@
 import fs from "node:fs";
 import path from "node:path";
 import { componentEntries, groupEntries } from "./component-manifest.mjs";
+import {
+  buildRuntimeCatalogComponentsSource,
+  buildRuntimeCatalogMetadataSource,
+} from "./generate-runtime-catalog.mjs";
+import { compoundMembersByComponent } from "./runtime-catalog-review.mjs";
 
 const root = process.cwd();
 const packagePath = path.join(root, "package.json");
 const metadataPath = path.join(root, "src", "metadata.ts");
 const componentsIndexPath = path.join(root, "src", "components", "index.ts");
+const runtimeCatalogMetadataPath = path.join(
+  root,
+  "src",
+  "runtime-catalog",
+  "metadata.generated.ts",
+);
+const runtimeCatalogComponentsPath = path.join(
+  root,
+  "src",
+  "runtime-catalog",
+  "components.generated.ts",
+);
 const groupsDir = path.join(root, "src", "groups");
 const componentDocsPath = path.join(root, "docs", "components.md");
 const generatedDocsStart = "<!-- tavo-ui:component-index:start -->";
@@ -18,6 +35,7 @@ function writeFileIfChanged(filePath, content) {
   ) {
     return false;
   }
+  fs.mkdirSync(path.dirname(filePath), { recursive: true });
   fs.writeFileSync(filePath, content);
   return true;
 }
@@ -426,6 +444,69 @@ const componentAgentOverrides = {
     ],
   },
 };
+
+const authoringProps = {
+  align: { section: "layout", control: "segmented", choices: ["start", "center", "end", "stretch"] },
+  axis: { section: "layout", control: "segmented", choices: ["block", "inline"] },
+  border: { section: "appearance", control: "toggle" },
+  center: { section: "layout", control: "toggle" },
+  color: { section: "typography", control: "select", choices: ["auto", "heading", "muted", "inherit", "primary", "secondary", "neutral", "success", "warning", "danger", "info"] },
+  columns: { section: "layout", control: "number" },
+  compact: { section: "appearance", control: "toggle" },
+  direction: { section: "layout", control: "segmented", choices: ["row", "column", "row-reverse", "column-reverse"] },
+  divided: { section: "appearance", control: "toggle" },
+  editorTheme: { section: "appearance", control: "segmented" },
+  fullWidth: { section: "layout", control: "toggle" },
+  gap: { section: "layout", control: "select", choices: ["none", "sm", "md", "lg"] },
+  height: { section: "layout", control: "length", unit: "px" },
+  justify: { section: "layout", control: "segmented", choices: ["start", "center", "end", "between", "around"] },
+  maxHeight: { section: "layout", control: "length", unit: "px" },
+  maxWidth: { section: "layout", control: "select", choices: ["sm", "md", "lg", "xl", "full"] },
+  minItemWidth: { section: "layout", control: "length", unit: "px" },
+  noUnderline: { section: "typography", control: "toggle" },
+  objectFit: { section: "appearance", control: "segmented" },
+  orientation: { section: "layout", control: "segmented", choices: ["horizontal", "vertical"] },
+  padding: { section: "layout", control: "select", choices: ["none", "sm", "md", "lg"], styleFallback: "padding" },
+  paddingInline: { section: "layout", control: "select", choices: ["none", "sm", "md", "lg"], styleFallback: "paddingInline" },
+  placement: { section: "layout", control: "select" },
+  position: { section: "layout", control: "segmented" },
+  pulse: { section: "effects", control: "toggle" },
+  radius: { section: "appearance", control: "select", choices: ["none", "sm", "md", "lg", "surface"], styleFallback: "borderRadius" },
+  ratio: { section: "layout", control: "text" },
+  resize: { section: "layout", control: "segmented" },
+  shadow: { section: "effects", control: "toggle", styleFallback: "boxShadow" },
+  showValue: { section: "appearance", control: "toggle" },
+  side: { section: "layout", control: "segmented" },
+  size: { section: "component", control: "segmented", choices: ["sm", "md", "lg"] },
+  skeleton: { section: "effects", control: "toggle" },
+  spacing: { section: "layout", control: "select", choices: ["sm", "md", "lg"] },
+  surface: { section: "appearance", control: "segmented" },
+  titleSize: { section: "typography", control: "select", choices: ["h1", "h2", "h3", "h4", "h5", "h6"] },
+  tone: { section: "component", control: "segmented", choices: ["primary", "secondary", "neutral", "success", "warning", "danger", "info"] },
+  variant: { section: "component", control: "segmented" },
+  width: { section: "layout", control: "length", unit: "px" },
+  wrap: { section: "layout", control: "toggle" },
+};
+
+function propChoices(type) {
+  return [...type.matchAll(/"([^"]+)"/g)].map((match) => match[1]);
+}
+
+function authoringHintFor(prop) {
+  const hint = authoringProps[prop.name];
+  if (!hint) return undefined;
+  const choices = propChoices(prop.type);
+  const numericLength = hint.control === "length" && /^number$/.test(prop.type);
+  return {
+    ...hint,
+    ...(numericLength ? { control: "number", unit: undefined } : {}),
+    responsive: /ResponsiveValue</.test(prop.type),
+    ...(choices.length ? { choices } : {}),
+    ...(hint.styleFallback
+      ? { conflictsWithStyle: [hint.styleFallback] }
+      : {}),
+  };
+}
 const searchTermsByComponent = {
   Alert: [
     "inline status",
@@ -445,6 +526,7 @@ const searchTermsByComponent = {
   Calendar: ["month grid", "calendar", "date selection"],
   Card: ["content card", "discrete surface", "content block"],
   Checkbox: ["boolean option", "multi select", "checked"],
+  ColorPicker: ["color input", "color selector", "swatch", "hex color"],
   CommandMenu: ["command palette", "quick actions", "search commands"],
   ConfirmDialog: ["confirmation", "destructive action", "confirm delete"],
   DatePicker: ["date input", "date field", "calendar popover", "due date"],
@@ -458,7 +540,10 @@ const searchTermsByComponent = {
   ],
   Grid: ["responsive grid", "columns", "layout grid"],
   InputGroup: ["input addon", "input with button", "combined input"],
+  FileTrigger: ["file picker", "upload trigger", "choose files"],
   NavigationMenu: ["navigation", "current page", "nav links"],
+  NumberInput: ["numeric input", "number field", "draft number"],
+  ObjectField: ["object editor", "json properties", "structured value"],
   Page: ["page layout", "main region", "document page"],
   Pagination: ["paged data", "page navigation", "next previous"],
   Popover: ["floating panel", "contextual disclosure", "popup"],
@@ -483,24 +568,10 @@ const searchTermsByComponent = {
   Toast: ["notification", "toast", "temporary feedback"],
   Toggle: ["pressed state", "toggle button", "on off action"],
   ToggleGroup: ["toggle group", "segmented toggles", "multi toggle"],
+  TreeView: ["tree view", "hierarchy", "multi selection", "layers"],
   Toolbar: ["action toolbar", "control row", "button row"],
   Tooltip: ["tooltip", "hover label", "supplemental label"],
   VisuallyHidden: ["screen reader text", "hidden label", "accessible name"],
-};
-const compoundMembersByComponent = {
-  Card: ["Root", "Header", "Media", "Content", "Actions"],
-  Collapsible: ["Root", "Trigger", "Content"],
-  DropdownMenu: ["Root", "Trigger", "Content", "Item"],
-  HoverCard: ["Root", "Trigger", "Content"],
-  InputGroup: ["Root", "Addon", "Input", "Button"],
-  List: ["Root", "Item"],
-  Popover: ["Root", "Trigger", "Content"],
-  Resizable: ["Root", "Panel", "Handle"],
-  Sheet: ["Root", "Trigger", "Content", "Close"],
-  SplitPane: ["Root", "Aside", "Main"],
-  Table: ["Root", "Head", "Body", "Row", "HeaderCell", "Cell", "Data"],
-  Tabs: ["Root", "List", "Trigger", "Content", "Indicator"],
-  ToggleGroup: ["Root", "Item"],
 };
 const commonPairingsByComponent = {
   Alert: ["Button", "Link", "Toast"],
@@ -515,6 +586,7 @@ const commonPairingsByComponent = {
   Card: ["Stack", "Button", "Chip"],
   Chart: ["Stat", "Grid", "Table"],
   Checkbox: ["Field", "FormControlLabel", "FormControl"],
+  ColorPicker: ["Field", "TextInput", "Slider"],
   Chip: ["Toolbar", "StatusDot", "Card"],
   CodeBlock: ["Tabs", "Card", "Text"],
   Collapsible: ["Section", "Button", "Text"],
@@ -527,6 +599,7 @@ const commonPairingsByComponent = {
   DropdownMenu: ["Button", "Icon", "Toolbar"],
   EmptyState: ["Button", "Card", "Text"],
   Field: ["TextInput", "FormLabel", "FormMessage"],
+  FileTrigger: ["Button", "Field", "VisuallyHidden"],
   Flex: ["Box", "Stack", "Inline"],
   FocusTrap: ["Dialog", "Sheet", "Overlay"],
   FormControl: ["Field", "FormLabel", "FormMessage"],
@@ -544,6 +617,8 @@ const commonPairingsByComponent = {
   List: ["Card", "Section", "Text"],
   Menubar: ["NavigationMenu", "AppBar", "Link"],
   NavigationMenu: ["AppBar", "Sidebar", "Link"],
+  NumberInput: ["Field", "InputGroup", "Slider"],
+  ObjectField: ["Field", "TextInput", "Textarea"],
   Overlay: ["Dialog", "Sheet", "FocusTrap"],
   Page: ["Section", "Shell", "Toolbar"],
   Pagination: ["Table", "Toolbar", "Button"],
@@ -580,6 +655,7 @@ const commonPairingsByComponent = {
   Toast: ["Button", "Alert", "StatusDot"],
   Toggle: ["ToggleGroup", "Toolbar", "Button"],
   ToggleGroup: ["Toggle", "Toolbar", "Tabs"],
+  TreeView: ["ScrollArea", "List", "DropdownMenu"],
   Toolbar: ["Button", "Icon", "ButtonGroup"],
   Tooltip: ["Button", "Icon", "Kbd"],
   VisuallyHidden: ["Button", "Icon", "Tooltip"],
@@ -759,6 +835,11 @@ function buildExports() {
       types: "./dist/cli/index.d.ts",
       import: "./dist/cli/index.js",
     },
+    "./runtime-catalog": {
+      types: "./dist/runtime-catalog/index.d.ts",
+      browser: "./dist/browser/runtime-catalog/index.js",
+      import: "./dist/runtime-catalog/index.js",
+    },
     "./css": {
       types: "./dist/css/index.d.ts",
       browser: "./dist/browser/index.js",
@@ -858,6 +939,14 @@ function buildExports() {
 }
 
 function buildMetadataSource() {
+  function mergeProps(baseProps, overrideProps) {
+    const merged = new Map(baseProps.map((prop) => [prop.name, prop]));
+    for (const prop of overrideProps) {
+      merged.set(prop.name, { ...merged.get(prop.name), ...prop });
+    }
+    return [...merged.values()];
+  }
+
   function mergeAgentFields(entry) {
     const defaults = categoryAgentDefaults[entry.category];
     const override = componentAgentOverrides[entry.name] ?? {};
@@ -881,6 +970,7 @@ function buildMetadataSource() {
           ...prop,
           description: `${prop.description} Applies to ${entry.name}.`,
         }));
+    const overrideProps = override.props ?? [];
     return {
       status: "stable",
       summary: entry.description,
@@ -890,7 +980,7 @@ function buildMetadataSource() {
       avoidWhen: `Avoid ${entry.name} when ${defaults.avoidWhen
         .replace(/^Avoid\s+/i, "")
         .replace(/\.$/, "")}.`,
-      props: componentSpecificProps,
+      props: mergeProps(componentSpecificProps, overrideProps),
       examples: [docsExample],
       searchTerms: searchTermsByComponent[entry.name] ?? [
         entry.name,
@@ -904,6 +994,7 @@ function buildMetadataSource() {
       },
       accessibilityGuidance: defaults.accessibility,
       ...override,
+      props: mergeProps(componentSpecificProps, overrideProps),
       composition: {
         related,
         ...(compoundMembers ? { compoundMembers } : {}),
@@ -930,7 +1021,10 @@ function buildMetadataSource() {
     const agentFields = mergeAgentFields(entry);
     const props = withClassNameProp(
       withPolymorphicProps(entry.name, agentFields.props)
-    );
+    ).map((prop) => {
+      const authoring = authoringHintFor(prop);
+      return authoring ? { ...prop, authoring } : prop;
+    });
     const fields = [
       `name: ${JSON.stringify(entry.name)}`,
       `slug: ${JSON.stringify(entry.slug)}`,
@@ -943,6 +1037,24 @@ function buildMetadataSource() {
       `whenToUse: ${JSON.stringify(agentFields.whenToUse)}`,
       `avoidWhen: ${JSON.stringify(agentFields.avoidWhen)}`,
       `props: ${JSON.stringify(props)}`,
+      `authoring: ${JSON.stringify({
+        designProps: props.filter((prop) => prop.authoring).map((prop) => prop.name),
+        ...(agentFields.composition.compoundMembers?.length
+          ? {
+              members: Object.fromEntries(
+                agentFields.composition.compoundMembers.map((member) => [
+                  member,
+                  {
+                    designProps:
+                      member === "Root"
+                        ? props.filter((prop) => prop.authoring).map((prop) => prop.name)
+                        : [],
+                  },
+                ])
+              ),
+            }
+          : {}),
+      })}`,
       `examples: ${JSON.stringify(agentFields.examples)}`,
       `composition: ${JSON.stringify(agentFields.composition)}`,
       `accessibilityGuidance: ${JSON.stringify(
@@ -970,6 +1082,16 @@ export type ComponentPropMetadata = {
   required?: boolean;
   defaultValue?: string;
   description: string;
+  authoring?: ComponentPropAuthoringMetadata;
+};
+export type ComponentPropAuthoringMetadata = {
+  section: "component" | "layout" | "typography" | "appearance" | "effects";
+  control: "segmented" | "select" | "toggle" | "number" | "length" | "color" | "range" | "text";
+  responsive: boolean;
+  choices?: string[];
+  unit?: "px" | "deg" | "percent";
+  styleFallback?: string;
+  conflictsWithStyle?: string[];
 };
 export type ComponentExample = {
   title: string;
@@ -996,12 +1118,17 @@ export type ComponentMetadata = {
   whenToUse: string;
   avoidWhen: string;
   props: ComponentPropMetadata[];
+  authoring: ComponentAuthoringMetadata;
   examples: ComponentExample[];
   composition: ComponentCompositionMetadata;
   related?: string[];
   accessibility?: string;
   accessibilityGuidance: ComponentAccessibilityGuidance;
   searchTerms: string[];
+};
+export type ComponentAuthoringMetadata = {
+  designProps: string[];
+  members?: Record<string, { designProps: string[] }>;
 };
 export type AgentComponentGuide = {
   component: string;
@@ -1270,6 +1397,18 @@ packageJson.exports = buildExports();
 writeFileIfChanged(packagePath, `${JSON.stringify(packageJson, null, 2)}\n`);
 writeFileIfChanged(metadataPath, buildMetadataSource());
 writeFileIfChanged(componentsIndexPath, buildComponentsIndexSource());
+writeFileIfChanged(
+  runtimeCatalogMetadataPath,
+  await buildRuntimeCatalogMetadataSource({
+    root,
+    packageVersion: packageJson.version,
+    componentEntries,
+  }),
+);
+writeFileIfChanged(
+  runtimeCatalogComponentsPath,
+  buildRuntimeCatalogComponentsSource({ componentEntries }),
+);
 for (const groupName of Object.keys(groupEntries)) {
   writeFileIfChanged(
     path.join(groupsDir, `${groupName}.ts`),

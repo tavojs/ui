@@ -1,6 +1,6 @@
 :root {
 	color-scheme: light;
-	font-size: clamp(0.8750rem, calc(0.8125rem + 0.3125vw), 1.0000rem);
+	font-size: 1.0000rem;
 	--tui-primary-50: #ffffff;
 	--tui-primary-100: #e5deff;
 	--tui-primary-200: #cbbeff;

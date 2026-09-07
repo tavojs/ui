@@ -1,10 +1,10 @@
 # @tavojs/ui
 
-`@tavojs/ui` is a Tavo.js-native web UI library with 80 public components, compiled component CSS, project theme generation, and web tooling provided through `tavo-ui`.
+`@tavojs/ui` is a Tavo.js-native web UI library with 85 public components, compiled component CSS, project theme generation, and web tooling provided through `tavo-ui`.
 
 ## Documentation
 
-Start with the [Tavo.js UI guide](https://tavojs.dev/docs/ui), configure the library through the [installation guide](https://tavojs.dev/docs/ui/installation), or browse the [80 public web components](https://tavojs.dev/docs/ui/components).
+Start with the [Tavo.js UI guide](https://tavojs.dev/docs/ui), configure the library through the [installation guide](https://tavojs.dev/docs/ui/installation), or browse the [85 public web components](https://tavojs.dev/docs/ui/components).
 
 - [Library guide](docs/library.md)
 - [CLI reference](docs/cli.md)
@@ -35,7 +35,7 @@ The root [tavo-ui.config.json](tavo-ui.config.json) drives the default generated
 - `semantic.light` and `semantic.dark` feedback colors
 - `scale.unit`, `scale.controlHeight`, `scale.spacing`, `scale.radius`, `scale.shadow`, `scale.border`, `scale.density`, `scale.focus`, `scale.motion`, `scale.opacity`, `scale.blur`, `scale.glassAlpha`, `scale.controlRadius`, and `scale.surfaceRadius`
 - `typography.fontFamily`, `typography.textFontFamily`, `typography.headingFontFamily`, `typography.bodySize`, and `typography.headingScale`
-- `viewport.rootMin`, `viewport.rootMax`, `viewport.minWidth`, and `viewport.maxWidth`
+- `viewport.strategy`, `viewport.rootMin`, `viewport.rootMax`, `viewport.minWidth`, and `viewport.maxWidth`
 - `breakpoints.sm`, `breakpoints.md`, and `breakpoints.lg`
 - `output.selector`, `output.darkSelector`, and `output.includeMediaQuery`
 - `tokens.light` and `tokens.dark` overrides
@@ -59,9 +59,9 @@ Solid button text is chosen from black or white using contrast against the exact
 
 `scale.density`, `scale.focus`, `scale.motion`, `scale.opacity`, `scale.blur`, `scale.glassAlpha`, `scale.controlRadius`, and `scale.surfaceRadius` provide a broader visual contract for product teams that need compact UIs, calmer motion, different focus rings, stronger or softer glass, or distinct radii for controls versus surfaces. In `glass` mode, `scale.blur` feeds `--tui-backdrop-filter`, while `scale.glassAlpha` feeds `--tui-glass-chrome-alpha` for sticky chrome such as AppBar. Lower `glassAlpha` values reveal more backdrop color through translucent surfaces.
 
-`viewport` controls the generated root `font-size`. Component dimensions are emitted mostly as `rem` tokens, so a viewport scale such as `rootMin: 14`, `rootMax: 16`, `minWidth: 320`, and `maxWidth: 960` makes spacing, controls, radii, and typography breathe better on mobile without per-component overrides.
+`viewport` controls the generated root `font-size`. New themes default to `strategy: "fixed"` with a 16px root so resizing does not invalidate every `rem`-based component dimension. Use `strategy: "fluid"` for continuous `clamp()` scaling, or `strategy: "stepped"` to interpolate the same range at the configured breakpoints. Existing viewport objects without a strategy retain fluid behavior. A fixed strategy requires matching `rootMin` and `rootMax` values.
 
-`breakpoints` controls mobile-first responsive layout switches for `base`, `sm`, `md`, and `lg` responsive component props. It is separate from `viewport`: use `viewport` for fluid token scaling and `breakpoints` when a component should change layout or style at specific min-widths. The same values are written to `src/theme/breakpoints.scss` so component SCSS can use `@use "theme/breakpoints" as bp;` and `@include bp.tui-screen(md) { ... }`.
+`breakpoints` controls mobile-first responsive layout switches for `base`, `sm`, `md`, and `lg` responsive component props. It is separate from `viewport`; the stepped viewport strategy reuses these widths for discrete root-size changes. The same values are written to `src/theme/breakpoints.scss` so component SCSS can use `@use "theme/breakpoints" as bp;` and `@include bp.tui-screen(md) { ... }`.
 
 `typography.textFontFamily` controls normal body text, labels, and controls. `typography.headingFontFamily` controls headings and title-like component text. Existing `typography.fontFamily` remains the shared fallback when either specialized font is omitted.
 
@@ -152,6 +152,43 @@ import { Table, Toolbar } from "@tavojs/ui/data";
 import { Dialog, Toast } from "@tavojs/ui/feedback";
 import { componentMetadata } from "@tavojs/ui/metadata";
 ```
+
+Renderer integrations use the additive executable catalog subpath. It exposes
+raw serializable metadata, deterministic `list()`, and case-insensitive
+canonical/alias `resolve()` without loading through the normal package root:
+
+```ts
+import { tavoUiRuntimeCatalog } from "@tavojs/ui/runtime-catalog";
+
+const button = tavoUiRuntimeCatalog.resolve("Button");
+console.log(tavoUiRuntimeCatalog.metadata.formatVersion, button?.metadata.props);
+```
+
+Catalog metadata and executable mappings come from the same reviewed UI source.
+Consumers validate the raw metadata and establish any authoritative identity at
+their own trust boundary. Callbacks, reserved runtime props, and trusted
+instrumentation adapters remain outside the serializable metadata.
+
+Opaque or embedded renderers can isolate live theme state from the application
+document and storage:
+
+```ts
+import {
+  createLiveThemeController,
+  mountLiveThemeController,
+} from "@tavojs/ui/theme";
+
+const controller = createLiveThemeController(config, {
+  ownerDocument,
+  styleHost: ownerDocument.head,
+  persistence: false,
+});
+const dispose = mountLiveThemeController(controller);
+```
+
+The scoped controller uses `ownerDocument.defaultView`, owns a unique style
+identity, and removes only its own style, theme attribute layer, listeners, and
+scheduled updates when disposed.
 
 Use compound APIs when you want colocated component structure:
 

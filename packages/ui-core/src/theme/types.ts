@@ -66,7 +66,10 @@ export type ThemeInteractionConfig = {
   transition?: number;
 };
 
+export type ThemeViewportStrategy = "fixed" | "fluid" | "stepped";
+
 export type ThemeViewportConfig = {
+  strategy?: ThemeViewportStrategy;
   rootMin?: number;
   rootMax?: number;
   minWidth?: number;
