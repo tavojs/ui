@@ -1,0 +1,21 @@
+{
+  "name": "tavo-ui-react-native-expo-example",
+  "private": true,
+  "main": "App.tsx",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "scripts": {
+    "start": "expo start",
+    "tavo:generate": "tavo-ui native generate"
+  },
+  "dependencies": {
+    "@tavojs/ui-react-native": "^1.0.0",
+    "expo": "53.0.27",
+    "react": "19.0.0",
+    "react-native": "0.79.6"
+  },
+  "devDependencies": {
+    "@tavojs/ui-cli": "^1.1.0"
+  }
+}

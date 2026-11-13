@@ -1,0 +1,640 @@
+{
+  "name": "@tavojs/ui-react-native",
+  "version": "1.0.0",
+  "description": "React Native components and theme runtime for Tavo.js UI.",
+  "type": "module",
+  "author": "Hrachya Martirosyan",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tavojs/ui.git",
+    "directory": "packages/ui-react-native"
+  },
+  "homepage": "https://github.com/tavojs/ui/tree/main/packages/ui-react-native#readme",
+  "bugs": {
+    "url": "https://github.com/tavojs/ui/issues"
+  },
+  "keywords": [
+    "tavo",
+    "ui",
+    "react-native",
+    "components",
+    "design-system",
+    "theme"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "docs",
+    "examples/expo/App.tsx",
+    "examples/expo/metro.config.js",
+    "examples/expo/package.json",
+    "examples/expo/README.md",
+    "examples/expo/tsconfig.json",
+    "examples/expo/tavo-ui.config.json",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "TRADEMARKS.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "react-native": "./dist/index.js",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./theme": {
+      "types": "./dist/theme/index.d.ts",
+      "react-native": "./dist/theme/index.js",
+      "import": "./dist/theme/index.js",
+      "default": "./dist/theme/index.js"
+    },
+    "./components": {
+      "types": "./dist/components/index.d.ts",
+      "react-native": "./dist/components/index.js",
+      "import": "./dist/components/index.js",
+      "default": "./dist/components/index.js"
+    },
+    "./theme/auto-config": {
+      "types": "./dist/theme/auto-config.d.ts",
+      "react-native": "./dist/theme/auto-config.js",
+      "import": "./dist/theme/auto-config.js",
+      "default": "./dist/theme/auto-config.js"
+    },
+    "./cli": {
+      "types": "./dist/cli/index.d.ts",
+      "react-native": "./dist/cli/index.js",
+      "import": "./dist/cli/index.js",
+      "default": "./dist/cli/index.js"
+    },
+    "./alert": {
+      "types": "./dist/components/Alert/index.d.ts",
+      "react-native": "./dist/components/Alert/index.js",
+      "import": "./dist/components/Alert/index.js",
+      "default": "./dist/components/Alert/index.js"
+    },
+    "./avatar": {
+      "types": "./dist/components/Avatar/index.d.ts",
+      "react-native": "./dist/components/Avatar/index.js",
+      "import": "./dist/components/Avatar/index.js",
+      "default": "./dist/components/Avatar/index.js"
+    },
+    "./badge": {
+      "types": "./dist/components/Badge/index.d.ts",
+      "react-native": "./dist/components/Badge/index.js",
+      "import": "./dist/components/Badge/index.js",
+      "default": "./dist/components/Badge/index.js"
+    },
+    "./box": {
+      "types": "./dist/components/Box/index.d.ts",
+      "react-native": "./dist/components/Box/index.js",
+      "import": "./dist/components/Box/index.js",
+      "default": "./dist/components/Box/index.js"
+    },
+    "./button": {
+      "types": "./dist/components/Button/index.d.ts",
+      "react-native": "./dist/components/Button/index.js",
+      "import": "./dist/components/Button/index.js",
+      "default": "./dist/components/Button/index.js"
+    },
+    "./button-group": {
+      "types": "./dist/components/ButtonGroup/index.d.ts",
+      "react-native": "./dist/components/ButtonGroup/index.js",
+      "import": "./dist/components/ButtonGroup/index.js",
+      "default": "./dist/components/ButtonGroup/index.js"
+    },
+    "./card": {
+      "types": "./dist/components/Card/index.d.ts",
+      "react-native": "./dist/components/Card/index.js",
+      "import": "./dist/components/Card/index.js",
+      "default": "./dist/components/Card/index.js"
+    },
+    "./checkbox": {
+      "types": "./dist/components/Checkbox/index.d.ts",
+      "react-native": "./dist/components/Checkbox/index.js",
+      "import": "./dist/components/Checkbox/index.js",
+      "default": "./dist/components/Checkbox/index.js"
+    },
+    "./chip": {
+      "types": "./dist/components/Chip/index.d.ts",
+      "react-native": "./dist/components/Chip/index.js",
+      "import": "./dist/components/Chip/index.js",
+      "default": "./dist/components/Chip/index.js"
+    },
+    "./divider": {
+      "types": "./dist/components/Divider/index.d.ts",
+      "react-native": "./dist/components/Divider/index.js",
+      "import": "./dist/components/Divider/index.js",
+      "default": "./dist/components/Divider/index.js"
+    },
+    "./field": {
+      "types": "./dist/components/Field/index.d.ts",
+      "react-native": "./dist/components/Field/index.js",
+      "import": "./dist/components/Field/index.js",
+      "default": "./dist/components/Field/index.js"
+    },
+    "./flex": {
+      "types": "./dist/components/Flex/index.d.ts",
+      "react-native": "./dist/components/Flex/index.js",
+      "import": "./dist/components/Flex/index.js",
+      "default": "./dist/components/Flex/index.js"
+    },
+    "./form-control": {
+      "types": "./dist/components/FormControl/index.d.ts",
+      "react-native": "./dist/components/FormControl/index.js",
+      "import": "./dist/components/FormControl/index.js",
+      "default": "./dist/components/FormControl/index.js"
+    },
+    "./form-label": {
+      "types": "./dist/components/FormLabel/index.d.ts",
+      "react-native": "./dist/components/FormLabel/index.js",
+      "import": "./dist/components/FormLabel/index.js",
+      "default": "./dist/components/FormLabel/index.js"
+    },
+    "./icon": {
+      "types": "./dist/components/Icon/index.d.ts",
+      "react-native": "./dist/components/Icon/index.js",
+      "import": "./dist/components/Icon/index.js",
+      "default": "./dist/components/Icon/index.js"
+    },
+    "./icon-button": {
+      "types": "./dist/components/IconButton/index.d.ts",
+      "react-native": "./dist/components/IconButton/index.js",
+      "import": "./dist/components/IconButton/index.js",
+      "default": "./dist/components/IconButton/index.js"
+    },
+    "./image": {
+      "types": "./dist/components/Image/index.d.ts",
+      "react-native": "./dist/components/Image/index.js",
+      "import": "./dist/components/Image/index.js",
+      "default": "./dist/components/Image/index.js"
+    },
+    "./inline": {
+      "types": "./dist/components/Inline/index.d.ts",
+      "react-native": "./dist/components/Inline/index.js",
+      "import": "./dist/components/Inline/index.js",
+      "default": "./dist/components/Inline/index.js"
+    },
+    "./progress": {
+      "types": "./dist/components/Progress/index.d.ts",
+      "react-native": "./dist/components/Progress/index.js",
+      "import": "./dist/components/Progress/index.js",
+      "default": "./dist/components/Progress/index.js"
+    },
+    "./radio": {
+      "types": "./dist/components/Radio/index.d.ts",
+      "react-native": "./dist/components/Radio/index.js",
+      "import": "./dist/components/Radio/index.js",
+      "default": "./dist/components/Radio/index.js"
+    },
+    "./radio-group": {
+      "types": "./dist/components/RadioGroup/index.d.ts",
+      "react-native": "./dist/components/RadioGroup/index.js",
+      "import": "./dist/components/RadioGroup/index.js",
+      "default": "./dist/components/RadioGroup/index.js"
+    },
+    "./scroll-area": {
+      "types": "./dist/components/ScrollArea/index.d.ts",
+      "react-native": "./dist/components/ScrollArea/index.js",
+      "import": "./dist/components/ScrollArea/index.js",
+      "default": "./dist/components/ScrollArea/index.js"
+    },
+    "./segmented-control": {
+      "types": "./dist/components/SegmentedControl/index.d.ts",
+      "react-native": "./dist/components/SegmentedControl/index.js",
+      "import": "./dist/components/SegmentedControl/index.js",
+      "default": "./dist/components/SegmentedControl/index.js"
+    },
+    "./skeleton": {
+      "types": "./dist/components/Skeleton/index.d.ts",
+      "react-native": "./dist/components/Skeleton/index.js",
+      "import": "./dist/components/Skeleton/index.js",
+      "default": "./dist/components/Skeleton/index.js"
+    },
+    "./spacer": {
+      "types": "./dist/components/Spacer/index.d.ts",
+      "react-native": "./dist/components/Spacer/index.js",
+      "import": "./dist/components/Spacer/index.js",
+      "default": "./dist/components/Spacer/index.js"
+    },
+    "./spinner": {
+      "types": "./dist/components/Spinner/index.d.ts",
+      "react-native": "./dist/components/Spinner/index.js",
+      "import": "./dist/components/Spinner/index.js",
+      "default": "./dist/components/Spinner/index.js"
+    },
+    "./stack": {
+      "types": "./dist/components/Stack/index.d.ts",
+      "react-native": "./dist/components/Stack/index.js",
+      "import": "./dist/components/Stack/index.js",
+      "default": "./dist/components/Stack/index.js"
+    },
+    "./status-dot": {
+      "types": "./dist/components/StatusDot/index.d.ts",
+      "react-native": "./dist/components/StatusDot/index.js",
+      "import": "./dist/components/StatusDot/index.js",
+      "default": "./dist/components/StatusDot/index.js"
+    },
+    "./surface": {
+      "types": "./dist/components/Surface/index.d.ts",
+      "react-native": "./dist/components/Surface/index.js",
+      "import": "./dist/components/Surface/index.js",
+      "default": "./dist/components/Surface/index.js"
+    },
+    "./switch": {
+      "types": "./dist/components/Switch/index.d.ts",
+      "react-native": "./dist/components/Switch/index.js",
+      "import": "./dist/components/Switch/index.js",
+      "default": "./dist/components/Switch/index.js"
+    },
+    "./text": {
+      "types": "./dist/components/Text/index.d.ts",
+      "react-native": "./dist/components/Text/index.js",
+      "import": "./dist/components/Text/index.js",
+      "default": "./dist/components/Text/index.js"
+    },
+    "./text-input": {
+      "types": "./dist/components/TextInput/index.d.ts",
+      "react-native": "./dist/components/TextInput/index.js",
+      "import": "./dist/components/TextInput/index.js",
+      "default": "./dist/components/TextInput/index.js"
+    },
+    "./textarea": {
+      "types": "./dist/components/Textarea/index.d.ts",
+      "react-native": "./dist/components/Textarea/index.js",
+      "import": "./dist/components/Textarea/index.js",
+      "default": "./dist/components/Textarea/index.js"
+    },
+    "./toggle": {
+      "types": "./dist/components/Toggle/index.d.ts",
+      "react-native": "./dist/components/Toggle/index.js",
+      "import": "./dist/components/Toggle/index.js",
+      "default": "./dist/components/Toggle/index.js"
+    },
+    "./toggle-group": {
+      "types": "./dist/components/ToggleGroup/index.d.ts",
+      "react-native": "./dist/components/ToggleGroup/index.js",
+      "import": "./dist/components/ToggleGroup/index.js",
+      "default": "./dist/components/ToggleGroup/index.js"
+    },
+    "./package.json": "./package.json",
+    "./app-bar": {
+      "types": "./dist/components/AppBar/index.d.ts",
+      "react-native": "./dist/components/AppBar/index.js",
+      "import": "./dist/components/AppBar/index.js",
+      "default": "./dist/components/AppBar/index.js"
+    },
+    "./aspect-ratio": {
+      "types": "./dist/components/AspectRatio/index.d.ts",
+      "react-native": "./dist/components/AspectRatio/index.js",
+      "import": "./dist/components/AspectRatio/index.js",
+      "default": "./dist/components/AspectRatio/index.js"
+    },
+    "./grid": {
+      "types": "./dist/components/Grid/index.d.ts",
+      "react-native": "./dist/components/Grid/index.js",
+      "import": "./dist/components/Grid/index.js",
+      "default": "./dist/components/Grid/index.js"
+    },
+    "./grid-ruler": {
+      "types": "./dist/components/GridRuler/index.d.ts",
+      "react-native": "./dist/components/GridRuler/index.js",
+      "import": "./dist/components/GridRuler/index.js",
+      "default": "./dist/components/GridRuler/index.js"
+    },
+    "./page": {
+      "types": "./dist/components/Page/index.d.ts",
+      "react-native": "./dist/components/Page/index.js",
+      "import": "./dist/components/Page/index.js",
+      "default": "./dist/components/Page/index.js"
+    },
+    "./section": {
+      "types": "./dist/components/Section/index.d.ts",
+      "react-native": "./dist/components/Section/index.js",
+      "import": "./dist/components/Section/index.js",
+      "default": "./dist/components/Section/index.js"
+    },
+    "./shell": {
+      "types": "./dist/components/Shell/index.d.ts",
+      "react-native": "./dist/components/Shell/index.js",
+      "import": "./dist/components/Shell/index.js",
+      "default": "./dist/components/Shell/index.js"
+    },
+    "./sidebar": {
+      "types": "./dist/components/Sidebar/index.d.ts",
+      "react-native": "./dist/components/Sidebar/index.js",
+      "import": "./dist/components/Sidebar/index.js",
+      "default": "./dist/components/Sidebar/index.js"
+    },
+    "./split-pane": {
+      "types": "./dist/components/SplitPane/index.d.ts",
+      "react-native": "./dist/components/SplitPane/index.js",
+      "import": "./dist/components/SplitPane/index.js",
+      "default": "./dist/components/SplitPane/index.js"
+    },
+    "./toolbar": {
+      "types": "./dist/components/Toolbar/index.d.ts",
+      "react-native": "./dist/components/Toolbar/index.js",
+      "import": "./dist/components/Toolbar/index.js",
+      "default": "./dist/components/Toolbar/index.js"
+    },
+    "./overlay": {
+      "types": "./dist/components/Overlay/index.d.ts",
+      "react-native": "./dist/components/Overlay/index.js",
+      "import": "./dist/components/Overlay/index.js",
+      "default": "./dist/components/Overlay/index.js"
+    },
+    "./portal": {
+      "types": "./dist/components/Portal/index.d.ts",
+      "react-native": "./dist/components/Portal/index.js",
+      "import": "./dist/components/Portal/index.js",
+      "default": "./dist/components/Portal/index.js"
+    },
+    "./focus-trap": {
+      "types": "./dist/components/FocusTrap/index.d.ts",
+      "react-native": "./dist/components/FocusTrap/index.js",
+      "import": "./dist/components/FocusTrap/index.js",
+      "default": "./dist/components/FocusTrap/index.js"
+    },
+    "./resizable": {
+      "types": "./dist/components/Resizable/index.d.ts",
+      "react-native": "./dist/components/Resizable/index.js",
+      "import": "./dist/components/Resizable/index.js",
+      "default": "./dist/components/Resizable/index.js"
+    },
+    "./visually-hidden": {
+      "types": "./dist/components/VisuallyHidden/index.d.ts",
+      "react-native": "./dist/components/VisuallyHidden/index.js",
+      "import": "./dist/components/VisuallyHidden/index.js",
+      "default": "./dist/components/VisuallyHidden/index.js"
+    },
+    "./breadcrumbs": {
+      "types": "./dist/components/Breadcrumbs/index.d.ts",
+      "react-native": "./dist/components/Breadcrumbs/index.js",
+      "import": "./dist/components/Breadcrumbs/index.js",
+      "default": "./dist/components/Breadcrumbs/index.js"
+    },
+    "./chart": {
+      "types": "./dist/components/Chart/index.d.ts",
+      "react-native": "./dist/components/Chart/index.js",
+      "import": "./dist/components/Chart/index.js",
+      "default": "./dist/components/Chart/index.js"
+    },
+    "./code-block": {
+      "types": "./dist/components/CodeBlock/index.d.ts",
+      "react-native": "./dist/components/CodeBlock/index.js",
+      "import": "./dist/components/CodeBlock/index.js",
+      "default": "./dist/components/CodeBlock/index.js"
+    },
+    "./empty-state": {
+      "types": "./dist/components/EmptyState/index.d.ts",
+      "react-native": "./dist/components/EmptyState/index.js",
+      "import": "./dist/components/EmptyState/index.js",
+      "default": "./dist/components/EmptyState/index.js"
+    },
+    "./kbd": {
+      "types": "./dist/components/Kbd/index.d.ts",
+      "react-native": "./dist/components/Kbd/index.js",
+      "import": "./dist/components/Kbd/index.js",
+      "default": "./dist/components/Kbd/index.js"
+    },
+    "./list": {
+      "types": "./dist/components/List/index.d.ts",
+      "react-native": "./dist/components/List/index.js",
+      "import": "./dist/components/List/index.js",
+      "default": "./dist/components/List/index.js"
+    },
+    "./property-list": {
+      "types": "./dist/components/PropertyList/index.d.ts",
+      "react-native": "./dist/components/PropertyList/index.js",
+      "import": "./dist/components/PropertyList/index.js",
+      "default": "./dist/components/PropertyList/index.js"
+    },
+    "./stat": {
+      "types": "./dist/components/Stat/index.d.ts",
+      "react-native": "./dist/components/Stat/index.js",
+      "import": "./dist/components/Stat/index.js",
+      "default": "./dist/components/Stat/index.js"
+    },
+    "./stepper": {
+      "types": "./dist/components/Stepper/index.d.ts",
+      "react-native": "./dist/components/Stepper/index.js",
+      "import": "./dist/components/Stepper/index.js",
+      "default": "./dist/components/Stepper/index.js"
+    },
+    "./table": {
+      "types": "./dist/components/Table/index.d.ts",
+      "react-native": "./dist/components/Table/index.js",
+      "import": "./dist/components/Table/index.js",
+      "default": "./dist/components/Table/index.js"
+    },
+    "./timeline": {
+      "types": "./dist/components/Timeline/index.d.ts",
+      "react-native": "./dist/components/Timeline/index.js",
+      "import": "./dist/components/Timeline/index.js",
+      "default": "./dist/components/Timeline/index.js"
+    },
+    "./collapsible": {
+      "types": "./dist/components/Collapsible/index.d.ts",
+      "react-native": "./dist/components/Collapsible/index.js",
+      "import": "./dist/components/Collapsible/index.js",
+      "default": "./dist/components/Collapsible/index.js"
+    },
+    "./command-menu": {
+      "types": "./dist/components/CommandMenu/index.d.ts",
+      "react-native": "./dist/components/CommandMenu/index.js",
+      "import": "./dist/components/CommandMenu/index.js",
+      "default": "./dist/components/CommandMenu/index.js"
+    },
+    "./confirm-dialog": {
+      "types": "./dist/components/ConfirmDialog/index.d.ts",
+      "react-native": "./dist/components/ConfirmDialog/index.js",
+      "import": "./dist/components/ConfirmDialog/index.js",
+      "default": "./dist/components/ConfirmDialog/index.js"
+    },
+    "./dialog": {
+      "types": "./dist/components/Dialog/index.d.ts",
+      "react-native": "./dist/components/Dialog/index.js",
+      "import": "./dist/components/Dialog/index.js",
+      "default": "./dist/components/Dialog/index.js"
+    },
+    "./dropdown-menu": {
+      "types": "./dist/components/DropdownMenu/index.d.ts",
+      "react-native": "./dist/components/DropdownMenu/index.js",
+      "import": "./dist/components/DropdownMenu/index.js",
+      "default": "./dist/components/DropdownMenu/index.js"
+    },
+    "./hover-card": {
+      "types": "./dist/components/HoverCard/index.d.ts",
+      "react-native": "./dist/components/HoverCard/index.js",
+      "import": "./dist/components/HoverCard/index.js",
+      "default": "./dist/components/HoverCard/index.js"
+    },
+    "./menubar": {
+      "types": "./dist/components/Menubar/index.d.ts",
+      "react-native": "./dist/components/Menubar/index.js",
+      "import": "./dist/components/Menubar/index.js",
+      "default": "./dist/components/Menubar/index.js"
+    },
+    "./navigation-menu": {
+      "types": "./dist/components/NavigationMenu/index.d.ts",
+      "react-native": "./dist/components/NavigationMenu/index.js",
+      "import": "./dist/components/NavigationMenu/index.js",
+      "default": "./dist/components/NavigationMenu/index.js"
+    },
+    "./popover": {
+      "types": "./dist/components/Popover/index.d.ts",
+      "react-native": "./dist/components/Popover/index.js",
+      "import": "./dist/components/Popover/index.js",
+      "default": "./dist/components/Popover/index.js"
+    },
+    "./sheet": {
+      "types": "./dist/components/Sheet/index.d.ts",
+      "react-native": "./dist/components/Sheet/index.js",
+      "import": "./dist/components/Sheet/index.js",
+      "default": "./dist/components/Sheet/index.js"
+    },
+    "./tabs": {
+      "types": "./dist/components/Tabs/index.d.ts",
+      "react-native": "./dist/components/Tabs/index.js",
+      "import": "./dist/components/Tabs/index.js",
+      "default": "./dist/components/Tabs/index.js"
+    },
+    "./toast": {
+      "types": "./dist/components/Toast/index.d.ts",
+      "react-native": "./dist/components/Toast/index.js",
+      "import": "./dist/components/Toast/index.js",
+      "default": "./dist/components/Toast/index.js"
+    },
+    "./tooltip": {
+      "types": "./dist/components/Tooltip/index.d.ts",
+      "react-native": "./dist/components/Tooltip/index.js",
+      "import": "./dist/components/Tooltip/index.js",
+      "default": "./dist/components/Tooltip/index.js"
+    },
+    "./tree-view": {
+      "types": "./dist/components/TreeView/index.d.ts",
+      "react-native": "./dist/components/TreeView/index.js",
+      "import": "./dist/components/TreeView/index.js",
+      "default": "./dist/components/TreeView/index.js"
+    },
+    "./calendar": {
+      "types": "./dist/components/Calendar/index.d.ts",
+      "react-native": "./dist/components/Calendar/index.js",
+      "import": "./dist/components/Calendar/index.js",
+      "default": "./dist/components/Calendar/index.js"
+    },
+    "./color-picker": {
+      "types": "./dist/components/ColorPicker/index.d.ts",
+      "react-native": "./dist/components/ColorPicker/index.js",
+      "import": "./dist/components/ColorPicker/index.js",
+      "default": "./dist/components/ColorPicker/index.js"
+    },
+    "./combobox": {
+      "types": "./dist/components/Combobox/index.d.ts",
+      "react-native": "./dist/components/Combobox/index.js",
+      "import": "./dist/components/Combobox/index.js",
+      "default": "./dist/components/Combobox/index.js"
+    },
+    "./date-picker": {
+      "types": "./dist/components/DatePicker/index.d.ts",
+      "react-native": "./dist/components/DatePicker/index.js",
+      "import": "./dist/components/DatePicker/index.js",
+      "default": "./dist/components/DatePicker/index.js"
+    },
+    "./file-trigger": {
+      "types": "./dist/components/FileTrigger/index.d.ts",
+      "react-native": "./dist/components/FileTrigger/index.js",
+      "import": "./dist/components/FileTrigger/index.js",
+      "default": "./dist/components/FileTrigger/index.js"
+    },
+    "./form-control-label": {
+      "types": "./dist/components/FormControlLabel/index.d.ts",
+      "react-native": "./dist/components/FormControlLabel/index.js",
+      "import": "./dist/components/FormControlLabel/index.js",
+      "default": "./dist/components/FormControlLabel/index.js"
+    },
+    "./input-group": {
+      "types": "./dist/components/InputGroup/index.d.ts",
+      "react-native": "./dist/components/InputGroup/index.js",
+      "import": "./dist/components/InputGroup/index.js",
+      "default": "./dist/components/InputGroup/index.js"
+    },
+    "./link": {
+      "types": "./dist/components/Link/index.d.ts",
+      "react-native": "./dist/components/Link/index.js",
+      "import": "./dist/components/Link/index.js",
+      "default": "./dist/components/Link/index.js"
+    },
+    "./number-input": {
+      "types": "./dist/components/NumberInput/index.d.ts",
+      "react-native": "./dist/components/NumberInput/index.js",
+      "import": "./dist/components/NumberInput/index.js",
+      "default": "./dist/components/NumberInput/index.js"
+    },
+    "./object-field": {
+      "types": "./dist/components/ObjectField/index.d.ts",
+      "react-native": "./dist/components/ObjectField/index.js",
+      "import": "./dist/components/ObjectField/index.js",
+      "default": "./dist/components/ObjectField/index.js"
+    },
+    "./pagination": {
+      "types": "./dist/components/Pagination/index.d.ts",
+      "react-native": "./dist/components/Pagination/index.js",
+      "import": "./dist/components/Pagination/index.js",
+      "default": "./dist/components/Pagination/index.js"
+    },
+    "./search-input": {
+      "types": "./dist/components/SearchInput/index.d.ts",
+      "react-native": "./dist/components/SearchInput/index.js",
+      "import": "./dist/components/SearchInput/index.js",
+      "default": "./dist/components/SearchInput/index.js"
+    },
+    "./select": {
+      "types": "./dist/components/Select/index.d.ts",
+      "react-native": "./dist/components/Select/index.js",
+      "import": "./dist/components/Select/index.js",
+      "default": "./dist/components/Select/index.js"
+    },
+    "./slider": {
+      "types": "./dist/components/Slider/index.d.ts",
+      "react-native": "./dist/components/Slider/index.js",
+      "import": "./dist/components/Slider/index.js",
+      "default": "./dist/components/Slider/index.js"
+    }
+  },
+  "scripts": {
+    "clean": "node -e \"import('node:fs').then(fs => fs.rmSync('dist', { recursive: true, force: true }))\"",
+    "build": "npm run clean && tsc -p tsconfig.build.json",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run build && node --test tests/*.test.mjs",
+    "smoke:consumer": "node scripts/smoke-consumer.mjs",
+    "prepack": "npm run build"
+  },
+  "dependencies": {
+    "@tavojs/ui-core": "^1.0.2"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-native": ">=0.72"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.1.8",
+    "prettier": "^3.6.2",
+    "react": "19.0.0",
+    "react-native": "0.79.6",
+    "typescript": "^5.9.3"
+  }
+}

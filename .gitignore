@@ -2,6 +2,9 @@
 node_modules/
 packages/*/node_modules/
 
+# Expo local state
+.expo/
+
 # Build output
 dist/
 packages/*/dist/

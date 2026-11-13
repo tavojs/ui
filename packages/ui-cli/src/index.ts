@@ -3,26 +3,30 @@ import { realpathSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
+const PLATFORM_CLI = {
+  web: {
+    specifier: "@tavojs/ui/cli",
+    runner: "runCli",
+    label: "Tavo.js UI web",
+  },
+  native: {
+    specifier: "@tavojs/ui-react-native/cli",
+    runner: "runNativeCli",
+    label: "Tavo.js UI React Native",
+  },
+} as const;
+
+type Platform = keyof typeof PLATFORM_CLI;
+
 type Route =
   | {
       kind: "help";
     }
   | {
       kind: "platform";
-      platform: "web";
+      platform: Platform;
       args: string[];
     };
-
-const WEB_COMMANDS = new Set([
-  "generate",
-  "check",
-  "validate-css",
-  "tokens",
-  "init",
-  "preview",
-  "audit",
-]);
-const WEB_CLI_SPECIFIER = "@tavojs/ui/cli";
 
 function safeErrorMessage(error: unknown): string {
   const message = error instanceof Error ? error.message : String(error);
@@ -36,6 +40,7 @@ export function usage(): string {
   return [
     "Usage:",
     "  tavo-ui web <command> [options]",
+    "  tavo-ui native <command> [options]",
     "  tavo-ui generate [options]",
     "",
     "Commands:",
@@ -46,9 +51,12 @@ export function usage(): string {
     "  web init          Create a default web theme config.",
     "  web preview       Generate a web theme preview.",
     "  web audit         Print web theme audit results.",
+    "  native generate   Generate a React Native theme config module.",
     "",
     "Install:",
-    "  npm install @tavojs/ui              (includes tavo-ui for web)",
+    "  npm install @tavojs/ui                 (includes tavo-ui for web)",
+    "  npm install @tavojs/ui-react-native    (React Native components)",
+    "  npm install -D @tavojs/ui-cli          (standalone CLI)",
   ].join("\n");
 }
 
@@ -59,22 +67,12 @@ export function resolveRoute(argv: string[]): Route {
     return { kind: "help" };
   }
 
-  if (first === "web") {
+  if (first === "web" || first === "native") {
     return {
       kind: "platform",
-      platform: "web",
+      platform: first,
       args: rest.length > 0 ? rest : ["generate"],
     };
-  }
-
-  if (first === "native") {
-    throw new Error(
-      "React Native commands are not included in the Tavo.js UI 1.0 web release."
-    );
-  }
-
-  if (WEB_COMMANDS.has(first)) {
-    return { kind: "platform", platform: "web", args: argv };
   }
 
   return {
@@ -110,43 +108,41 @@ function isMissingImport(error: unknown, specifier: string): boolean {
   );
 }
 
-function installHint(): string {
+function installHint(label: string, specifier: string): string {
   return [
-    "Tavo.js UI web package is not installed.",
+    `${label} package is not installed.`,
     "",
-    "Install it with: npm install @tavojs/ui",
+    `Install it with: npm install ${packageName(specifier)}`,
   ].join("\n");
 }
 
-async function runWeb(args: string[]): Promise<void> {
+async function runPlatform(platform: Platform, args: string[]): Promise<void> {
+  const { specifier, runner, label } = PLATFORM_CLI[platform];
+  let mod: Record<string, unknown>;
   try {
-    const mod = await import(WEB_CLI_SPECIFIER);
-    const runCli = (
-      mod as { runCli?: (argv?: string[]) => Promise<void> | void }
-    ).runCli;
-    if (!runCli) {
-      throw new Error("@tavojs/ui/cli does not export runCli.");
-    }
-    await runCli(args);
+    mod = await import(specifier);
   } catch (error) {
-    if (isMissingImport(error, WEB_CLI_SPECIFIER)) {
-      throw new Error(installHint());
+    if (isMissingImport(error, specifier)) {
+      throw new Error(installHint(label, specifier));
     }
     throw error;
   }
+
+  const run = mod[runner];
+  if (typeof run !== "function") {
+    throw new Error(`${specifier} does not export ${runner}.`);
+  }
+  await run(args);
 }
 
 export async function runCli(argv = process.argv.slice(2)): Promise<void> {
-  const [first] = argv;
-  if (!first || first === "--help" || first === "-h" || first === "help") {
+  const route = resolveRoute(argv);
+  if (route.kind === "help") {
     process.stdout.write(`${usage()}\n`);
     return;
   }
 
-  const route = resolveRoute(argv);
-  if (route.kind === "platform") {
-    await runWeb(route.args);
-  }
+  await runPlatform(route.platform, route.args);
 }
 
 function isEntrypoint(argvPath: string | undefined): boolean {

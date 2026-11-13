@@ -1,0 +1,9 @@
+{
+  "preset": "mobile",
+  "defaultTheme": "system",
+  "color": {
+    "light": {
+      "primary": "#006ecf"
+    }
+  }
+}

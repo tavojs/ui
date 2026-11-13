@@ -1,10 +1,11 @@
 # Tavo.js UI
 
-Public npm workspace monorepo for the Tavo.js UI web packages:
+Public npm workspace monorepo for Tavo.js UI and React Native:
 
 - `@tavojs/ui-core`
 - `@tavojs/ui-cli`
 - `@tavojs/ui`
+- [`@tavojs/ui-react-native`](packages/ui-react-native/README.md)
 
 Install dependencies and run the common checks from the repository root:
 
@@ -30,6 +31,9 @@ npm install --save-dev @tavojs/cli
 npx tavo-ui web generate
 ```
 
+React Native apps can install `@tavojs/ui-cli` as a development dependency and
+run `npx tavo-ui native generate` with CLI 1.1 or later.
+
 ## Release flow
 
 This repository uses Changesets and publishes through the manually dispatched
@@ -40,13 +44,14 @@ npm run changeset
 npm run release:check
 ```
 
-Commit and merge the Changeset into `main`, then run the `Publish` workflow.
+Follow the [release guide](RELEASE.md) for the first React Native publication.
+For version updates, merge the Changeset into `main` and run the `Publish` workflow.
 The first run creates or updates the Changesets version pull request. After
 that pull request is merged, run the workflow again to publish through npm
 Trusted Publishing with GitHub OIDC and create the GitHub releases. No
 `NPM_TOKEN` repository secret is used.
 
-All three packages are MIT licensed and include their own `LICENSE` files.
+All four packages are MIT licensed and include their own `LICENSE` files.
 Package metadata and documentation link to [tavojs.dev](https://tavojs.dev).
 
 ## Project policies

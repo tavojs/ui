@@ -1,7 +1,7 @@
 {
   "name": "tavo-ui-monorepo",
   "private": true,
-  "description": "Public monorepo for the Tavo.js UI web packages.",
+  "description": "Public monorepo for Tavo.js UI and React Native packages.",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -18,25 +18,32 @@
   "workspaces": [
     "packages/ui-core",
     "packages/ui-cli",
-    "packages/ui"
+    "packages/ui",
+    "packages/ui-react-native"
   ],
   "scripts": {
-    "build": "npm run build --workspace @tavojs/ui-core && npm run build --workspace @tavojs/ui-cli && npm run build --workspace @tavojs/ui",
+    "build": "npm run build --workspace @tavojs/ui-core && npm run build --workspace @tavojs/ui-cli && npm run build --workspace @tavojs/ui && npm run build --workspace @tavojs/ui-react-native",
+    "build:web": "npm run build --workspace @tavojs/ui-core && npm run build --workspace @tavojs/ui-cli && npm run build --workspace @tavojs/ui",
     "smoke:consumer": "npm run smoke:consumer --workspace @tavojs/ui",
-    "pack:dry": "npm pack --dry-run --workspace @tavojs/ui-core && npm pack --dry-run --workspace @tavojs/ui-cli && npm run pack:dry --workspace @tavojs/ui",
-    "test": "npm run check:framework-contract && npm test --workspace @tavojs/ui-core && npm test --workspace @tavojs/ui-cli && npm test --workspace @tavojs/ui",
+    "pack:dry": "npm pack --dry-run --workspace @tavojs/ui-core && npm pack --dry-run --workspace @tavojs/ui-cli && npm run pack:dry --workspace @tavojs/ui && npm pack --dry-run --workspace @tavojs/ui-react-native",
+    "test": "npm run check:framework-contract && npm test --workspace @tavojs/ui-core && npm test --workspace @tavojs/ui-cli && npm test --workspace @tavojs/ui && npm test --workspace @tavojs/ui-react-native",
+    "test:web": "npm run check:framework-contract && npm test --workspace @tavojs/ui-core && npm test --workspace @tavojs/ui-cli && npm test --workspace @tavojs/ui",
     "typecheck": "npm run build --workspace @tavojs/ui-core && npm run typecheck --workspaces",
+    "typecheck:web": "npm run build --workspace @tavojs/ui-core && npm run typecheck --workspace @tavojs/ui-core && npm run typecheck --workspace @tavojs/ui-cli && npm run typecheck --workspace @tavojs/ui",
     "format:check": "npm run format:check --workspaces --if-present",
     "check:framework-contract": "node scripts/check-framework-contract.mjs",
     "changeset": "changeset",
     "version-packages": "changeset version && npm install --package-lock-only --ignore-scripts --no-audit --no-fund",
-    "release:manifest": "node scripts/check-web-release.mjs",
+    "release:manifest": "node scripts/check-release.mjs",
     "release:audit": "npm audit --omit=dev",
-    "release:check": "npm run release:manifest && npm run release:audit && npm run check:framework-contract && npm test --workspace @tavojs/ui-core && npm test --workspace @tavojs/ui-cli && npm run release:check --workspace @tavojs/ui && npm run release:pack",
-    "release:pack": "npm pack --dry-run --workspace @tavojs/ui-core && npm pack --dry-run --workspace @tavojs/ui-cli && npm pack --dry-run --workspace @tavojs/ui",
+    "release:check:web": "npm run release:manifest && npm run release:audit && npm run check:framework-contract && npm test --workspace @tavojs/ui-core && npm test --workspace @tavojs/ui-cli && npm run release:check --workspace @tavojs/ui && npm run release:pack:web",
+    "release:check": "npm run release:check:web && npm run release:check:native",
+    "release:check:native": "npm run typecheck --workspace @tavojs/ui-react-native && npm test --workspace @tavojs/ui-react-native && npm run smoke:consumer --workspace @tavojs/ui-react-native && npm pack --dry-run --workspace @tavojs/ui-react-native",
+    "release:pack": "npm run release:pack:web && npm pack --dry-run --workspace @tavojs/ui-react-native",
+    "release:pack:web": "npm pack --dry-run --workspace @tavojs/ui-core && npm pack --dry-run --workspace @tavojs/ui-cli && npm pack --dry-run --workspace @tavojs/ui",
     "release:status": "changeset status",
-    "release": "changeset publish",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "release": "changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.7",

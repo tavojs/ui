@@ -1033,6 +1033,18 @@ test("Collapsible and DropdownMenu can hide their arrows", () => {
   assert.doesNotMatch(html(h(DropdownMenu, null, h(DropdownMenu.Trigger, null, "Actions"))), /data-show-arrow/);
 });
 
+test("Popover renders the shared bordered disclosure arrow", () => {
+  const css = readFileSync(
+    new URL("../src/components/Popover/Popover.module.scss", import.meta.url),
+    "utf8"
+  );
+
+  assert.match(css, /\.trigger::after/);
+  assert.match(css, /border-right:\s*var\(--tui-border-width-strong\) solid currentColor/);
+  assert.match(css, /border-bottom:\s*var\(--tui-border-width-strong\) solid currentColor/);
+  assert.match(css, /\.root\[open\]\s*>\s*\.trigger::after/);
+});
+
 test("Collapsible can center its trigger independently of the arrow", () => {
   const centered = html(
     h(Collapsible, { centerTrigger: true },
@@ -1108,6 +1120,15 @@ test("CodeBlock renders escaped newline sequences as visual line breaks", () => 
     /npm run typecheck\nnpm run build\nnpm run preview/
   );
   assert.doesNotMatch(output, /typecheck\\\\n/);
+});
+
+test("CodeBlock preserves JSON escape sequences when requested", () => {
+  const code = JSON.stringify({ message: "line one\nline two", path: "C:\\notes", ready: true }, null, 2);
+  const output = html(h(CodeBlock, { code, language: "json", preserveEscapes: true }));
+  assert.match(output, /data-token="tokenString"/);
+  const content = output.match(/<code[^>]*>([\s\S]*?)<\/code>/)[1];
+  const text = content.replace(/<[^>]*>/g, "").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, "&");
+  assert.equal(text, code);
 });
 
 test("CommandMenu renders link items when href is provided", () => {
