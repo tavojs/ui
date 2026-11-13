@@ -1,5 +1,17 @@
 # @tavojs/ui-cli
 
+## 1.1.0
+
+### Minor Changes
+
+- 424c19e: Add `tavo-ui native generate` for React Native projects. Install
+  `@tavojs/ui-react-native` in the app to use the native theme generator.
+
+### Patch Changes
+
+- Updated dependencies [424c19e]
+  - @tavojs/ui@1.0.6
+
 ## 1.0.2
 
 ### Patch Changes
