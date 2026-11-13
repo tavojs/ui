@@ -1,0 +1,6 @@
+node_modules/
+dist/
+
+.expo/
+examples/expo/.expo/
+examples/expo/node_modules/

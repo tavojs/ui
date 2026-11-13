@@ -11,7 +11,7 @@ test("prints help without args", () => {
     kind: "help",
   });
   assert.match(usage(), /tavo-ui web <command>/);
-  assert.doesNotMatch(usage(), /tavo-ui native <command>/);
+  assert.match(usage(), /tavo-ui native <command>/);
 });
 
 test("runs when invoked through an npm-style bin symlink", (t) => {
@@ -41,11 +41,54 @@ test("routes explicit web commands", () => {
   );
 });
 
-test("rejects native commands in the web-only release", () => {
-  assert.throws(
-    () => resolveRoute(["native", "generate"]),
-    /React Native commands are not included/
+test("routes explicit native commands and defaults to generate", () => {
+  assert.deepEqual(resolveRoute(["native", "generate", "--out", "theme.mjs"]), {
+    kind: "platform",
+    platform: "native",
+    args: ["generate", "--out", "theme.mjs"],
+  });
+  assert.deepEqual(resolveRoute(["native"]), {
+    kind: "platform",
+    platform: "native",
+    args: ["generate"],
+  });
+});
+
+test("loads the optional native CLI and gives an install hint when absent", (t) => {
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), "tavo-ui-cli-"));
+  t.after(() => fs.rmSync(directory, { recursive: true, force: true }));
+
+  const entrypoint = path.join(directory, "tavo-ui.mjs");
+  fs.copyFileSync(new URL("../dist/index.js", import.meta.url), entrypoint);
+  const args = ["generate", "--out", "theme.mjs"];
+  const run = () =>
+    spawnSync(process.execPath, [entrypoint, "native", ...args], {
+      encoding: "utf8",
+    });
+
+  const missing = run();
+  assert.equal(missing.status, 1, missing.stderr);
+  assert.match(missing.stderr, /npm install @tavojs\/ui-react-native/);
+
+  const nativePackage = path.join(
+    directory,
+    "node_modules",
+    "@tavojs",
+    "ui-react-native"
   );
+  fs.mkdirSync(nativePackage, { recursive: true });
+  fs.writeFileSync(
+    path.join(nativePackage, "package.json"),
+    JSON.stringify({ exports: { "./cli": "./cli.mjs" } })
+  );
+  fs.writeFileSync(
+    path.join(nativePackage, "cli.mjs"),
+    "export const runNativeCli = (args) => console.log(JSON.stringify(args));"
+  );
+
+  const installed = run();
+  assert.equal(installed.status, 0, installed.stderr);
+  assert.deepEqual(JSON.parse(installed.stdout), args);
 });
 
 test("routes unprefixed generate to web", () => {

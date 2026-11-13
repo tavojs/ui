@@ -1478,6 +1478,10 @@ export const generatedTavoUiRuntimeCatalogMetadata: RuntimeComponentCatalogMetad
           "semantic": "json",
           "validatorId": "string"
         },
+        "preserveEscapes": {
+          "semantic": "json",
+          "validatorId": "boolean"
+        },
         "role": {
           "semantic": "json",
           "validatorId": "string"

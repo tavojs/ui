@@ -6,6 +6,7 @@ const publicPackages = [
   ["@tavojs/ui-core", "packages/ui-core/package.json"],
   ["@tavojs/ui-cli", "packages/ui-cli/package.json"],
   ["@tavojs/ui", "packages/ui/package.json"],
+  ["@tavojs/ui-react-native", "packages/ui-react-native/package.json"],
 ];
 const expectedAuthor = "Hrachya Martirosyan";
 const expectedLicense = `MIT License
@@ -71,6 +72,12 @@ function satisfiesCaret(version, range) {
   if (parsedVersion.major !== parsedBase.major) {
     return false;
   }
+  if (parsedBase.major === 0 && parsedVersion.minor !== parsedBase.minor) {
+    return false;
+  }
+  if (parsedBase.major === 0 && parsedBase.minor === 0) {
+    return parsedVersion.patch === parsedBase.patch;
+  }
   if (parsedVersion.minor !== parsedBase.minor) {
     return parsedVersion.minor > parsedBase.minor;
   }
@@ -128,13 +135,7 @@ for (const [expectedName, manifestPath] of publicPackages) {
 const uiCore = readJson("packages/ui-core/package.json");
 const uiCli = readJson("packages/ui-cli/package.json");
 const ui = readJson("packages/ui/package.json");
-const reactNativePath = path.join(
-  root,
-  "packages/ui-react-native/package.json"
-);
-const reactNative = fs.existsSync(reactNativePath)
-  ? readJson("packages/ui-react-native/package.json")
-  : undefined;
+const reactNative = readJson("packages/ui-react-native/package.json");
 const lockfile = readJson("package-lock.json");
 
 assert(
@@ -164,26 +165,38 @@ assert(
   "@tavojs/ui-cli must peer on the current @tavojs/ui version."
 );
 assert(
-  !dependencyEntries(uiCli).some(
-    ([name]) => name === "@tavojs/ui-react-native"
-  ),
-  "@tavojs/ui-cli must not expose the private React Native package."
+  satisfiesCaret(
+    reactNative.version,
+    uiCli.peerDependencies?.["@tavojs/ui-react-native"] ?? ""
+  ) && uiCli.peerDependenciesMeta?.["@tavojs/ui-react-native"]?.optional === true,
+  "@tavojs/ui-cli must declare the current @tavojs/ui-react-native as an optional peer."
 );
-if (reactNative) {
-  assert(
-    reactNative.private === true,
-    "@tavojs/ui-react-native must remain private."
-  );
-  assert(
-    reactNative.publishConfig === undefined,
-    "@tavojs/ui-react-native must not define publishConfig."
-  );
-} else {
-  assert(
-    !fs.existsSync(path.join(root, "packages/ui-react-native")),
-    "The public repository must not contain packages/ui-react-native."
-  );
-}
+assert(
+  satisfiesCaret(uiCore.version, reactNative.dependencies?.["@tavojs/ui-core"] ?? ""),
+  "@tavojs/ui-react-native must depend on the current @tavojs/ui-core version."
+);
+assert(
+  reactNative.bin === undefined,
+  "@tavojs/ui-react-native must not publish a binary."
+);
+assert(
+  reactNative.peerDependencies?.react && reactNative.peerDependencies?.["react-native"],
+  "@tavojs/ui-react-native must declare React and React Native peers."
+);
+assert(
+  dependencyEntries(reactNative).every(([name]) => !["@tavojs/ui", "@tavojs/ui-cli"].includes(name)),
+  "@tavojs/ui-react-native must keep the web package and CLI out of its dependencies."
+);
+assert(
+  ["react", "react-native"].every(
+    (name) => !reactNative.dependencies?.[name] && !reactNative.optionalDependencies?.[name]
+  ),
+  "@tavojs/ui-react-native must use React and React Native from its peers."
+);
+assert(
+  !dependencyEntries(ui).some(([name]) => name === "@tavojs/ui-react-native"),
+  "@tavojs/ui must not depend on @tavojs/ui-react-native."
+);
 
 for (const [expectedName, manifestPath] of publicPackages) {
   const workspacePath = path.posix.dirname(manifestPath);
@@ -200,6 +213,7 @@ assert(
 );
 
 console.log(
-  `Web release manifest check passed: @tavojs/ui-core ${uiCore.version}, ` +
-    `@tavojs/ui-cli ${uiCli.version}, and @tavojs/ui ${ui.version}.`
+  `Release manifests verified for @tavojs/ui-core ${uiCore.version}, ` +
+    `@tavojs/ui-cli ${uiCli.version}, @tavojs/ui ${ui.version}, ` +
+    `and @tavojs/ui-react-native ${reactNative.version}.`
 );

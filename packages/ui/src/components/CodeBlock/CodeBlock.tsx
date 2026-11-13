@@ -9,6 +9,8 @@ export type CodeBlockProps = BaseProps & {
   code?: string;
   language?: string;
   highlighted?: boolean;
+  /** Keep literal escape sequences intact when displaying source or API responses. */
+  preserveEscapes?: boolean;
   editorTheme?: CodeBlockEditorTheme;
   wrap?: boolean;
 };
@@ -164,12 +166,13 @@ export function CodeBlock({
   code,
   editorTheme = "auto",
   highlighted = true,
+  preserveEscapes = false,
   language,
   wrap = false,
   ...props
 }: CodeBlockProps) {
   const content = code ?? children;
-  const normalizedContent = typeof content === "string"
+  const normalizedContent = !preserveEscapes && typeof content === "string"
     ? normalizeEscapedNewlines(content)
     : content;
   const canHighlight = highlighted && typeof normalizedContent === "string";

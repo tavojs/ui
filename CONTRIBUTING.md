@@ -57,8 +57,7 @@ Use Changesets for user-visible changes:
 npm run changeset
 ```
 
-Publishing is handled by the manually dispatched `Publish` GitHub Actions
-workflow. Contributors must not publish packages from a local checkout.
+Follow [RELEASE.md](RELEASE.md) for maintainer publication.
 
 ## License and copyright
 
