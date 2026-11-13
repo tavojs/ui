@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.6
+
+### Patch Changes
+
+- 424c19e: Add a CodeBlock preserveEscapes option for displaying API responses and source text without converting literal newline escapes.
+- Updated dependencies [424c19e]
+  - @tavojs/ui-cli@1.1.0
+
 ## 1.0.5
 
 ### Patch Changes
